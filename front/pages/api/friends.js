@@ -1,4 +1,9 @@
-export default function handler(req, res) {
+import { clientPromise } from '../../config/mongodb';
+
+export default async function handler(req, res) {
+  const client = await clientPromise;
+  const db = client.db('nextjs-mongodb-demo');
+
   const { method } = req;
   switch (method) {
     case 'GET':
