@@ -1,23 +1,27 @@
-import { clientPromise } from '../../config/mongodb';
+import clientPromise from '../../config/mongodb';
 
-export default async function handler(req, res) => {
+export default async function handler(req, res) {
+  // TODO: Externalise the configuration
   const client = await clientPromise;
-  const db = client.db('nextjs-mongodb-demo');
+  const db = client.db('friendship');
 
   const { method } = req;
   switch (method) {
-    case 'GET':
-      res.status(200).json({ name: 'GET' });
+    case 'GET': {
+      const allFriends = await db.collection('friend').find({}).toArray();
+      res.json({ status: 200, data: allFriends });
       break;
-    case 'POST':
-      // const { todo, completed } = req.body;
-      console.log(req.body);
-      // console.log(completed);
-      res.status(201).json({ name: 'POST' });
+    }
+    case 'POST': {
+      const body = JSON.parse(JSON.stringify(req.body));
+      const friend = await db.collection('friend').insertOne(body);
+      res.status(201).json(friend);
       break;
-    default:
+    }
+    default: {
       res.setHeader('Allow', ['GET', 'POST']);
       res.status(405).end(`Method ${method} Not Allowed`);
       break;
+    }
   }
 }
