@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 
 import 'antd/dist/antd.css';
-import '@styles/variables.less';
-import GlobalStyles from '@styles/global';
-import Theme from '@styles/theme';
+import GlobalStyles from '@style/global';
+import Theme from '@style/theme';
 
 const App = ({ Component, pageProps }) => {
   return (
