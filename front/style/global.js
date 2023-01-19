@@ -27,9 +27,9 @@ const GlobalStyles = createGlobalStyle`
     tab-size: 4;
   }
   
-  html, body {
+  html, body, #__next {
     height: 100%;
-    font-family: "DM Sans", sans-serif;
+    font-family: "Roboto", sans-serif;
   }
   
   img, picture, video, canvas, svg {
@@ -53,7 +53,7 @@ const GlobalStyles = createGlobalStyle`
   }
   
   @media screen and (min-width: 1200px) {
-    .body {
+    body {
       max-width: 960px !important;
     }
   }

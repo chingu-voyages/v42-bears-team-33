@@ -7,7 +7,7 @@
       "@util/*": ["util/*"],
       "@pages/*": ["pages/*"],
       "@reducers/*": ["reducers/*"],
-      "@styles/*": ["styles/*"]
+      "@style/*": ["style/*"]
     }
   }
 }
