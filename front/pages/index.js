@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
 import LandingHeader from '@components/Landing/LandingHeader';
+import LandingContent from '@components/Landing/LandingContent';
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
 
       <AppLayout>
         <LandingHeader />
+        <LandingContent />
       </AppLayout>
     </>
   );
