@@ -4,6 +4,7 @@ import Head from 'next/head';
 import AppLayout from '@components/AppLayout';
 import LandingHeader from '@components/Landing/LandingHeader';
 import LandingContent from '@components/Landing/LandingContent';
+import LandingFooter from '@components/Landing/LandingFooter';
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <AppLayout>
         <LandingHeader />
         <LandingContent />
+        <LandingFooter />
       </AppLayout>
     </>
   );
