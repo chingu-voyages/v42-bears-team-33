@@ -1,26 +1,28 @@
 import React from 'react';
-import { Row, Button } from 'antd';
+import { Row } from 'antd';
 import PropTypes from 'prop-types';
+
+import { Layout, LayoutInfo, LayoutHeaderBtn } from '@style/applayout';
 
 const AppLayout = ({ children }) => {
   return (
     <>
-      <Row>
-        <Row>
+      <Layout justify="space-between">
+        <LayoutInfo>
           <img
             src="https://static.vecteezy.com/system/resources/thumbnails/000/567/055/small/vector60-2428-01.jpg"
             alt="home logo"
           />
           <header>Friendship App</header>
-        </Row>
+        </LayoutInfo>
 
         <Row>
-          <Button type="primary" size="large">
+          <LayoutHeaderBtn first type="primary" size="large">
             Log in
-          </Button>
-          <Button size="large">Sign up</Button>
+          </LayoutHeaderBtn>
+          <LayoutHeaderBtn size="large">Sign up</LayoutHeaderBtn>
         </Row>
-      </Row>
+      </Layout>
       {children}
     </>
   );
