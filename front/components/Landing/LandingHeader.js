@@ -1,21 +1,26 @@
 import React from 'react';
-import { Button, Row, Col } from 'antd';
+import { Button } from 'antd';
+
+import { LandingWrapper, LandingHeaderInfo } from '@style/landing/header';
 
 const LandingHeader = () => {
   return (
     <>
-      <Row>
-        <Col>
-          <h2>Auto-text happy birthday to friends</h2>
+      <LandingWrapper align="middle" justify="space-between">
+        <LandingHeaderInfo>
+          <h1>
+            Auto-text happy
+            <br /> birthday to friends
+          </h1>
           <Button type="primary" size="large">
             Start Now
           </Button>
-        </Col>
+        </LandingHeaderInfo>
 
-        <Col>
+        <LandingHeaderInfo>
           <img src="https://ifh.cc/g/O1lgyS.png" alt="content img" />
-        </Col>
-      </Row>
+        </LandingHeaderInfo>
+      </LandingWrapper>
     </>
   );
 };
