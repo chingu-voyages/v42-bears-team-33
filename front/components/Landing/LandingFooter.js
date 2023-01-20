@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row } from 'antd';
+import Link from 'next/link';
 
 import {
   FooterWrapper,
@@ -62,9 +63,13 @@ const LandingFooter = () => {
       </FooterContent>
 
       <Row align="center">
-        <FooterBtn type="primary" size="large">
-          Start Now
-        </FooterBtn>
+        <Link href="/login">
+          <a>
+            <FooterBtn type="primary" size="large">
+              Start Now
+            </FooterBtn>
+          </a>
+        </Link>
       </Row>
     </FooterWrapper>
   );
