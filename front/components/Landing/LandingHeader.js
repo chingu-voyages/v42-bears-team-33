@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import Link from 'next/link';
 
 import { LandingWrapper, LandingHeaderInfo } from '@style/landing/header';
 
@@ -12,9 +13,13 @@ const LandingHeader = () => {
             Auto-text happy
             <br /> birthday to friends
           </h1>
-          <Button type="primary" size="large">
-            Start Now
-          </Button>
+          <Link href="/login">
+            <a>
+              <Button type="primary" size="large">
+                Start Now
+              </Button>
+            </a>
+          </Link>
         </LandingHeaderInfo>
 
         <LandingHeaderInfo>

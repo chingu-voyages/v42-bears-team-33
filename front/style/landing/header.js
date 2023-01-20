@@ -17,7 +17,7 @@ export const LandingHeaderInfo = styled(Col)`
     margin-bottom: 1.3em;
   }
 
-  & > button {
+  & > a > button {
     width: 7em;
   }
 
@@ -27,7 +27,7 @@ export const LandingHeaderInfo = styled(Col)`
       font-weight: 700;
     }
 
-    & > button {
+    & > a > button {
       font-size: ${({ theme }) => theme.calcRem(11)};
     }
 
