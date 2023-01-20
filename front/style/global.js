@@ -45,18 +45,17 @@ const GlobalStyles = createGlobalStyle`
   
   a {
     text-decoration: none;
+    color: black;
+  }
+
+  a:hover {    
+    color: black;
   }
   
   table {
     border-collapse: collapse;
     border-spacing: 0;
-  }
-  
-  @media screen and (min-width: 1200px) {
-    body {
-      max-width: 960px !important;
-    }
-  }
+  }  
 `;
 
 export default GlobalStyles;

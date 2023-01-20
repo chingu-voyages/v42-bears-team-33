@@ -1,12 +1,19 @@
-const calcRem = (pxSize) => `${pxSize / 16}rem`;
-
 const size = {
-  // responsive size
+  mobile: '600px',
+  desktop: '992px',
+};
+
+const media = {
+  mobile: `screen and (max-width: ${size.mobile})`,
+  desktop: `screen and (max-width: ${size.desktop})`,
 };
 
 const colors = {
-  // color to use
+  primary: '#f5f5f5',
+  primaryDark: '#434343',
 };
+
+const calcRem = (pxSize) => `${pxSize / 16}rem`;
 
 const flexSet = (just = 'center', align = 'center') => {
   return `display: flex;
@@ -22,11 +29,11 @@ const flexColumnSet = (just = 'center', align = 'center') => {
 };
 
 const theme = {
+  media,
+  colors,
   calcRem,
-  size,
   flexSet,
   flexColumnSet,
-  colors,
 };
 
 export default theme;
