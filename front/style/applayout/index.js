@@ -39,7 +39,7 @@ export const LayoutInfo = styled(Row)`
 
 export const LayoutHeaderBtn = styled(Button)`
   width: 6em;
-  margin-right: ${(props) => props.first && '0.8em'};
+  margin-right: ${(props) => props.firstChild && '0.8em'};
 
   @media ${({ theme }) => theme.media.desktop} {
     width: 5.5em;

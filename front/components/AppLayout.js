@@ -24,7 +24,7 @@ const AppLayout = ({ children }) => {
         <Row>
           <Link href="/login">
             <a>
-              <LayoutHeaderBtn first="true" type="primary" size="large">
+              <LayoutHeaderBtn firstChild="true" type="primary" size="large">
                 Log in
               </LayoutHeaderBtn>
             </a>
