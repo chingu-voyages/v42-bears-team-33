@@ -1,12 +1,12 @@
 const size = {
-  mobile: '600px',
-  tablet: '768px',
-  desktop: '1200px',
+  // mobile: '600px',
+  // tablet: '768px',
+  desktop: '992px',
 };
 
 const media = {
-  mobile: `screen and (max-width: ${size.mobile})`,
-  tablet: `screen and (max-width: ${size.tablet})`,
+  // mobile: `screen and (max-width: ${size.mobile})`,
+  // tablet: `screen and (max-width: ${size.tablet})`,
   desktop: `screen and (max-width: ${size.desktop})`,
 };
 
