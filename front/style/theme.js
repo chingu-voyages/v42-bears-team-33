@@ -12,7 +12,7 @@ const colors = {
   button: '#1890ff',
 };
 
-const calcRem = (pxSize) => `${pxSize / 16}rem`;
+const calcRem = pxSize => `${pxSize / 16}rem`;
 
 const flexSet = (just = 'center', align = 'center') => {
   return `display: flex;

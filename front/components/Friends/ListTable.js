@@ -1,10 +1,6 @@
 import React from 'react';
 import { Dropdown, Row, Menu, Space, Button, Col } from 'antd';
-import {
-  DownOutlined,
-  UsergroupAddOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
+import { DownOutlined, UsergroupAddOutlined, PlusOutlined } from '@ant-design/icons';
 
 const ListTable = () => {
   const menu = (

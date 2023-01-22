@@ -3,8 +3,7 @@
   "semi": true,
   "useTabs": false,
   "tabWidth": 2,
-  "trailingComma": "es5",
-  "bracketSpacing": true,
-  "jsxBracketSameLine": false,
-  "arrowParens": "always"
+  "trailingComma": "all",
+  "printWidth": 120,
+  "arrowParens": "avoid"
 }
