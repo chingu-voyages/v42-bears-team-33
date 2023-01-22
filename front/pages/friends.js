@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 
 import AppLayout from '@components/AppLayout';
-import { FriendsWrapper, FriendsHeader } from '@style/friends/header';
+import ListHeader from '@components/Friends/ListHeader';
+import { FriendsWrapper } from '@style/friends/header';
 
 const Friends = () => {
   return (
@@ -14,18 +14,7 @@ const Friends = () => {
 
       <AppLayout>
         <FriendsWrapper>
-          <FriendsHeader>
-            <header>Welcome to the Friendship App!</header>
-
-            <span>
-              Click / press <button type="button">“Schedule a message”</button>{' '}
-              to edit the message. The{' '}
-              <Link href="/message">
-                <a>“Send Now”</a>
-              </Link>
-              is to send the message immediatelly.
-            </span>
-          </FriendsHeader>
+          <ListHeader />
         </FriendsWrapper>
       </AppLayout>
     </>
