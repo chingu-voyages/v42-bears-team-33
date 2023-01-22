@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Dropdown, Menu } from 'antd';
 import { DownOutlined, UsergroupAddOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { ListTableWrapper, ListTableItems, ListTableDropdown, ListTableBtn } from '@style/friends/tableHeader';
 
 const ListTable = () => {
+  const onClickDropdownItem = useCallback(e => {
+    console.log(e.key);
+  });
+
   const menu = (
-    <Menu>
-      <Menu.Item>1st menu item</Menu.Item>
-      <Menu.Item>2st menu item</Menu.Item>
-      <Menu.Item>3st menu item</Menu.Item>
+    <Menu onClick={onClickDropdownItem}>
+      <Menu.Item key="item1">1st menu item</Menu.Item>
+      <Menu.Item key="item2">2st menu item</Menu.Item>
+      <Menu.Item key="item3">3st menu item</Menu.Item>
     </Menu>
   );
 
@@ -19,10 +23,12 @@ const ListTable = () => {
 
       <ListTableItems>
         <Dropdown overlay={menu}>
-          <ListTableDropdown>
-            <p>Choose Category</p>
-            <DownOutlined />
-          </ListTableDropdown>
+          <a>
+            <ListTableDropdown>
+              <p>Choose Category</p>
+              <DownOutlined />
+            </ListTableDropdown>
+          </a>
         </Dropdown>
 
         <ListTableBtn firstchild="true" icon={<UsergroupAddOutlined />}>
