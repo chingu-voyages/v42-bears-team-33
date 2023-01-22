@@ -3,15 +3,17 @@ import { Row } from 'antd';
 
 export const FriendsWrapper = styled.div`
   height: 100%;
+  ${({ theme }) => theme.flexColumnSet('start')};
   background-color: ${({ theme }) => theme.colors.primary};
+  padding: 2.5em 10.5em;
+
+  @media ${({ theme }) => theme.media.desktop} {
+    padding: 1.5em 1em;
+  }
 `;
 
 export const FriendsHeader = styled(Row)`
-  position: absolute;
-  top: 15%;
-  left: 12%;
-  right: 12%;
-  ${({ theme }) => theme.flexColumnSet('center', 'flex-start')};
+  ${({ theme }) => theme.flexColumnSet('center', 'flex-start')}
   background-color: white;
   padding: 1.4em 1.6em;
   margin-bottom: 1.5em;
@@ -22,19 +24,16 @@ export const FriendsHeader = styled(Row)`
     margin-bottom: 0.7em;
   }
 
-  & > span {
+  & > p {
     font-size: ${({ theme }) => theme.calcRem(16)};
   }
 
-  & > span > button,
-  & > span > a {
+  & > p > button,
+  & > p > a {
     color: ${({ theme }) => theme.colors.button};
   }
 
   @media ${({ theme }) => theme.media.desktop} {
-    top: 10%;
-    left: 5%;
-    right: 5%;
     padding: 1em 1.2em;
     margin-bottom: 1.2em;
 
@@ -43,7 +42,7 @@ export const FriendsHeader = styled(Row)`
       margin-bottom: 1em;
     }
 
-    & > span {
+    & > p {
       font-size: ${({ theme }) => theme.calcRem(14)};
     }
   }
