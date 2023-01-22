@@ -23,8 +23,9 @@ export const FooterContentInfo = styled(Col)`
   margin-right: ${props => (props.lastchild ? '0' : '0.8em')};
 
   & > div > img {
-    width: 5em;
+    width: 6em;
     margin: 0 auto 2em auto;
+    box-shadow: 0px 6px 8px 0px #00000026;
   }
 
   & > div > h2 {
@@ -43,7 +44,7 @@ export const FooterContentInfo = styled(Col)`
     margin: 0 0 1em 0;
 
     & > div > img {
-      width: 7em;
+      width: 5em;
       margin: 0 auto 0.5em auto;
     }
 
