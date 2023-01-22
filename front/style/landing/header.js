@@ -5,7 +5,7 @@ export const LandingWrapper = styled(Row)`
   background-color: ${({ theme }) => theme.colors.primary};
   padding: 6em 10em;
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.mobile} {
     padding: 3em 1em;
   }
 `;
@@ -21,7 +21,7 @@ export const LandingHeaderInfo = styled(Col)`
     width: 7em;
   }
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.mobile} {
     & > h1 {
       font-size: ${({ theme }) => theme.calcRem(15)};
       font-weight: 700;

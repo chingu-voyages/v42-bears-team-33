@@ -7,7 +7,7 @@ export const FriendsWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.primary};
   padding: 2.5em 10.5em;
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.mobile} {
     padding: 1.5em 1em;
   }
 `;
@@ -33,7 +33,7 @@ export const FriendsHeader = styled(Row)`
     color: ${({ theme }) => theme.colors.button};
   }
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.mobile} {
     padding: 1em 1.2em;
     margin-bottom: 1.2em;
 

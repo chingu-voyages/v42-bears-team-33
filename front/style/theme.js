@@ -1,11 +1,9 @@
 const size = {
-  mobile: '600px',
-  desktop: '992px',
+  mobile: '992px',
 };
 
 const media = {
   mobile: `screen and (max-width: ${size.mobile})`,
-  desktop: `screen and (max-width: ${size.desktop})`,
 };
 
 const colors = {

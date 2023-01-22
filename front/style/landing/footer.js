@@ -6,7 +6,7 @@ export const FooterWrapper = styled.div`
   padding: 5em 0;
 
   @media ${({ theme }) => theme.media.mobile} {
-    padding: 1.5em 0;
+    padding: 2.5em 0;
   }
 `;
 
@@ -14,8 +14,7 @@ export const FooterContent = styled(Row)`
   margin-bottom: 4em;
 
   @media ${({ theme }) => theme.media.mobile} {
-    ${({ theme }) => theme.flexColumnSet()};
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
   }
 `;
 
@@ -41,6 +40,8 @@ export const FooterContentInfo = styled(Col)`
   }
 
   @media ${({ theme }) => theme.media.mobile} {
+    margin: 0 0 1em 0;
+
     & > div > img {
       width: 7em;
       margin: 0 auto 0.5em auto;
@@ -51,9 +52,7 @@ export const FooterContentInfo = styled(Col)`
     }
 
     & > div > p {
-      width: 15em;
       font-size: ${({ theme }) => theme.calcRem(14)};
-      margin-bottom: 1em;
     }
   }
 `;
