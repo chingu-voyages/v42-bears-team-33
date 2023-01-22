@@ -25,7 +25,7 @@ const ListTable = () => {
           </ListTableDropdown>
         </Dropdown>
 
-        <ListTableBtn firstChild="true" icon={<UsergroupAddOutlined />}>
+        <ListTableBtn firstchild="true" icon={<UsergroupAddOutlined />}>
           Manage Friend List
         </ListTableBtn>
         <ListTableBtn type="primary" icon={<PlusOutlined />}>

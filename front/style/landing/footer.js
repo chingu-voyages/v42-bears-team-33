@@ -20,7 +20,7 @@ export const FooterContent = styled(Row)`
 
 export const FooterContentInfo = styled(Col)`
   text-align: center;
-  margin-right: ${props => (props.lastChild ? '0' : '0.8em')};
+  margin-right: ${props => (props.lastchild ? '0' : '0.8em')};
 
   & > div > img {
     width: 5em;

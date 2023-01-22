@@ -42,7 +42,7 @@ export const ListTableDropdown = styled(Space)`
 `;
 
 export const ListTableBtn = styled(Button)`
-  margin-right: ${props => props.firstChild && '8px'};
+  margin-right: ${props => props.firstchild && '8px'};
 
   @media ${({ theme }) => theme.media.mobile} {
     width: 70%;

@@ -35,7 +35,7 @@ const LandingFooter = () => {
         </FooterContentInfo>
         <FooterDivider />
 
-        <FooterContentInfo lastChild="true">
+        <FooterContentInfo lastchild="true">
           <div>
             <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="vision img" />
             <h2>4. Step</h2>
