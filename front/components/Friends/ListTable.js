@@ -1,6 +1,8 @@
 import React from 'react';
-import { Dropdown, Row, Menu, Space, Button, Col } from 'antd';
+import { Dropdown, Menu } from 'antd';
 import { DownOutlined, UsergroupAddOutlined, PlusOutlined } from '@ant-design/icons';
+
+import { ListTableWrapper, ListTableItems, ListTableDropdown, ListTableBtn } from '@style/friends/tableHeader';
 
 const ListTable = () => {
   const menu = (
@@ -12,25 +14,25 @@ const ListTable = () => {
   );
 
   return (
-    <Row>
-      <Col>
-        <h2>My Friend List</h2>
-      </Col>
+    <ListTableWrapper justify="space-between" align="middle">
+      <h2>My Friend List</h2>
 
-      <Col>
+      <ListTableItems>
         <Dropdown overlay={menu}>
-          <Space>
+          <ListTableDropdown>
             <p>Choose Category</p>
             <DownOutlined />
-          </Space>
+          </ListTableDropdown>
         </Dropdown>
 
-        <Button icon={<UsergroupAddOutlined />}>Manage Friend List</Button>
-        <Button type="primary" icon={<PlusOutlined />}>
+        <ListTableBtn firstChild="true" icon={<UsergroupAddOutlined />}>
+          Manage Friend List
+        </ListTableBtn>
+        <ListTableBtn type="primary" icon={<PlusOutlined />}>
           Add New Friend
-        </Button>
-      </Col>
-    </Row>
+        </ListTableBtn>
+      </ListTableItems>
+    </ListTableWrapper>
   );
 };
 

@@ -5,7 +5,7 @@ export const FriendsWrapper = styled.div`
   height: 100%;
   ${({ theme }) => theme.flexColumnSet('start')};
   background-color: ${({ theme }) => theme.colors.primary};
-  padding: 2.5em 10.5em;
+  padding: 2.5em 6.5em;
 
   @media ${({ theme }) => theme.media.mobile} {
     padding: 1.5em 1em;
@@ -14,6 +14,7 @@ export const FriendsWrapper = styled.div`
 
 export const FriendsHeader = styled(Row)`
   ${({ theme }) => theme.flexColumnSet('center', 'flex-start')}
+  width: 100%;
   background-color: white;
   padding: 1.4em 1.6em;
   margin-bottom: 1.5em;
@@ -30,6 +31,7 @@ export const FriendsHeader = styled(Row)`
 
   & > p > button,
   & > p > a {
+    font-weight: 700;
     color: ${({ theme }) => theme.colors.button};
   }
 
@@ -43,7 +45,7 @@ export const FriendsHeader = styled(Row)`
     }
 
     & > p {
-      font-size: ${({ theme }) => theme.calcRem(14)};
+      font-size: ${({ theme }) => theme.calcRem(13)};
     }
   }
 `;
