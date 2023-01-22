@@ -11,6 +11,7 @@ const media = {
 const colors = {
   primary: '#f5f5f5',
   primaryDark: '#434343',
+  button: '#1890ff',
 };
 
 const calcRem = (pxSize) => `${pxSize / 16}rem`;
