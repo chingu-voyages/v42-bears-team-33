@@ -1,34 +1,70 @@
-import React from 'react';
-import { Badge, Row, Space, Table } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Space, Divider, Dropdown, Menu } from 'antd';
+
+import {
+  TableContentWrapper,
+  TableContentHeader,
+  TableContentBadge,
+  TableContentBtn,
+} from '@style/friends/tableContent';
 
 const TableContent = () => {
+  const [desktop, setDesktop] = useState(true);
+  const [tableSize, setTableSize] = useState(10);
+
+  const onClickName = useCallback(e => {
+    console.log(e.key);
+  });
+
+  const menu = (
+    <Menu onClick={onClickName}>
+      <Menu.Item key="schedule">
+        <button type="button">Schedule a message</button>
+      </Menu.Item>
+
+      <Menu.Item key="send">
+        <button type="button">Send now</button>
+      </Menu.Item>
+    </Menu>
+  );
+
   const columns = [
-    { title: 'Name', dataIndex: 'name', render: text => <button type="button">{text}</button> },
     {
-      title: 'Status',
-      dataIndex: 'status',
+      title: <TableContentHeader>Name</TableContentHeader>,
+      dataIndex: 'name',
+      key: 'name',
       render: text => (
-        <Space>
-          <Badge status="success" text={text} />
-        </Space>
+        <Dropdown overlay={menu} trigger="click">
+          <TableContentBtn type="button">{text}</TableContentBtn>
+        </Dropdown>
       ),
+      width: desktop && '50%',
     },
     {
-      title: 'Birthday',
+      title: <TableContentHeader>Status</TableContentHeader>,
+      dataIndex: 'status',
+      key: 'status',
+      render: text => <TableContentBadge status="success" text={text} />,
+    },
+    {
+      title: <TableContentHeader>Birthday</TableContentHeader>,
       dataIndex: 'birthday',
+      key: 'birthday',
       defaultSortOrder: 'descend',
       sorter: (a, b) => new Date(a.birthday) - new Date(b.birthday),
     },
     {
-      title: 'Action',
+      title: <TableContentHeader>Action</TableContentHeader>,
       dataIndex: 'action',
+      key: 'action',
       render: () => (
         <Space>
-          <button type="button">Schedule a message</button>
-          <div>|</div>
-          <button type="button">Send now</button>
+          <TableContentBtn type="button">Schedule a message</TableContentBtn>
+          <Divider type="vertical" />
+          <TableContentBtn type="button">Send now</TableContentBtn>
         </Space>
       ),
+      responsive: ['md'],
     },
   ];
 
@@ -46,12 +82,6 @@ const TableContent = () => {
       status: 'Overdue',
       birthday: '2007-01-08',
     },
-    { key: '4', name: 'Co12dy Fisher', status: 'Sent', birthday: '1992-06-21' },
-    { key: '5', name: 'Co5315dy Fisher', status: 'Sent', birthday: '1992-06-22' },
-    { key: '6', name: 'Co123123dy Fisher', status: 'Sent', birthday: '1992-06-26' },
-    { key: '7', name: 'Co5235dy Fisher', status: 'Sent', birthday: '1992-02-23' },
-    { key: '8', name: 'C123ody Fisher', status: 'Sent', birthday: '1992-01-23' },
-    { key: '9', name: 'C53ody Fisher', status: 'Sent', birthday: '1992-03-23' },
   ];
 
   const rowSelection = {
@@ -65,18 +95,37 @@ const TableContent = () => {
     }),
   };
 
+  useEffect(() => {
+    function onResize() {
+      if (document.documentElement.clientWidth > 1200) setDesktop(true);
+      else setDesktop(false);
+
+      if (document.documentElement.clientHeight > 900) setTableSize(10);
+      else if (document.documentElement.clientHeight > 700) setTableSize(8);
+      else setTableSize(6);
+    }
+
+    window.addEventListener('load', onResize);
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      window.removeEventListener('load', onResize);
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
+
   return (
-    <Row>
-      <Table
+    <>
+      <TableContentWrapper
         rowSelection={{
           type: 'checkbox',
           ...rowSelection,
         }}
-        pagination={{ pageSize: 7 }}
+        pagination={{ pageSize: tableSize }}
         columns={columns}
         dataSource={data}
       />
-    </Row>
+    </>
   );
 };
 

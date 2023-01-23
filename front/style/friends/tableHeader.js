@@ -4,19 +4,32 @@ import { Row, Space, Button } from 'antd';
 export const ListTableWrapper = styled(Row)`
   width: 100%;
   background-color: white;
-  padding: 1em 2em;
+  padding: 0 1.5em;
+  ${({ theme }) => theme.flexColumnSet()};
+
+  @media ${({ theme }) => theme.media.mobile} {
+    padding: 1em 1.5em;
+  }
+`;
+
+export const ListTableHeader = styled.div`
+  width: 100%;
+  ${({ theme }) => theme.flexSet('space-between')};
 
   & > h2 {
     font-size: ${({ theme }) => theme.calcRem(16)};
+    padding: 1.3em 0.5em;
     font-weight: 700;
   }
 
   @media ${({ theme }) => theme.media.mobile} {
-    padding: 1em 1.5em;
+    margin-bottom: 0.5em;
+    ${({ theme }) => theme.flexColumnSet()};
 
     & > h2 {
-      width: 100%;
-      margin-bottom: 2em;
+      font-size: ${({ theme }) => theme.calcRem(22)};
+      padding: 0.5em 0 0 0;
+      margin-bottom: 0.5em;
     }
   }
 `;
@@ -37,7 +50,11 @@ export const ListTableDropdown = styled(Space)`
   }
 
   @media ${({ theme }) => theme.media.mobile} {
-    margin: 0 0 1em 0;
+    margin: 0 0 2em 0;
+
+    & > div > p {
+      font-size: ${({ theme }) => theme.calcRem(12)};
+    }
   }
 `;
 
@@ -45,7 +62,7 @@ export const ListTableBtn = styled(Button)`
   margin-right: ${props => props.firstchild && '8px'};
 
   @media ${({ theme }) => theme.media.mobile} {
-    width: 70%;
+    width: 100%;
     margin: 0 0 1em 0;
   }
 `;
