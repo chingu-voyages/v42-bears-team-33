@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Dropdown, Menu } from 'antd';
 import { DownOutlined, UsergroupAddOutlined, PlusOutlined } from '@ant-design/icons';
 
+import TableContent from '@components/Friends/TableContent';
 import { ListTableWrapper, ListTableItems, ListTableDropdown, ListTableBtn } from '@style/friends/tableHeader';
 
 const ListTable = () => {
@@ -18,27 +19,31 @@ const ListTable = () => {
   );
 
   return (
-    <ListTableWrapper justify="space-between" align="middle">
-      <h2>My Friend List</h2>
+    <>
+      <ListTableWrapper justify="space-between" align="middle">
+        <h2>My Friend List</h2>
 
-      <ListTableItems>
-        <Dropdown overlay={menu}>
-          <a>
-            <ListTableDropdown>
-              <p>Choose Category</p>
-              <DownOutlined />
-            </ListTableDropdown>
-          </a>
-        </Dropdown>
+        <ListTableItems>
+          <Dropdown overlay={menu}>
+            <a>
+              <ListTableDropdown>
+                <p>Choose Category</p>
+                <DownOutlined />
+              </ListTableDropdown>
+            </a>
+          </Dropdown>
 
-        <ListTableBtn firstchild="true" icon={<UsergroupAddOutlined />}>
-          Manage Friend List
-        </ListTableBtn>
-        <ListTableBtn type="primary" icon={<PlusOutlined />}>
-          Add New Friend
-        </ListTableBtn>
-      </ListTableItems>
-    </ListTableWrapper>
+          <ListTableBtn firstchild="true" icon={<UsergroupAddOutlined />}>
+            Manage Friend List
+          </ListTableBtn>
+          <ListTableBtn type="primary" icon={<PlusOutlined />}>
+            Add New Friend
+          </ListTableBtn>
+        </ListTableItems>
+      </ListTableWrapper>
+
+      <TableContent />
+    </>
   );
 };
 
