@@ -52,7 +52,7 @@ const TableContent = () => {
       title: <TableContentHeader>Status</TableContentHeader>,
       dataIndex: 'status',
       key: 'status',
-      render: text => <TableContentBadge status="success" text={text} />,
+      render: status => <TableContentBadge status={status.info} text={status.text} />,
     },
     {
       title: <TableContentHeader>Birthday</TableContentHeader>,
@@ -79,17 +79,17 @@ const TableContent = () => {
   ];
 
   const data = [
-    { key: '1', name: 'Cody Fisher', status: 'Sent', birthday: '1992-06-23' },
+    { key: '1', name: 'Cody Fisher', status: { info: 'success', text: 'Sent' }, birthday: '1992-06-23' },
     {
       key: '2',
       name: 'Darlene Robertson',
-      status: 'Draft',
+      status: { info: 'default', text: 'Draft' },
       birthday: '1973-12-11',
     },
     {
       key: '3',
       name: 'Annette Black',
-      status: 'Overdue',
+      status: { info: 'error', text: 'Overdue' },
       birthday: '2007-01-08',
     },
   ];
