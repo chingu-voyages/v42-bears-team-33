@@ -5,7 +5,7 @@ export const FooterWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.primaryDark};
   padding: 5em 0;
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     padding: 2.5em 0;
   }
 `;
@@ -13,7 +13,7 @@ export const FooterWrapper = styled.div`
 export const FooterContent = styled(Row)`
   margin-bottom: 4em;
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     margin-bottom: 2em;
   }
 `;
@@ -40,7 +40,7 @@ export const FooterContentInfo = styled(Col)`
     font-size: ${({ theme }) => theme.calcRem(14)};
   }
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     margin: 0 0 1em 0;
 
     & > div > img {
@@ -64,7 +64,7 @@ export const FooterDivider = styled.div`
   background-color: #d9d9d9;
   margin-right: 1.5em;
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     display: none;
   }
 `;
@@ -72,7 +72,7 @@ export const FooterDivider = styled.div`
 export const FooterBtn = styled(Button)`
   width: 7em;
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     width: 9em;
     font-size: ${({ theme }) => theme.calcRem(17)};
   }

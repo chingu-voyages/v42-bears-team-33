@@ -4,7 +4,7 @@ import { Table, Badge } from 'antd';
 export const TableContentWrapper = styled(Table)`
   width: 100%;
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     .ant-table-cell {
       font-size: ${({ theme }) => theme.calcRem(11)};
       padding: 0.3em;
@@ -15,13 +15,13 @@ export const TableContentWrapper = styled(Table)`
 export const TableContentHeader = styled.div`
   font-weight: 700;
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     font-size: ${({ theme }) => theme.calcRem(11)};
   }
 `;
 
 export const TableContentBadge = styled(Badge)`
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     & > span {
       font-size: ${({ theme }) => theme.calcRem(11)};
     }

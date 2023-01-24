@@ -7,7 +7,7 @@ export const ListTableWrapper = styled(Row)`
   padding: 0 1.5em;
   ${({ theme }) => theme.flexColumnSet()};
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     padding: 1em 1.5em;
   }
 `;
@@ -22,7 +22,7 @@ export const ListTableHeader = styled.div`
     font-weight: 700;
   }
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     margin-bottom: 0.5em;
     ${({ theme }) => theme.flexColumnSet()};
 
@@ -35,7 +35,7 @@ export const ListTableHeader = styled.div`
 `;
 
 export const ListTableItems = styled.div`
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     width: 100%;
     ${({ theme }) => theme.flexColumnSet()};
   }
@@ -49,7 +49,7 @@ export const ListTableDropdown = styled(Space)`
     opacity: 45%;
   }
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     margin: 0 0 2em 0;
 
     & > div > p {
@@ -61,7 +61,7 @@ export const ListTableDropdown = styled(Space)`
 export const ListTableBtn = styled(Button)`
   margin-right: ${props => props.firstchild && '8px'};
 
-  @media ${({ theme }) => theme.media.mobile} {
+  @media ${({ theme }) => theme.media.tablet} {
     width: 100%;
     margin: 0 0 1em 0;
   }
