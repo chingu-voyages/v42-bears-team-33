@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Space, Divider, Dropdown, Menu } from 'antd';
 
+import ScheduleModal from '@components/Friends/ScheduleModal';
 import {
   TableContentWrapper,
   TableContentHeader,
@@ -9,8 +10,13 @@ import {
 } from '@style/friends/tableContent';
 
 const TableContent = () => {
-  const [desktop, setDesktop] = useState(true);
   const [tableSize, setTableSize] = useState(10);
+  const [desktop, setDesktop] = useState(true);
+  const [scheduleModal, setScheduleModal] = useState(false);
+
+  const onClickSchedule = useCallback(() => {
+    setScheduleModal(prev => !prev);
+  }, []);
 
   const onClickName = useCallback(e => {
     console.log(e.key);
@@ -19,7 +25,9 @@ const TableContent = () => {
   const menu = (
     <Menu onClick={onClickName}>
       <Menu.Item key="schedule">
-        <button type="button">Schedule a message</button>
+        <button type="button" onClick={onClickSchedule}>
+          Schedule a message
+        </button>
       </Menu.Item>
 
       <Menu.Item key="send">
@@ -59,7 +67,9 @@ const TableContent = () => {
       key: 'action',
       render: () => (
         <Space>
-          <TableContentBtn type="button">Schedule a message</TableContentBtn>
+          <TableContentBtn type="button" onClick={onClickSchedule}>
+            Schedule a message
+          </TableContentBtn>
           <Divider type="vertical" />
           <TableContentBtn type="button">Send now</TableContentBtn>
         </Space>
@@ -125,6 +135,7 @@ const TableContent = () => {
         columns={columns}
         dataSource={data}
       />
+      {scheduleModal && <ScheduleModal scheduleModal={scheduleModal} onClickSchedule={onClickSchedule} />}
     </>
   );
 };

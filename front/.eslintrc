@@ -33,6 +33,7 @@
     "linebreak-style": "off",
     "no-param-reassign": "off",
     "arrow-body-style": "off",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "react/require-default-props": "off"
   }
 }
