@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Space, Divider, Dropdown, Menu } from 'antd';
 
-import ScheduleModal from '@components/Friends/ScheduleModal';
+import { openScheduleModal } from '@reducers/schedule';
 import {
   TableContentWrapper,
   TableContentHeader,
@@ -10,17 +11,17 @@ import {
 } from '@style/friends/tableContent';
 
 const TableContent = () => {
+  const dispatch = useDispatch();
   const [tableSize, setTableSize] = useState(10);
   const [desktop, setDesktop] = useState(true);
-  const [scheduleModal, setScheduleModal] = useState(false);
-
-  const onClickSchedule = useCallback(() => {
-    setScheduleModal(prev => !prev);
-  }, []);
 
   const onClickName = useCallback(e => {
     console.log(e.key);
   });
+
+  const onClickSchedule = useCallback(() => {
+    dispatch(openScheduleModal());
+  }, []);
 
   const menu = (
     <Menu onClick={onClickName}>
@@ -135,7 +136,6 @@ const TableContent = () => {
         columns={columns}
         dataSource={data}
       />
-      {scheduleModal && <ScheduleModal scheduleModal={scheduleModal} onClickSchedule={onClickSchedule} />}
     </>
   );
 };

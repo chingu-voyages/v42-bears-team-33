@@ -1,21 +1,25 @@
 import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Form, DatePicker, Input, Button, Row } from 'antd';
-import PropTypes from 'prop-types';
 
-const ScheduleModal = ({ scheduleModal, onClickSchedule }) => {
+import { closeScheduleModal } from '@reducers/schedule';
+
+const ScheduleModal = () => {
   const [form] = Form.useForm();
-
-  const onCloseModal = useCallback(() => {
-    onClickSchedule();
-  }, []);
+  const dispatch = useDispatch();
+  const { scheduleModalVisible } = useSelector(state => state.schedule);
 
   const onSubmitForm = useCallback(fieldsValue => {
     console.log(fieldsValue);
   }, []);
 
+  const onCloseSchedule = useCallback(() => {
+    dispatch(closeScheduleModal());
+  }, []);
+
   return (
     <>
-      <Modal visible={scheduleModal} onCancel={onCloseModal} title="Schedule a message" footer={null}>
+      <Modal visible={scheduleModalVisible} onCancel={onCloseSchedule} title="Schedule a message" footer={null}>
         <Form
           form={form}
           name="schedule"
@@ -62,7 +66,9 @@ const ScheduleModal = ({ scheduleModal, onClickSchedule }) => {
 
           <Form.Item>
             <Row justify="end">
-              <Button size="large">Cancel</Button>
+              <Button size="large" onClick={onCloseSchedule}>
+                Cancel
+              </Button>
               <Button type="primary" size="large" htmlType="submit">
                 Save
               </Button>
@@ -72,11 +78,6 @@ const ScheduleModal = ({ scheduleModal, onClickSchedule }) => {
       </Modal>
     </>
   );
-};
-
-ScheduleModal.propTypes = {
-  scheduleModal: PropTypes.bool,
-  onClickSchedule: PropTypes.func,
 };
 
 export default ScheduleModal;
