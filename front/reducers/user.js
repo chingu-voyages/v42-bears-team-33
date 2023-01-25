@@ -32,6 +32,9 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    LOAD_MY_INFO_SUCCESS: state => {
+      state.me = dummyUser;
+    },
     LOG_IN_SUCCESS: state => {
       state.me = dummyUser;
     },
@@ -41,5 +44,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { LOG_IN_SUCCESS, LOAD_MY_FRIENDS_SUCCESS } = userSlice.actions;
+export const { LOAD_MY_INFO_SUCCESS, LOG_IN_SUCCESS, LOAD_MY_FRIENDS_SUCCESS } = userSlice.actions;
 export default userSlice.reducer;
