@@ -1,10 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Button } from 'antd';
 import Link from 'next/link';
 
 import { LandingWrapper, LandingHeaderInfo } from '@style/landing/header';
 
 const LandingHeader = () => {
+  const { me } = useSelector(state => state.user);
   return (
     <>
       <LandingWrapper align="middle" justify="space-between">
@@ -13,7 +15,7 @@ const LandingHeader = () => {
             Auto-text happy
             <br /> birthday to friends
           </h1>
-          <Link href="/login">
+          <Link href={me ? '/friends' : '/login'}>
             <a>
               <Button type="primary" size="large">
                 Start Now
