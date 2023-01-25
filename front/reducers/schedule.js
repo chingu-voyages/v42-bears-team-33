@@ -8,14 +8,14 @@ const scheduleSlice = createSlice({
   name: 'schedule',
   initialState,
   reducers: {
-    openScheduleModal: state => {
+    OPEN_SCHEDULE_MODAL: state => {
       state.scheduleModalVisible = true;
     },
-    closeScheduleModal: state => {
+    CLOSE_SCHEDULE_MODAL: state => {
       state.scheduleModalVisible = false;
     },
   },
 });
 
-export const { openScheduleModal, closeScheduleModal } = scheduleSlice.actions;
+export const { OPEN_SCHEDULE_MODAL, CLOSE_SCHEDULE_MODAL } = scheduleSlice.actions;
 export default scheduleSlice.reducer;

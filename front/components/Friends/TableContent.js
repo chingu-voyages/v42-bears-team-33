@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Space, Divider, Dropdown, Menu } from 'antd';
 
-import { openScheduleModal } from '@reducers/schedule';
+import { OPEN_SCHEDULE_MODAL } from '@reducers/schedule';
 import {
   TableContentWrapper,
   TableContentHeader,
@@ -20,7 +20,7 @@ const TableContent = () => {
   });
 
   const onClickSchedule = useCallback(() => {
-    dispatch(openScheduleModal());
+    dispatch(OPEN_SCHEDULE_MODAL());
   }, []);
 
   const menu = (

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, DatePicker, Input, Row } from 'antd';
 
-import { closeScheduleModal } from '@reducers/schedule';
+import { CLOSE_SCHEDULE_MODAL } from '@reducers/schedule';
 import { ScheduleModalWrapper, ScheduleModalForm, ScheduleModalBtn } from '@style/friends/scheduleModal';
 
 const ScheduleModal = () => {
@@ -16,7 +16,7 @@ const ScheduleModal = () => {
   }, []);
 
   const onCloseSchedule = useCallback(() => {
-    dispatch(closeScheduleModal());
+    dispatch(CLOSE_SCHEDULE_MODAL());
   }, []);
 
   return (
