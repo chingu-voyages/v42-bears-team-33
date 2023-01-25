@@ -4,7 +4,7 @@ import { Row, Avatar, Space } from 'antd';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-import { Layout, LayoutInfo, LayoutHeaderBtn } from '@style/applayout';
+import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderBtn } from '@style/applayout';
 import ScheduleModal from '@components/Friends/ScheduleModal';
 
 const AppLayout = ({ children }) => {
@@ -28,10 +28,10 @@ const AppLayout = ({ children }) => {
 
         <Row>
           {me ? (
-            <Space>
+            <LayoutHeaderProfile>
               <Avatar src={me.image} alt="profile image" />
               <p>{me.nickname}</p>
-            </Space>
+            </LayoutHeaderProfile>
           ) : (
             <Space>
               <Link href="/login">
