@@ -71,7 +71,7 @@ const ScheduleModal = () => {
 
         <Form.Item>
           <Row justify="end">
-            <ScheduleModalBtn firstchild size="large" onClick={onCloseSchedule}>
+            <ScheduleModalBtn firstchild="true" size="large" onClick={onCloseSchedule}>
               Cancel
             </ScheduleModalBtn>
             <ScheduleModalBtn type="primary" size="large" htmlType="submit">
