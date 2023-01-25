@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Row } from 'antd';
+import { Row, Avatar, Space } from 'antd';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-import { Layout, LayoutInfo, LayoutHeaderBtn } from '@style/applayout';
+import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderBtn } from '@style/applayout';
 import ScheduleModal from '@components/Friends/ScheduleModal';
 
 const AppLayout = ({ children }) => {
+  const { me } = useSelector(state => state.user);
   const { scheduleModalVisible } = useSelector(state => state.schedule);
 
   return (
@@ -26,18 +27,27 @@ const AppLayout = ({ children }) => {
         </Link>
 
         <Row>
-          <Link href="/login">
-            <a>
-              <LayoutHeaderBtn firstchild="true" type="primary" size="large">
-                Log in
-              </LayoutHeaderBtn>
-            </a>
-          </Link>
-          <Link href="/signup">
-            <a>
-              <LayoutHeaderBtn size="large">Sign up</LayoutHeaderBtn>
-            </a>
-          </Link>
+          {me ? (
+            <LayoutHeaderProfile>
+              <Avatar src={me.image} alt="profile image" />
+              <p>{me.nickname}</p>
+            </LayoutHeaderProfile>
+          ) : (
+            <Space>
+              <Link href="/login">
+                <a>
+                  <LayoutHeaderBtn type="primary" size="large">
+                    Log in
+                  </LayoutHeaderBtn>
+                </a>
+              </Link>
+              <Link href="/signup">
+                <a>
+                  <LayoutHeaderBtn size="large">Sign up</LayoutHeaderBtn>
+                </a>
+              </Link>
+            </Space>
+          )}
         </Row>
       </Layout>
       {children}

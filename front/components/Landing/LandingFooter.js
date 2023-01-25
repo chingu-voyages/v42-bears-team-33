@@ -3,8 +3,11 @@ import { Row } from 'antd';
 import Link from 'next/link';
 
 import { FooterWrapper, FooterContent, FooterContentInfo, FooterDivider, FooterBtn } from '@style/landing/footer';
+import { useSelector } from 'react-redux';
 
 const LandingFooter = () => {
+  const { me } = useSelector(state => state.user);
+
   return (
     <FooterWrapper>
       <FooterContent align="center">
@@ -45,7 +48,7 @@ const LandingFooter = () => {
       </FooterContent>
 
       <Row align="center">
-        <Link href="/login">
+        <Link href={me ? '/friends' : '/login'}>
           <a>
             <FooterBtn type="primary" size="large">
               Start Now

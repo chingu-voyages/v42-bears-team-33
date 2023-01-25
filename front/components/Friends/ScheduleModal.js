@@ -2,21 +2,20 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, DatePicker, Input, Row } from 'antd';
 
-import { closeScheduleModal } from '@reducers/schedule';
+import { CLOSE_SCHEDULE_MODAL } from '@reducers/schedule';
 import { ScheduleModalWrapper, ScheduleModalForm, ScheduleModalBtn } from '@style/friends/scheduleModal';
 
 const ScheduleModal = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-
-  const { scheduleModalVisible } = useSelector(state => state.schedule);
+  const { scheduleModalVisible, scheduleInfo } = useSelector(state => state.schedule);
 
   const onSubmitForm = useCallback(fieldsValue => {
     console.log(fieldsValue);
   }, []);
 
   const onCloseSchedule = useCallback(() => {
-    dispatch(closeScheduleModal());
+    dispatch(CLOSE_SCHEDULE_MODAL());
   }, []);
 
   return (
@@ -32,7 +31,7 @@ const ScheduleModal = () => {
         layout="vertical"
         requiredMark={false}
         onFinish={onSubmitForm}
-        initialValues={{ to: 'Cody Fisher', birthday: '1992-06-23' }}
+        initialValues={{ to: scheduleInfo.name, birthday: scheduleInfo.birthday }}
       >
         <Form.Item name="to" label="To">
           <Input disabled />
@@ -72,7 +71,7 @@ const ScheduleModal = () => {
 
         <Form.Item>
           <Row justify="end">
-            <ScheduleModalBtn firstchild size="large" onClick={onCloseSchedule}>
+            <ScheduleModalBtn firstchild="true" size="large" onClick={onCloseSchedule}>
               Cancel
             </ScheduleModalBtn>
             <ScheduleModalBtn type="primary" size="large" htmlType="submit">

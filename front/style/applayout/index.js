@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Row, Button } from 'antd';
+import { Row, Button, Space } from 'antd';
 
 export const Layout = styled(Row)`
   padding: 1em 3em;
@@ -37,12 +37,40 @@ export const LayoutInfo = styled(Row)`
   }
 `;
 
+export const LayoutHeaderProfile = styled(Space)`
+  & > div > p {
+    font-weight: 600;
+    font-size: ${({ theme }) => theme.calcRem(15)};
+  }
+
+  & > div > span {
+    width: 2em;
+    height: 2em;
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    & > div > span {
+      width: 1.5em;
+      height: 1.5em;
+    }
+
+    & > div > p {
+      font-size: ${({ theme }) => theme.calcRem(12)};
+    }
+  }
+`;
+
 export const LayoutHeaderBtn = styled(Button)`
   width: 6em;
-  margin-right: ${props => props.firstchild && '0.8em'};
 
   @media ${({ theme }) => theme.media.tablet} {
-    width: 5.5em;
-    font-size: ${({ theme }) => theme.calcRem(12)};
+    width: 3.5em;
+    height: 2em;
+    padding: 0;
+
+    & > span {
+      font-size: ${({ theme }) => theme.calcRem(5)};
+      line-height: 3;
+    }
   }
 `;
