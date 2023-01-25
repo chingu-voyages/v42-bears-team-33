@@ -17,36 +17,37 @@ const TableContent = () => {
   const [tableSize, setTableSize] = useState(10);
   const [desktop, setDesktop] = useState(true);
 
-  const onClickName = useCallback(e => {
-    console.log(e.key);
-  });
-
-  const onClickSchedule = useCallback(() => {
-    dispatch(OPEN_SCHEDULE_MODAL());
-  }, []);
-
-  const menu = (
-    <Menu onClick={onClickName}>
-      <Menu.Item key="schedule">
-        <button type="button" onClick={onClickSchedule}>
-          Schedule a message
-        </button>
-      </Menu.Item>
-
-      <Menu.Item key="send">
-        <button type="button">Send now</button>
-      </Menu.Item>
-    </Menu>
+  const onClickSchedule = useCallback(
+    record => () => {
+      dispatch(OPEN_SCHEDULE_MODAL(record));
+    },
+    [],
   );
+
+  const menu = record => () => {
+    return (
+      <Menu>
+        <Menu.Item key="schedule">
+          <button type="button" onClick={onClickSchedule(record)}>
+            Schedule a message
+          </button>
+        </Menu.Item>
+
+        <Menu.Item key="send">
+          <button type="button">Send now</button>
+        </Menu.Item>
+      </Menu>
+    );
+  };
 
   const columns = [
     {
       title: <TableContentHeader>Name</TableContentHeader>,
       dataIndex: 'name',
       key: 'name',
-      render: text => (
-        <Dropdown overlay={menu} trigger="click">
-          <TableContentBtn type="button">{text}</TableContentBtn>
+      render: (name, record) => (
+        <Dropdown overlay={menu(record)} trigger="click">
+          <TableContentBtn type="button">{name}</TableContentBtn>
         </Dropdown>
       ),
       width: desktop && '50%',
@@ -68,9 +69,9 @@ const TableContent = () => {
       title: <TableContentHeader>Action</TableContentHeader>,
       dataIndex: 'action',
       key: 'action',
-      render: () => (
+      render: (_, record) => (
         <Space>
-          <TableContentBtn type="button" onClick={onClickSchedule}>
+          <TableContentBtn type="button" onClick={onClickSchedule(record)}>
             Schedule a message
           </TableContentBtn>
           <Divider type="vertical" />

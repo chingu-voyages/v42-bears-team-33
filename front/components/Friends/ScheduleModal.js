@@ -8,8 +8,7 @@ import { ScheduleModalWrapper, ScheduleModalForm, ScheduleModalBtn } from '@styl
 const ScheduleModal = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-
-  const { scheduleModalVisible } = useSelector(state => state.schedule);
+  const { scheduleModalVisible, scheduleInfo } = useSelector(state => state.schedule);
 
   const onSubmitForm = useCallback(fieldsValue => {
     console.log(fieldsValue);
@@ -32,7 +31,7 @@ const ScheduleModal = () => {
         layout="vertical"
         requiredMark={false}
         onFinish={onSubmitForm}
-        initialValues={{ to: 'Cody Fisher', birthday: '1992-06-23' }}
+        initialValues={{ to: scheduleInfo.name, birthday: scheduleInfo.birthday }}
       >
         <Form.Item name="to" label="To">
           <Input disabled />
