@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Space, Divider, Dropdown, Menu } from 'antd';
 
 import { OPEN_SCHEDULE_MODAL } from '@reducers/schedule';
@@ -9,9 +9,11 @@ import {
   TableContentBadge,
   TableContentBtn,
 } from '@style/friends/tableContent';
+import { LOAD_MY_FRIENDS_SUCCESS } from '@reducers/user';
 
 const TableContent = () => {
   const dispatch = useDispatch();
+  const { firendsInfo } = useSelector(state => state.user);
   const [tableSize, setTableSize] = useState(10);
   const [desktop, setDesktop] = useState(true);
 
@@ -79,22 +81,6 @@ const TableContent = () => {
     },
   ];
 
-  const data = [
-    { key: '1', name: 'Cody Fisher', status: { info: 'success', text: 'Sent' }, birthday: '1992-06-23' },
-    {
-      key: '2',
-      name: 'Darlene Robertson',
-      status: { info: 'default', text: 'Draft' },
-      birthday: '1973-12-11',
-    },
-    {
-      key: '3',
-      name: 'Annette Black',
-      status: { info: 'error', text: 'Overdue' },
-      birthday: '2007-01-08',
-    },
-  ];
-
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -125,6 +111,10 @@ const TableContent = () => {
     };
   }, []);
 
+  useEffect(() => {
+    dispatch(LOAD_MY_FRIENDS_SUCCESS());
+  }, []);
+
   return (
     <>
       <TableContentWrapper
@@ -134,7 +124,7 @@ const TableContent = () => {
         }}
         pagination={{ pageSize: tableSize }}
         columns={columns}
-        dataSource={data}
+        dataSource={firendsInfo}
       />
     </>
   );
