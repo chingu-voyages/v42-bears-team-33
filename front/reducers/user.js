@@ -8,7 +8,7 @@ const dummyUser = {
   id: 1,
   email: 'dummy@google.com',
   nickname: 'Jenny Wilson',
-  profileImage: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
+  image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
 };
 
 const userSlice = createSlice({
