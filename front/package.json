@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "ant-responsive-table": "^1.0.8",
     "antd": "^4.19.1",
+    "lodash": "^4.17.21",
     "mongodb": "^4.13.0",
     "next": "^12.1.6",
     "next-redux-wrapper": "^8.1.0",
@@ -23,7 +24,8 @@
     "react-redux": "^8.0.5",
     "redux-logger": "^3.0.6",
     "styled-components": "^5.3.6",
-    "styled-reset": "^4.4.5"
+    "styled-reset": "^4.4.5",
+    "twilio": "^3.84.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
