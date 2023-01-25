@@ -1,6 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 
+import user from './user';
 import schedule from './schedule';
 
 const reducer = (state, action) => {
@@ -11,6 +12,7 @@ const reducer = (state, action) => {
     };
   }
   return combineReducers({
+    user,
     schedule,
   })(state, action);
 };
