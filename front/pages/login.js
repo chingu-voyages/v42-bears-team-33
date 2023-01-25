@@ -1,12 +1,19 @@
 import React from 'react';
+import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
 
 const Login = () => {
   return (
-    <AppLayout>
-      <div>Login Page</div>
-    </AppLayout>
+    <>
+      <Head>
+        <title>Login | Friendship Maintainer</title>
+      </Head>
+
+      <AppLayout>
+        <div>Login Page</div>
+      </AppLayout>
+    </>
   );
 };
 

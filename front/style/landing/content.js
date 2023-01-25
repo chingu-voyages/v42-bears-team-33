@@ -4,7 +4,7 @@ import { Row, Col } from 'antd';
 export const ContentWrapper = styled(Col)`
   padding: 7.5em 0;
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.tablet} {
     padding: 3em 0;
   }
 `;
@@ -32,7 +32,7 @@ export const LandingContentHeader = styled(Col)`
     margin-bottom: 5em;
   }
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.tablet} {
     & > h2 {
       font-size: ${({ theme }) => theme.calcRem(20)};
     }
@@ -57,7 +57,7 @@ export const LandingContentDivider = styled.div`
   margin: auto;
   margin-bottom: 4.5em;
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.tablet} {
     width: 40px;
     margin-bottom: 3em;
   }
@@ -94,7 +94,7 @@ export const LandingFeatures = styled(Col)`
     box-shadow: 0px 6px 8px 0px #00000026;
   }
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.tablet} {
     margin-bottom: 3em;
 
     & > div {

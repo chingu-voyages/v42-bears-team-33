@@ -16,10 +16,7 @@ const LandingContent = () => {
         <LandingContentHeader>
           <h2>Our Vision</h2>
           <p>Anytime greeting, anywhere texting, and every friend connected.</p>
-          <img
-            src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg"
-            alt="vision img"
-          />
+          <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="vision img" />
         </LandingContentHeader>
       </Row>
 
@@ -35,47 +32,35 @@ const LandingContent = () => {
           <div>
             <h3>Feature 1</h3>
             <p>
-              Quisque molestie augue neque aenean mattis imperdiet quam suscipit
-              purus. Mattis cras orci convallis volutpat felis viverra
-              consequat.
+              Quisque molestie augue neque aenean mattis imperdiet quam suscipit purus. Mattis cras orci convallis
+              volutpat felis viverra consequat.
             </p>
           </div>
 
-          <img
-            src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg"
-            alt="feature img1"
-          />
+          <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="feature img1" />
         </LandingFeatures>
 
         <LandingFeatures>
           <div>
             <h3>Feature 2</h3>
             <p>
-              Quisque molestie augue neque aenean mattis imperdiet quam suscipit
-              purus. Mattis cras orci convallis volutpat felis viverra
-              consequat.
+              Quisque molestie augue neque aenean mattis imperdiet quam suscipit purus. Mattis cras orci convallis
+              volutpat felis viverra consequat.
             </p>
           </div>
 
-          <img
-            src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg"
-            alt="feature img2"
-          />
+          <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="feature img2" />
         </LandingFeatures>
 
         <LandingFeatures>
           <div>
             <h3>Feature 3</h3>
             <p>
-              Quisque molestie augue neque aenean mattis imperdiet quam suscipit
-              purus. Mattis cras orci convallis volutpat felis viverra
-              consequat.
+              Quisque molestie augue neque aenean mattis imperdiet quam suscipit purus. Mattis cras orci convallis
+              volutpat felis viverra consequat.
             </p>
           </div>
-          <img
-            src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg"
-            alt="feature img3"
-          />
+          <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="feature img3" />
         </LandingFeatures>
       </FeaturesWrapper>
     </ContentWrapper>

@@ -4,7 +4,7 @@ import { Row, Button } from 'antd';
 export const Layout = styled(Row)`
   padding: 1em 3em;
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.tablet} {
     padding: 0.5em 1.5em;
   }
 `;
@@ -22,7 +22,7 @@ export const LayoutInfo = styled(Row)`
     line-height: 2.2;
   }
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.tablet} {
     & > img {
       width: 2em;
       height: 2em;
@@ -39,9 +39,9 @@ export const LayoutInfo = styled(Row)`
 
 export const LayoutHeaderBtn = styled(Button)`
   width: 6em;
-  margin-right: ${(props) => props.firstChild && '0.8em'};
+  margin-right: ${props => props.firstchild && '0.8em'};
 
-  @media ${({ theme }) => theme.media.desktop} {
+  @media ${({ theme }) => theme.media.tablet} {
     width: 5.5em;
     font-size: ${({ theme }) => theme.calcRem(12)};
   }

@@ -1,19 +1,20 @@
 const size = {
-  mobile: '600px',
-  desktop: '992px',
+  mobile: '480px',
+  tablet: '992px',
 };
 
 const media = {
   mobile: `screen and (max-width: ${size.mobile})`,
-  desktop: `screen and (max-width: ${size.desktop})`,
+  tablet: `screen and (max-width: ${size.tablet})`,
 };
 
 const colors = {
   primary: '#f5f5f5',
   primaryDark: '#434343',
+  button: '#1890ff',
 };
 
-const calcRem = (pxSize) => `${pxSize / 16}rem`;
+const calcRem = pxSize => `${pxSize / 16}rem`;
 
 const flexSet = (just = 'center', align = 'center') => {
   return `display: flex;

@@ -1,11 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Row } from 'antd';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import { Layout, LayoutInfo, LayoutHeaderBtn } from '@style/applayout';
+import ScheduleModal from '@components/Friends/ScheduleModal';
 
 const AppLayout = ({ children }) => {
+  const { scheduleModalVisible } = useSelector(state => state.schedule);
+
   return (
     <>
       <Layout justify="space-between">
@@ -24,7 +28,7 @@ const AppLayout = ({ children }) => {
         <Row>
           <Link href="/login">
             <a>
-              <LayoutHeaderBtn firstChild="true" type="primary" size="large">
+              <LayoutHeaderBtn firstchild="true" type="primary" size="large">
                 Log in
               </LayoutHeaderBtn>
             </a>
@@ -37,6 +41,8 @@ const AppLayout = ({ children }) => {
         </Row>
       </Layout>
       {children}
+
+      {scheduleModalVisible && <ScheduleModal />}
     </>
   );
 };

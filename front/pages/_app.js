@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import 'antd/dist/antd.css';
 import GlobalStyles from '@style/global';
 import Theme from '@style/theme';
+import wrapper from '../store/configureStore';
 
 const App = ({ Component, pageProps }) => {
   return (
@@ -22,4 +23,4 @@ App.propTypes = {
   pageProps: PropTypes.any.isRequired,
 };
 
-export default App;
+export default wrapper.withRedux(App);

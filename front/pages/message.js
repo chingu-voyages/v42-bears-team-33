@@ -3,18 +3,18 @@ import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
 
-const Signup = () => {
+const Message = () => {
   return (
     <>
       <Head>
-        <title>Sign Up | Friendship Maintainer</title>
+        <title>Send Message | Friendship Maintainer</title>
       </Head>
 
       <AppLayout>
-        <div>Signup Page</div>
+        <div>Message Page</div>
       </AppLayout>
     </>
   );
 };
 
-export default Signup;
+export default Message;
