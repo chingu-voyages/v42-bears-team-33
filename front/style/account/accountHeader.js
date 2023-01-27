@@ -40,3 +40,17 @@ export const AccountHeaderWrapper = styled(Col)`
     }
   }
 `;
+
+export const AccountGoogleSignin = styled(Col)`
+  & > button {
+    width: 100%;
+  }
+
+  & > div {
+    padding-right: 50px;
+  }
+
+  & > div > span {
+    font-weight: 700;
+  }
+`;

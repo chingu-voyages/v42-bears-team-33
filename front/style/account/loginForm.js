@@ -1,20 +1,6 @@
 import styled from 'styled-components';
 import { Form, Row, Button, Input } from 'antd';
 
-export const LoginFormHeader = styled.div`
-  & > button {
-    width: 100%;
-  }
-
-  & > div {
-    padding-right: 50px;
-  }
-
-  & > div > span {
-    font-weight: 700;
-  }
-`;
-
 export const LoginFormWrapper = styled(Form)`
   & > div > .ant-form-item-label {
     font-weight: 700;
