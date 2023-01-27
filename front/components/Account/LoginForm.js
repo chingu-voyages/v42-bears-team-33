@@ -1,9 +1,16 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, Divider, Form, Input, Checkbox } from 'antd';
+import { Row, Button, Divider, Form, Checkbox } from 'antd';
+import Link from 'next/link';
 
 import { LOG_IN_SUCCESS } from '@reducers/user';
-import Link from 'next/link';
+import {
+  LoginFormWrapper,
+  LoginFormInput,
+  LoginFormHeader,
+  LoginFormOption,
+  LoginFormBtn,
+} from '@style/account/loginForm';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -19,10 +26,19 @@ const LoginForm = () => {
 
   return (
     <>
-      <Button>Sign in with Google</Button>
-      <Divider>OR</Divider>
+      <LoginFormHeader>
+        <Button>Sign in with Google</Button>
+        <Divider plain>OR</Divider>
+      </LoginFormHeader>
 
-      <Form form={form} name="login" layout="vertical" onFinish={onSubmitForm} scrollToFirstError requiredMark={false}>
+      <LoginFormWrapper
+        form={form}
+        name="login"
+        layout="vertical"
+        onFinish={onSubmitForm}
+        scrollToFirstError
+        requiredMark={false}
+      >
         <Form.Item
           name="email"
           label="Email address"
@@ -37,7 +53,7 @@ const LoginForm = () => {
             },
           ]}
         >
-          <Input placeholder="Your email address" allowClear />
+          <LoginFormInput placeholder="Your email address" allowClear />
         </Form.Item>
 
         <Form.Item
@@ -51,25 +67,29 @@ const LoginForm = () => {
           ]}
           hasFeedback
         >
-          <Input placeholder="input password" minLength={6} allowClear />
+          <LoginFormInput placeholder="input password" minLength={6} allowClear />
         </Form.Item>
 
-        <Form.Item name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
+        <LoginFormOption justify="space-between">
+          <Form.Item name="remember" valuePropName="checked">
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
 
-        <Form.Item>
-          <Link href="/">
-            <a>Forgot your password?</a>
-          </Link>
-        </Form.Item>
+          <Form.Item>
+            <Link href="/">
+              <a>Forgot your password?</a>
+            </Link>
+          </Form.Item>
+        </LoginFormOption>
 
-        <Form.Item>
-          <Button htmlType="submit" onClick={onClickLogin}>
-            Log in
-          </Button>
-        </Form.Item>
-      </Form>
+        <Row align="center">
+          <Form.Item>
+            <LoginFormBtn htmlType="submit" onClick={onClickLogin}>
+              Log in
+            </LoginFormBtn>
+          </Form.Item>
+        </Row>
+      </LoginFormWrapper>
     </>
   );
 };
