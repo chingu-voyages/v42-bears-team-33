@@ -34,14 +34,14 @@ const AppLayout = ({ children }) => {
             </LayoutHeaderProfile>
           ) : (
             <Space>
-              <Link href="/login">
+              <Link href="/account">
                 <a>
                   <LayoutHeaderBtn type="primary" size="large">
                     Log in
                   </LayoutHeaderBtn>
                 </a>
               </Link>
-              <Link href="/signup">
+              <Link href="/account">
                 <a>
                   <LayoutHeaderBtn size="large">Sign up</LayoutHeaderBtn>
                 </a>

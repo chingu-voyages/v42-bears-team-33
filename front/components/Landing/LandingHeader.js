@@ -15,7 +15,7 @@ const LandingHeader = () => {
             Auto-text happy
             <br /> birthday to friends
           </h1>
-          <Link href={me ? '/friends' : '/login'}>
+          <Link href={me ? '/friends' : '/account'}>
             <a>
               <Button type="primary" size="large">
                 Start Now

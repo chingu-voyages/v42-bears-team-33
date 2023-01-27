@@ -48,7 +48,7 @@ const LandingFooter = () => {
       </FooterContent>
 
       <Row align="center">
-        <Link href={me ? '/friends' : '/login'}>
+        <Link href={me ? '/friends' : '/account'}>
           <a>
             <FooterBtn type="primary" size="large">
               Start Now
