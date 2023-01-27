@@ -11,11 +11,12 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@reduxjs/toolkit": "^1.9.1",
-    "ant-responsive-table": "^1.0.8",
     "antd": "^4.19.1",
+    "dotenv": "^16.0.3",
     "lodash": "^4.17.21",
     "mongodb": "^4.13.0",
     "next": "^12.1.6",
+    "next-auth": "^4.18.10",
     "next-redux-wrapper": "^8.1.0",
     "pino": "^8.8.0",
     "prop-types": "^15.8.1",

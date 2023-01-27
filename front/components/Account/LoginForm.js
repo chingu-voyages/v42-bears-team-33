@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { useSession, signIn } from 'next-auth/react';
 import { Row, Button, Divider, Form, Checkbox } from 'antd';
+import { GoogleOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
 import { LOG_IN_SUCCESS } from '@reducers/user';
@@ -15,9 +17,11 @@ import {
 const LoginForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const { data: session } = useSession();
+  console.log(session);
 
   const onClickLogin = useCallback(() => {
-    // dispatch(LOG_IN_SUCCESS());
+    dispatch(LOG_IN_SUCCESS());
   }, []);
 
   const onSubmitForm = useCallback(e => {
@@ -27,7 +31,10 @@ const LoginForm = () => {
   return (
     <>
       <LoginFormHeader>
-        <Button>Sign in with Google</Button>
+        <Button icon={<GoogleOutlined />} type="primary" onClick={() => signIn()}>
+          Sign in with Google
+        </Button>
+
         <Divider plain>OR</Divider>
       </LoginFormHeader>
 
