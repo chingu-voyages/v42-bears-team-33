@@ -8,7 +8,7 @@ export const LoginFormWrapper = styled(Form)`
 `;
 
 export const LoginFormInput = styled(Input)`
-  padding: 0.7em 1.5em 0.7em 0.5em;
+  padding: ${props => (props.password ? '0.7em 3.5em 0.7em 0.5em' : '0.7em 2em 0.7em 0.5em')};
 `;
 
 export const LoginFormOption = styled(Row)`

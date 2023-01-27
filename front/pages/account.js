@@ -8,6 +8,7 @@ import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
 import LoginForm from '@components/Account/LoginForm';
+import SignupForm from '@components/Account/SignupForm';
 import { AccountWrapper, AccountHeaderWrapper, AccountGoogleSignin } from '@style/account/accountHeader';
 
 const Account = () => {
@@ -51,7 +52,7 @@ const Account = () => {
               </Tabs.TabPane>
 
               <Tabs.TabPane tab="Sign up" key="2">
-                Sign Up
+                <SignupForm />
               </Tabs.TabPane>
             </Tabs>
           </Col>

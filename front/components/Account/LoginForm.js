@@ -55,7 +55,7 @@ const LoginForm = () => {
         ]}
         hasFeedback
       >
-        <LoginFormInput placeholder="input password" minLength={6} allowClear />
+        <LoginFormInput type="password" placeholder="input password" minLength={6} allowClear password="true" />
       </Form.Item>
 
       <LoginFormOption justify="space-between">
