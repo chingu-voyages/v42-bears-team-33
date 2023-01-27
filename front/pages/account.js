@@ -33,7 +33,11 @@ const Account = () => {
           </AccountHeaderWrapper>
 
           <AccountGoogleSignin span={24}>
-            <Button icon={<GoogleOutlined />} type="primary" onClick={() => signIn()}>
+            <Button
+              icon={<GoogleOutlined />}
+              type="primary"
+              onClick={() => signIn('google', { callbackUrl: '/listSetting' })}
+            >
               Sign in with Google
             </Button>
 
