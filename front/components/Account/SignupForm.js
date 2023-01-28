@@ -8,23 +8,6 @@ const SignupForm = () => {
     console.log(e);
   }, []);
 
-  const onSearch = useCallback(e => {
-    console.log(e);
-  }, []);
-
-  const countryNumberSelector = (
-    <Form.Item name="countryNum" noStyle>
-      <Select
-        style={{
-          width: 100,
-        }}
-      >
-        <Select.Option value="1">+1</Select.Option>
-        <Select.Option value="45">+45</Select.Option>
-      </Select>
-    </Form.Item>
-  );
-
   return (
     <>
       <Form
@@ -36,6 +19,23 @@ const SignupForm = () => {
         requiredMark={false}
         layout="vertical"
       >
+        <Form.Item
+          name="nickname"
+          label="User Name"
+          rules={[
+            {
+              type: 'string',
+              message: 'User Name format is incorrect.',
+            },
+            {
+              required: true,
+              message: 'Please enter your User Name',
+            },
+          ]}
+        >
+          <Input placeholder="Your name or nickname" minLength={3} allowClear />
+        </Form.Item>
+
         <Form.Item
           name="email"
           label="Email address"
@@ -90,37 +90,6 @@ const SignupForm = () => {
           <Input type="password" placeholder="Comfirm password" allowClear />
         </Form.Item>
 
-        <Form.Item
-          name="phone"
-          label="Mobile"
-          rules={[
-            {
-              required: true,
-              message: 'Please enter your Phone Number.',
-            },
-          ]}
-        >
-          <Input type="number" placeholder="Your phone number" allowClear addonBefore={countryNumberSelector} />
-        </Form.Item>
-
-        <Form.Item
-          name="authCode"
-          rules={[
-            {
-              required: true,
-              message: 'Enter verification Code.',
-            },
-          ]}
-        >
-          <Input.Search
-            type="text"
-            placeholder="Verification code"
-            allowClear
-            enterButton="Get Code"
-            onSearch={onSearch}
-          />
-        </Form.Item>
-
         <Row align="center">
           <Form.Item
             name="agreement"
@@ -134,14 +103,14 @@ const SignupForm = () => {
           >
             <Checkbox>I agree to all of the Terms of Use.</Checkbox>
           </Form.Item>
+        </Row>
 
-          <Row align="center">
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Create my account
-              </Button>
-            </Form.Item>
-          </Row>
+        <Row align="center">
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Create my account
+            </Button>
+          </Form.Item>
         </Row>
       </Form>
     </>
