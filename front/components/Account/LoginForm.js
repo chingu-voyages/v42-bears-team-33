@@ -30,6 +30,7 @@ const LoginForm = () => {
       <Form.Item
         name="email"
         label="Email address"
+        hasFeedback
         rules={[
           {
             type: 'email',
@@ -47,13 +48,13 @@ const LoginForm = () => {
       <Form.Item
         name="password"
         label="Password"
+        hasFeedback
         rules={[
           {
             required: true,
             message: 'Please enter your Password.',
           },
         ]}
-        hasFeedback
       >
         <LoginFormInput type="password" placeholder="input password" minLength={6} allowClear password="true" />
       </Form.Item>

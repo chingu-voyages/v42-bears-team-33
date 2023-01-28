@@ -3,6 +3,7 @@ import { Row, Col } from 'antd';
 
 export const AccountWrapper = styled(Row)`
   padding: 6em 20em;
+  background-color: ${({ theme }) => theme.colors.primary};
 
   @media ${({ theme }) => theme.media.tablet} {
     padding: 4em 12em;

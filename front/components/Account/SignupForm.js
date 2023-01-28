@@ -1,5 +1,7 @@
-import { Form, Input, Select, Row, Checkbox, Button } from 'antd';
 import React, { useCallback } from 'react';
+import { Form, Row, Checkbox } from 'antd';
+
+import { SignupFormWrapper, SignupFormInput, SignupFormOption, SignupFormBtn } from '@style/account/signupForm';
 
 const SignupForm = () => {
   const [form] = Form.useForm();
@@ -10,7 +12,7 @@ const SignupForm = () => {
 
   return (
     <>
-      <Form
+      <SignupFormWrapper
         className="bold"
         form={form}
         name="signup"
@@ -33,7 +35,7 @@ const SignupForm = () => {
             },
           ]}
         >
-          <Input placeholder="Your name or nickname" minLength={3} allowClear />
+          <SignupFormInput placeholder="Your name or nickname" minLength={3} allowClear />
         </Form.Item>
 
         <Form.Item
@@ -50,21 +52,21 @@ const SignupForm = () => {
             },
           ]}
         >
-          <Input placeholder="Your email address" allowClear />
+          <SignupFormInput placeholder="Your email address" allowClear />
         </Form.Item>
 
         <Form.Item
           name="password"
           label="Password"
+          hasFeedback
           rules={[
             {
               required: true,
               message: 'Please enter your Password.',
             },
           ]}
-          hasFeedback
         >
-          <Input type="password" placeholder="Input password" minLength={6} allowClear />
+          <SignupFormInput type="password" placeholder="Input password" minLength={6} allowClear />
         </Form.Item>
 
         <Form.Item
@@ -87,10 +89,10 @@ const SignupForm = () => {
             }),
           ]}
         >
-          <Input type="password" placeholder="Comfirm password" allowClear />
+          <SignupFormInput type="password" placeholder="Comfirm password" minLength={6} allowClear />
         </Form.Item>
 
-        <Row align="center">
+        <SignupFormOption align="center">
           <Form.Item
             name="agreement"
             valuePropName="checked"
@@ -103,16 +105,14 @@ const SignupForm = () => {
           >
             <Checkbox>I agree to all of the Terms of Use.</Checkbox>
           </Form.Item>
-        </Row>
+        </SignupFormOption>
 
         <Row align="center">
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Create my account
-            </Button>
+            <SignupFormBtn htmlType="submit">Create my account</SignupFormBtn>
           </Form.Item>
         </Row>
-      </Form>
+      </SignupFormWrapper>
     </>
   );
 };
