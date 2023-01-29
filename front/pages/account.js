@@ -1,25 +1,13 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useSession, signIn } from 'next-auth/react';
-import { Button, Col, Divider, Tabs } from 'antd';
-import { GoogleOutlined } from '@ant-design/icons';
-import Router from 'next/router';
+import React from 'react';
+import { Col, Tabs } from 'antd';
 import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
 import LoginForm from '@components/Account/LoginForm';
 import SignupForm from '@components/Account/SignupForm';
-import { AccountWrapper, AccountHeaderWrapper, AccountGoogleSignin } from '@style/account/accountHeader';
+import { AccountWrapper, AccountHeaderWrapper } from '@style/account/accountHeader';
 
 const Account = () => {
-  const { me } = useSelector(state => state.user);
-  const { data: session } = useSession();
-  console.log(session);
-
-  useEffect(() => {
-    if (me) Router.push('/friends');
-  }, [me]);
-
   return (
     <>
       <Head>
@@ -32,18 +20,6 @@ const Account = () => {
             <header>Welcome back!</header>
             <p>Join us to auto-text happy birthday message to your friends!</p>
           </AccountHeaderWrapper>
-
-          <AccountGoogleSignin span={24}>
-            <Button
-              icon={<GoogleOutlined />}
-              type="primary"
-              onClick={() => signIn('google', { callbackUrl: '/listSetting' })}
-            >
-              Sign in with Google
-            </Button>
-
-            <Divider plain>OR</Divider>
-          </AccountGoogleSignin>
 
           <Col span={24}>
             <Tabs defaultActiveKey="1">

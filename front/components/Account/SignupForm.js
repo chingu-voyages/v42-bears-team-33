@@ -1,17 +1,61 @@
 import React, { useCallback } from 'react';
-import { Form, Row, Checkbox } from 'antd';
+import { useDispatch } from 'react-redux';
+import { signIn } from 'next-auth/react';
+import { fbAuth } from 'javascripts/firebaseConfig';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { Form, Row, Checkbox, Button, Divider } from 'antd';
+import { GoogleOutlined } from '@ant-design/icons';
+import Router from 'next/router';
 
+import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { SignupFormWrapper, SignupFormInput, SignupFormOption, SignupFormBtn } from '@style/account/signupForm';
+import { USER_LOGIN } from '@reducers/user';
 
 const SignupForm = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
+  // const [userInfo, setUserInfo] = useState('');
 
-  const onSubmitForm = useCallback(e => {
-    console.log(e);
+  const SigninGoogle = useCallback(() => {
+    signIn('google', { callbackUrl: '/listSetting' });
   }, []);
+
+  const onSubmitForm = useCallback(async e => {
+    try {
+      const { user } = await createUserWithEmailAndPassword(fbAuth, e.email, e.password);
+      await updateProfile(fbAuth.currentUser, { displayName: e.nickname });
+      dispatch(
+        USER_LOGIN({
+          nickname: user.displayName,
+          email: user.email,
+          image: '',
+        }),
+      );
+      Router.push('/listSetting');
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     console.log('회원가입 성공');
+  //     console.log(userInfo === true);
+  //     // 로그인 성공 액션실행 (User_Login), me 객체에 uid, nickname, email 전달
+  //     // listsetting 페이지로 이동
+  //   }
+  // }, [userInfo]);
 
   return (
     <>
+      <AccountGoogleSignin>
+        <Button icon={<GoogleOutlined />} type="primary" onClick={SigninGoogle}>
+          Sign in with Google
+        </Button>
+
+        <Divider plain>OR</Divider>
+      </AccountGoogleSignin>
+
       <SignupFormWrapper
         className="bold"
         form={form}

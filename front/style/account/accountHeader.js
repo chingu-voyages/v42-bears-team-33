@@ -42,7 +42,7 @@ export const AccountHeaderWrapper = styled(Col)`
   }
 `;
 
-export const AccountGoogleSignin = styled(Col)`
+export const AccountGoogleSignin = styled.div`
   & > button {
     width: 100%;
   }

@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
+import { useSession } from 'next-auth/react';
+
+import { USER_LOGIN } from '@reducers/user';
 
 import AppLayout from '@components/AppLayout';
+import { useDispatch } from 'react-redux';
 
 const ListSetting = () => {
+  const dispatch = useDispatch();
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      dispatch(
+        USER_LOGIN({
+          nickname: session.user.name,
+          email: session.user.email,
+          image: session.user.image,
+        }),
+      );
+    }
+  }, [session]);
+
   return (
     <>
       <Head>

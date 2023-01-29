@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Row, Avatar, Space } from 'antd';
+import { signOut } from 'next-auth/react';
+import { Row, Avatar, Space, Button } from 'antd';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
@@ -25,6 +26,8 @@ const AppLayout = ({ children }) => {
             </LayoutInfo>
           </a>
         </Link>
+
+        <Button onClick={() => signOut()}>로그아웃</Button>
 
         <Row>
           {me ? (

@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Space, Divider, Dropdown, Menu } from 'antd';
 
 import { OPEN_SCHEDULE_MODAL } from '@reducers/schedule';
+import { LOAD_MY_FRIENDS_SUCCESS } from '@reducers/user';
 import {
   TableContentWrapper,
   TableContentHeader,
   TableContentBadge,
   TableContentBtn,
 } from '@style/friends/tableContent';
-import { LOAD_MY_FRIENDS_SUCCESS } from '@reducers/user';
 
 const TableContent = () => {
   const dispatch = useDispatch();
