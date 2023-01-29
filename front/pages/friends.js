@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import Router from 'next/router';
+import React from 'react';
+
 import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
@@ -9,14 +8,6 @@ import ListTable from '@components/Friends/ListTable';
 import { FriendsWrapper } from '@style/friends/header';
 
 const Friends = () => {
-  const { me } = useSelector(state => state.user);
-
-  useEffect(() => {
-    if (!me) {
-      Router.push('/');
-    }
-  }, [me]);
-
   return (
     <>
       <Head>

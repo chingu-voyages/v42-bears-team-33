@@ -31,13 +31,13 @@ const ScheduleModal = () => {
         layout="vertical"
         requiredMark={false}
         onFinish={onSubmitForm}
-        initialValues={{ to: scheduleInfo.name, birthday: scheduleInfo.birthday }}
+        initialValues={{ to: scheduleInfo?.name, birthday: scheduleInfo?.birthday }}
       >
         <Form.Item name="to" label="To">
-          <Input disabled />
+          <Input placeholder="Recipient" allowClear disabled={scheduleInfo && true} />
         </Form.Item>
         <Form.Item name="birthday" label="Birthday">
-          <Input disabled />
+          <Input placeholder="Birthday day" allowClear disabled={scheduleInfo && true} />
         </Form.Item>
         <Form.Item
           name="date"
