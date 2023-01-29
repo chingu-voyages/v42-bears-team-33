@@ -11,7 +11,7 @@ const LoginForm = () => {
   const [form] = Form.useForm();
 
   const SigninGoogle = useCallback(() => {
-    signIn();
+    signIn('google', { callbackUrl: '/firends' });
   }, []);
 
   const onSubmitForm = useCallback(e => {

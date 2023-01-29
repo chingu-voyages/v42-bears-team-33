@@ -14,7 +14,6 @@ import { USER_LOGIN } from '@reducers/user';
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  // const [userInfo, setUserInfo] = useState('');
 
   const SigninGoogle = useCallback(() => {
     signIn('google', { callbackUrl: '/listSetting' });
@@ -36,15 +35,6 @@ const SignupForm = () => {
       console.log(error.message);
     }
   }, []);
-
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     console.log('회원가입 성공');
-  //     console.log(userInfo === true);
-  //     // 로그인 성공 액션실행 (User_Login), me 객체에 uid, nickname, email 전달
-  //     // listsetting 페이지로 이동
-  //   }
-  // }, [userInfo]);
 
   return (
     <>

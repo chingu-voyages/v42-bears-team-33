@@ -1,16 +1,31 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { signOut } from 'next-auth/react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSession, signOut } from 'next-auth/react';
 import { Row, Avatar, Space, Button } from 'antd';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
-import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderBtn } from '@style/applayout';
 import ScheduleModal from '@components/Friends/ScheduleModal';
+import { USER_LOGIN } from '@reducers/user';
+import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderBtn } from '@style/applayout';
 
 const AppLayout = ({ children }) => {
+  const dispatch = useDispatch();
+  const { data: session, status } = useSession();
   const { me } = useSelector(state => state.user);
   const { scheduleModalVisible } = useSelector(state => state.schedule);
+
+  useEffect(() => {
+    if (status === 'authenticated' && !me) {
+      dispatch(
+        USER_LOGIN({
+          nickname: session.user.name,
+          email: session.user.email,
+          image: session.user.image,
+        }),
+      );
+    }
+  }, [session, status, me]);
 
   return (
     <>
