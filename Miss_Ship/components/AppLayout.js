@@ -7,14 +7,15 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ScheduleModal from '@components/Friends/ScheduleModal';
-import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGIN } from '@reducers/user';
+import { fbAuth } from 'javascripts/firebaseConfig';
+import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGIN, USER_LOGOUT } from '@reducers/user';
 import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderBtn } from '@style/applayout';
 
 const AppLayout = ({ children }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { data: session, status } = useSession();
-  const { me, focusTab } = useSelector(state => state.user);
+  const { focusTab, me } = useSelector(state => state.user);
   const { scheduleModalVisible } = useSelector(state => state.schedule);
 
   const onClickFirends = useCallback(() => {
@@ -29,8 +30,11 @@ const AppLayout = ({ children }) => {
     if (focusTab === '1') dispatch(FOCUS_SIGN_UP_TAB());
   }, []);
 
-  const onClickLogout = useCallback(() => {
-    signOut({ callbackUrl: '/' });
+  const onClickLogout = useCallback(async () => {
+    await signOut({ callbackUrl: '/' });
+    await fbAuth.signOut();
+    await dispatch(USER_LOGOUT());
+    Router.push('/');
   }, []);
 
   const menu = () => {

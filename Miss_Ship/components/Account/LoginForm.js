@@ -23,7 +23,7 @@ const LoginForm = () => {
   const onSubmitForm = useCallback(async e => {
     try {
       const { user } = await signInWithEmailAndPassword(fbAuth, e.email, e.password);
-      dispatch(
+      await dispatch(
         USER_LOGIN({
           nickname: user.displayName,
           email: user.email,

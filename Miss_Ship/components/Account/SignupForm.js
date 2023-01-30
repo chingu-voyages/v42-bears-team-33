@@ -23,7 +23,7 @@ const SignupForm = () => {
     try {
       const { user } = await createUserWithEmailAndPassword(fbAuth, e.email, e.password);
       await updateProfile(fbAuth.currentUser, { displayName: e.nickname });
-      dispatch(
+      await dispatch(
         USER_LOGIN({
           nickname: user.displayName,
           email: user.email,
