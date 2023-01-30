@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   me: null,
   firendsInfo: null,
+  focusTab: '1',
 };
 
 const dummyFriends = [
@@ -25,14 +26,23 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    FOCUS_LOGIN_TAB: state => {
+      state.focusTab = '1';
+    },
+
+    FOCUS_SIGN_UP_TAB: state => {
+      state.focusTab = '2';
+    },
+
     USER_LOGIN: (state, action) => {
       state.me = action.payload;
     },
+
     LOAD_MY_FRIENDS_SUCCESS: state => {
       state.firendsInfo = dummyFriends;
     },
   },
 });
 
-export const { USER_LOGIN, LOAD_MY_FRIENDS_SUCCESS } = userSlice.actions;
+export const { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGIN, LOAD_MY_FRIENDS_SUCCESS } = userSlice.actions;
 export default userSlice.reducer;

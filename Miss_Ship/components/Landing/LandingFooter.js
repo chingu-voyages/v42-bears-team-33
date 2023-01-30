@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row } from 'antd';
 import Link from 'next/link';
 
+import { FOCUS_LOGIN_TAB } from '@reducers/user';
 import { FooterWrapper, FooterContent, FooterContentInfo, FooterDivider, FooterBtn } from '@style/landing/footer';
-import { useSelector } from 'react-redux';
 
 const LandingFooter = () => {
-  const { me } = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  const { me, focusTab } = useSelector(state => state.user);
+
+  const onClickLogin = useCallback(() => {
+    if (focusTab === '2') dispatch(FOCUS_LOGIN_TAB());
+  }, []);
 
   return (
     <FooterWrapper>
@@ -50,7 +56,7 @@ const LandingFooter = () => {
       <Row align="center">
         <Link href={me ? '/friends' : '/account'}>
           <a>
-            <FooterBtn type="primary" size="large">
+            <FooterBtn type="primary" size="large" onClick={onClickLogin}>
               Start Now
             </FooterBtn>
           </a>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Col, Tabs } from 'antd';
 import Head from 'next/head';
 
@@ -8,6 +9,8 @@ import SignupForm from '@components/Account/SignupForm';
 import { AccountWrapper, AccountHeaderWrapper } from '@style/account/accountHeader';
 
 const Account = () => {
+  const { focusTab } = useSelector(state => state.user);
+
   return (
     <>
       <Head>
@@ -22,7 +25,7 @@ const Account = () => {
           </AccountHeaderWrapper>
 
           <Col span={24}>
-            <Tabs defaultActiveKey="1">
+            <Tabs defaultActiveKey={focusTab}>
               <Tabs.TabPane tab="Log in" key="1">
                 <LoginForm />
               </Tabs.TabPane>

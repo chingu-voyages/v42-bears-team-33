@@ -7,18 +7,26 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ScheduleModal from '@components/Friends/ScheduleModal';
-import { USER_LOGIN } from '@reducers/user';
+import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGIN } from '@reducers/user';
 import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderBtn } from '@style/applayout';
 
 const AppLayout = ({ children }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { data: session, status } = useSession();
-  const { me } = useSelector(state => state.user);
+  const { me, focusTab } = useSelector(state => state.user);
   const { scheduleModalVisible } = useSelector(state => state.schedule);
 
   const onClickFirends = useCallback(() => {
     Router.push('/friends');
+  }, []);
+
+  const onClickLogin = useCallback(() => {
+    if (focusTab === '2') dispatch(FOCUS_LOGIN_TAB());
+  }, []);
+
+  const onClickSignUp = useCallback(() => {
+    if (focusTab === '1') dispatch(FOCUS_SIGN_UP_TAB());
   }, []);
 
   const onClickLogout = useCallback(() => {
@@ -83,14 +91,16 @@ const AppLayout = ({ children }) => {
             <Space>
               <Link href="/account">
                 <a>
-                  <LayoutHeaderBtn type="primary" size="large">
+                  <LayoutHeaderBtn type="primary" size="large" onClick={onClickLogin}>
                     Log in
                   </LayoutHeaderBtn>
                 </a>
               </Link>
               <Link href="/account">
                 <a>
-                  <LayoutHeaderBtn size="large">Sign up</LayoutHeaderBtn>
+                  <LayoutHeaderBtn size="large" onClick={onClickSignUp}>
+                    Sign up
+                  </LayoutHeaderBtn>
                 </a>
               </Link>
             </Space>
