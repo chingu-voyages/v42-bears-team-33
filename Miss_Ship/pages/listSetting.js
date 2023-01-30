@@ -1,9 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
+import { Steps } from 'antd';
 
 import AppLayout from '@components/AppLayout';
-import { Steps } from 'antd';
 import FriendSettingForm from '@components/Account/FriendSettingForm';
+import { FriendSettingWrapper, FriendSettingHeader } from '@style/account/friendSettingForm';
 
 const ListSetting = () => {
   return (
@@ -13,13 +14,15 @@ const ListSetting = () => {
       </Head>
 
       <AppLayout>
-        <Steps current={1}>
-          <Steps.Step title="Register" />
-          <Steps.Step title="Create Friends’ Birthday List" />
-          <Steps.Step title="Done" />
-        </Steps>
+        <FriendSettingWrapper>
+          <FriendSettingHeader current={1}>
+            <Steps.Step title="Register" />
+            <Steps.Step title="Create Friends’ Birthday List" />
+            <Steps.Step title="Done" />
+          </FriendSettingHeader>
 
-        <FriendSettingForm />
+          <FriendSettingForm />
+        </FriendSettingWrapper>
       </AppLayout>
     </>
   );

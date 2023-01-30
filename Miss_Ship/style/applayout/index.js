@@ -3,6 +3,7 @@ import { Row, Button, Space } from 'antd';
 
 export const Layout = styled(Row)`
   padding: 1em 3em;
+  box-shadow: 0px 2px 8px 0px rgba(240, 241, 242, 1);
 
   @media ${({ theme }) => theme.media.tablet} {
     padding: 0.5em 1.5em;

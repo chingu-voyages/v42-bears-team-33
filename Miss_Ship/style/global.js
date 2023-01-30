@@ -62,6 +62,12 @@ const GlobalStyles = createGlobalStyle`
     -webkit-appearance: none;
     margin: 0;
   }
+
+  .ant-steps-item-title {    
+    @media (max-width: 992px) {
+      font-size: 0.6rem;
+    }    
+  }  
 `;
 
 export default GlobalStyles;

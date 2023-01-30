@@ -1,7 +1,19 @@
 import React, { useCallback } from 'react';
-import { Form, Space, Input, Button, Row, Select, DatePicker } from 'antd';
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Row, Col, Select } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import Link from 'next/link';
+
+import {
+  FriendSettingFormWrapper,
+  SettingItemsWrapper,
+  SettingItemsDetail,
+  SettingItem,
+  SettingPrefix,
+  SettingDatePicker,
+  DeleteItemBtn,
+  AddItemBtn,
+  SkipSettingBtn,
+} from '@style/account/friendSettingForm';
 
 const FriendSettingForm = () => {
   const [form] = Form.useForm();
@@ -12,83 +24,90 @@ const FriendSettingForm = () => {
   }, []);
 
   const prefixSelector = (
-    <Select style={{ width: 70 }}>
+    <SettingPrefix>
       <Select.Option value="86">+86</Select.Option>
       <Select.Option value="87">+87</Select.Option>
-    </Select>
+    </SettingPrefix>
   );
 
+  const formInitialValue = [
+    { name: '', phone: '', birthday: '' },
+    { name: '', phone: '', birthday: '' },
+    { name: '', phone: '', birthday: '' },
+  ];
+
   return (
-    <>
-      <Form form={form} name="friend_list_settings" onFinish={onSubmitForm} autoComplete="off">
-        <Form.List
-          name="setting_details"
-          initialValue={[
-            { name: '', phone: '', birthday: '' },
-            { name: '', phone: '', birthday: '' },
-            { name: '', phone: '', birthday: '' },
-          ]}
-        >
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => {
-                return (
-                  <Space key={key} direction="horizontal" align="baseline">
-                    <Form.Item
+    <FriendSettingFormWrapper form={form} name="friend_list_settings" onFinish={onSubmitForm} autoComplete="off">
+      <Form.List name="setting_details" initialValue={formInitialValue}>
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }) => {
+              return (
+                <SettingItemsWrapper key={key} gutter={10}>
+                  <SettingItemsDetail xs={24} sm={24} md={24} lg={8}>
+                    <SettingItem
                       {...restField}
                       name={[name, 'name']}
                       rules={[{ required: true, message: 'Enter your name' }]}
                     >
                       <Input placeholder="Name" />
-                    </Form.Item>
+                    </SettingItem>
+                  </SettingItemsDetail>
 
-                    <Form.Item
+                  <SettingItemsDetail xs={24} sm={24} md={24} lg={8}>
+                    <SettingItem
                       {...restField}
                       name={[name, 'phone']}
                       rules={[{ required: true, message: 'Enter your phone number' }]}
                     >
                       <Input addonBefore={prefixSelector} placeholder="Phone number" />
-                    </Form.Item>
+                    </SettingItem>
+                  </SettingItemsDetail>
 
-                    <Form.Item
+                  <SettingItemsDetail xs={24} sm={24} md={24} lg={8}>
+                    <SettingItem
                       {...restField}
                       name={[name, 'birthday']}
                       rules={[{ required: true, message: 'Enter your birthday' }]}
                     >
-                      <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="Select date" />
-                    </Form.Item>
+                      <SettingDatePicker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="Select date" />
+                      <DeleteItemBtn onClick={() => remove(name)} />
+                    </SettingItem>
+                  </SettingItemsDetail>
+                </SettingItemsWrapper>
+              );
+            })}
 
-                    <DeleteOutlined onClick={() => remove(name)} />
-                  </Space>
-                );
-              })}
-              <Form.Item>
-                <Button
-                  icon={<PlusOutlined />}
-                  type="dashed"
-                  onClick={() => {
-                    add();
-                  }}
-                >
-                  Add row
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
+            <SettingItemsWrapper>
+              <Col span={24}>
+                <Form.Item>
+                  <AddItemBtn
+                    icon={<PlusOutlined />}
+                    type="dashed"
+                    onClick={() => {
+                      add();
+                    }}
+                  >
+                    Add row
+                  </AddItemBtn>
+                </Form.Item>
+              </Col>
+            </SettingItemsWrapper>
+          </>
+        )}
+      </Form.List>
 
-        <Row align="center">
-          <Form.Item>
-            <Link href="/friends">
-              <a>
-                <Button type="text">Skip this step</Button>
-              </a>
-            </Link>
-            <Button htmlType="submit">Submit</Button>
-          </Form.Item>
-        </Row>
-      </Form>
-    </>
+      <Row align="center">
+        <Form.Item>
+          <Link href="/friends">
+            <a>
+              <SkipSettingBtn type="text">Skip this step</SkipSettingBtn>
+            </a>
+          </Link>
+          <Button htmlType="submit">Submit</Button>
+        </Form.Item>
+      </Row>
+    </FriendSettingFormWrapper>
   );
 };
 
