@@ -47,6 +47,7 @@ const AppLayout = ({ children }) => {
             </button>
           </Menu.Item>
         )}
+
         <Menu.Item key="logout">
           <button type="button" onClick={onClickLogout}>
             Log out
@@ -86,10 +87,12 @@ const AppLayout = ({ children }) => {
         <Row>
           {me ? (
             <Dropdown overlay={menu} trigger="hover">
-              <LayoutHeaderProfile>
-                <Avatar src={me.image} alt="profile image" />
-                <p>{me.nickname}</p>
-              </LayoutHeaderProfile>
+              <a>
+                <LayoutHeaderProfile>
+                  <Avatar src={me.image} alt="profile image" />
+                  <p>{me.nickname}</p>
+                </LayoutHeaderProfile>
+              </a>
             </Dropdown>
           ) : (
             <Space>

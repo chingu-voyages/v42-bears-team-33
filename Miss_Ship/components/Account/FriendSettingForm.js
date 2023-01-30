@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Row, Col, Select } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import Link from 'next/link';
@@ -6,21 +7,23 @@ import Link from 'next/link';
 import {
   FriendSettingFormWrapper,
   SettingItemsWrapper,
-  SettingItemsDetail,
-  SettingItem,
   SettingPrefix,
   SettingDatePicker,
   DeleteItemBtn,
   AddItemBtn,
   SkipSettingBtn,
 } from '@style/account/friendSettingForm';
+import { ADD_SCHEDUL } from '@reducers/schedule';
 
 const FriendSettingForm = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
 
   const onSubmitForm = useCallback(e => {
     console.log(e);
     console.log(e.setting_details[0].birthday.format('YYYY-MM-DD HH:mm:ss'));
+
+    dispatch(ADD_SCHEDUL());
   }, []);
 
   const prefixSelector = (
@@ -44,36 +47,39 @@ const FriendSettingForm = () => {
             {fields.map(({ key, name, ...restField }) => {
               return (
                 <SettingItemsWrapper key={key} gutter={10}>
-                  <SettingItemsDetail xs={24} sm={24} md={24} lg={8}>
-                    <SettingItem
+                  <Col xs={24} sm={24} md={24} lg={8}>
+                    <Form.Item
                       {...restField}
                       name={[name, 'name']}
                       rules={[{ required: true, message: 'Enter your name' }]}
                     >
                       <Input placeholder="Name" />
-                    </SettingItem>
-                  </SettingItemsDetail>
+                    </Form.Item>
+                  </Col>
 
-                  <SettingItemsDetail xs={24} sm={24} md={24} lg={8}>
-                    <SettingItem
+                  <Col xs={24} sm={24} md={24} lg={8}>
+                    <Form.Item
                       {...restField}
                       name={[name, 'phone']}
                       rules={[{ required: true, message: 'Enter your phone number' }]}
                     >
                       <Input addonBefore={prefixSelector} placeholder="Phone number" />
-                    </SettingItem>
-                  </SettingItemsDetail>
+                    </Form.Item>
+                  </Col>
 
-                  <SettingItemsDetail xs={24} sm={24} md={24} lg={8}>
-                    <SettingItem
+                  <Col xs={24} sm={24} md={24} lg={7}>
+                    <Form.Item
                       {...restField}
                       name={[name, 'birthday']}
                       rules={[{ required: true, message: 'Enter your birthday' }]}
                     >
                       <SettingDatePicker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="Select date" />
-                      <DeleteItemBtn onClick={() => remove(name)} />
-                    </SettingItem>
-                  </SettingItemsDetail>
+                    </Form.Item>
+                  </Col>
+
+                  <Col xs={24} sm={24} md={24} lg={1}>
+                    <DeleteItemBtn onClick={() => remove(name)} />
+                  </Col>
                 </SettingItemsWrapper>
               );
             })}

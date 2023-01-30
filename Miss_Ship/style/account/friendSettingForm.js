@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Steps, Form, Row, Col, DatePicker, Button, Select } from 'antd';
+import { Steps, Form, Row, DatePicker, Button, Select } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
 export const FriendSettingWrapper = styled.div`
@@ -30,14 +30,14 @@ export const FriendSettingFormWrapper = styled(Form)`
 
 export const SettingItemsWrapper = styled(Row)`
   width: 100%;
-`;
 
-export const SettingItemsDetail = styled(Col)`
-  margin-bottom: 1.2em;
-`;
+  & > div {
+    margin-bottom: 1.2em;
+  }
 
-export const SettingItem = styled(Form.Item)`
-  margin-bottom: 0;
+  & > div > div {
+    margin-bottom: 0;
+  }
 `;
 
 export const SettingPrefix = styled(Select)`
@@ -45,8 +45,7 @@ export const SettingPrefix = styled(Select)`
 `;
 
 export const SettingDatePicker = styled(DatePicker)`
-  width: 90%;
-  margin-right: 0.4em;
+  width: 100%;
 
   @media ${({ theme }) => theme.media.tablet} {
     width: 100%;
@@ -55,8 +54,8 @@ export const SettingDatePicker = styled(DatePicker)`
 `;
 
 export const DeleteItemBtn = styled(DeleteOutlined)`
-  width: 6%;
   transition: opacity 250ms ease-in;
+  line-height: 2.5;
 
   &:hover {
     opacity: 50%;
@@ -69,7 +68,7 @@ export const DeleteItemBtn = styled(DeleteOutlined)`
   @media ${({ theme }) => theme.media.tablet} {
     width: 100%;
     font-size: ${({ theme }) => theme.calcRem(17)};
-    margin-top: 1em;
+    line-height: 0;
   }
 `;
 
