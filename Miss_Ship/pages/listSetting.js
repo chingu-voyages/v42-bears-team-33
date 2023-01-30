@@ -2,6 +2,8 @@ import React from 'react';
 import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
+import { Steps } from 'antd';
+import FriendSettingForm from '@components/Account/FriendSettingForm';
 
 const ListSetting = () => {
   return (
@@ -11,8 +13,13 @@ const ListSetting = () => {
       </Head>
 
       <AppLayout>
-        <div>회원가입 완료 후</div>
-        <div>여기페이지로 이동</div>
+        <Steps current={1}>
+          <Steps.Step title="Register" />
+          <Steps.Step title="Create Friends’ Birthday List" />
+          <Steps.Step title="Done" />
+        </Steps>
+
+        <FriendSettingForm />
       </AppLayout>
     </>
   );
