@@ -1,0 +1,45 @@
+{
+  "name": "miss-ship",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next"
+  },
+  "author": "mirrer,nasri,livia",
+  "license": "ISC",
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@reduxjs/toolkit": "^1.9.1",
+    "antd": "^4.19.1",
+    "dotenv": "^16.0.3",
+    "firebase": "^9.16.0",
+    "lodash": "^4.17.21",
+    "mongodb": "^4.13.0",
+    "next": "^12.1.6",
+    "next-auth": "^4.18.10",
+    "next-redux-wrapper": "^8.1.0",
+    "pino": "^8.8.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "redux-logger": "^3.0.6",
+    "styled-components": "^5.3.6",
+    "styled-reset": "^4.4.5",
+    "twilio": "^3.84.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-styled-components": "^2.0.7",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.8.3"
+  }
+}
