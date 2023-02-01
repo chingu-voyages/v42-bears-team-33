@@ -26,7 +26,7 @@ const ListSetting = () => {
 
       <AppLayout>
         <FriendSettingWrapper>
-          <FriendSettingHeader current={addSchedulDone && 2}>
+          <FriendSettingHeader current={addSchedulDone ? 2 : 1}>
             <Steps.Step title="Register" />
             <Steps.Step title="Create Friends’ Birthday List" />
             <Steps.Step title="Done" />
