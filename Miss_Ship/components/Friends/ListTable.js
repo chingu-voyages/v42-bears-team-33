@@ -37,7 +37,7 @@ const ListTable = () => {
   const menu = (
     <ListTableDropdownMenu onClick={onClickDropdownItem}>
       {category.map(v => (
-        <Row align="space-between">
+        <Row>
           <Menu.Item>{v}</Menu.Item>
           <Button type="text" icon={<DeleteOutlined />} onClick={onClickDeleteBtn(v)} />
         </Row>
@@ -71,11 +71,10 @@ const ListTable = () => {
           <h2>My Friend List</h2>
 
           <ListTableItems>
-            <Dropdown overlay={menu} trigger="click">
+            <Dropdown overlay={menu} trigger="hover">
               <a>
                 <ListTableDropdown>
-                  <p>Choose Category</p>
-                  <DownOutlined />
+                  Choose Category <DownOutlined />
                 </ListTableDropdown>
               </a>
             </Dropdown>

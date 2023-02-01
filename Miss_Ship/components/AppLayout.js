@@ -2,25 +2,21 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSession, signOut } from 'next-auth/react';
 import { Row, Avatar, Space, Dropdown, Menu } from 'antd';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ScheduleModal from '@components/Friends/ScheduleModal';
 import { fbAuth } from 'javascripts/firebaseConfig';
 import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGIN, USER_LOGOUT } from '@reducers/user';
-import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderBtn } from '@style/applayout';
+import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderMenu, LayoutHeaderBtn } from '@style/applayout';
 
 const AppLayout = ({ children }) => {
   const dispatch = useDispatch();
-  const router = useRouter();
+
   const { data: session, status } = useSession();
   const { focusTab, me } = useSelector(state => state.user);
   const { scheduleModalVisible } = useSelector(state => state.schedule);
-
-  const onClickFirends = useCallback(() => {
-    Router.push('/friends');
-  }, []);
 
   const onClickLogin = useCallback(() => {
     if (focusTab === '2') dispatch(FOCUS_LOGIN_TAB());
@@ -39,21 +35,24 @@ const AppLayout = ({ children }) => {
 
   const menu = () => {
     return (
-      <Menu>
-        {router.pathname !== '/friends' && (
-          <Menu.Item key="firends">
-            <button type="button" onClick={onClickFirends}>
-              Go to the Schedule Page
-            </button>
-          </Menu.Item>
-        )}
+      <LayoutHeaderMenu>
+        <Menu.Item key="goProfile">
+          <button
+            type="button"
+            onClick={() => {
+              console.log('Go to your profile page');
+            }}
+          >
+            Go to profile
+          </button>
+        </Menu.Item>
 
-        <Menu.Item key="logout">
+        <Menu.Item key="logout" danger>
           <button type="button" onClick={onClickLogout}>
             Log out
           </button>
         </Menu.Item>
-      </Menu>
+      </LayoutHeaderMenu>
     );
   };
 
@@ -86,7 +85,7 @@ const AppLayout = ({ children }) => {
 
         <Row>
           {me ? (
-            <Dropdown overlay={menu} trigger="hover">
+            <Dropdown overlay={menu} trigger="click">
               <a>
                 <LayoutHeaderProfile>
                   <Avatar src={me.image} alt="profile image" />
