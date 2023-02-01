@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Row, Space, Button } from 'antd';
+import { Row, Space, Button, Form, Menu } from 'antd';
 
 export const ListTableWrapper = styled(Row)`
   width: 100%;
@@ -54,6 +54,38 @@ export const ListTableDropdown = styled(Space)`
 
     & > div > p {
       font-size: ${({ theme }) => theme.calcRem(12)};
+    }
+  }
+`;
+
+export const ListTableDropdownMenu = styled(Menu)`
+  width: 20em;
+  padding: 1em;
+  margin-top: 1em;
+
+  & > div > li {
+    flex: 1;
+  }
+
+  @media ${({ theme }) => theme.media.tablet} {
+    width: 14em;
+    padding: 0.5em;
+    margin-top: -2em;
+  }
+`;
+
+export const ListTableDropdownForm = styled(Form)`
+  & > .ant-divider {
+    margin: 1em 0em;
+  }
+
+  & > div > div > .ant-form-item {
+    margin-bottom: 0;
+  }
+
+  @media ${({ theme }) => theme.media.tablet} {
+    & > .ant-divider {
+      margin: 0.7em 0em;
     }
   }
 `;

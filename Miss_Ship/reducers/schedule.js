@@ -4,6 +4,7 @@ const initialState = {
   scheduleModalVisible: false,
   scheduleInfo: null,
   addSchedulDone: false,
+  category: [],
 };
 
 const scheduleSlice = createSlice({
@@ -24,8 +25,21 @@ const scheduleSlice = createSlice({
     ADD_SCHEDUL_INIT: state => {
       state.addSchedulDone = false;
     },
+    ADD_CATEGORY: (state, action) => {
+      state.category.push(action.payload);
+    },
+    DELETE_CATEGORY: (state, action) => {
+      state.category = state.category.filter(v => v !== action.payload);
+    },
   },
 });
 
-export const { OPEN_SCHEDULE_MODAL, CLOSE_SCHEDULE_MODAL, ADD_SCHEDUL, ADD_SCHEDUL_INIT } = scheduleSlice.actions;
+export const {
+  OPEN_SCHEDULE_MODAL,
+  CLOSE_SCHEDULE_MODAL,
+  ADD_SCHEDUL,
+  ADD_SCHEDUL_INIT,
+  ADD_CATEGORY,
+  DELETE_CATEGORY,
+} = scheduleSlice.actions;
 export default scheduleSlice.reducer;
