@@ -1,40 +1,18 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { signIn } from 'next-auth/react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { fbAuth } from 'javascripts/firebaseConfig';
 import { Row, Form, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
-import Router from 'next/router';
+
 import Link from 'next/link';
 
-import { USER_LOGIN } from '@reducers/user';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { LoginFormWrapper, LoginFormInput, LoginFormOption, LoginFormBtn } from '@style/account/loginForm';
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const SigninGoogle = useCallback(() => {
-    signIn('google', { callbackUrl: '/friends' });
-  }, []);
+  const SigninGoogle = useCallback(() => {}, []);
 
-  const onSubmitForm = useCallback(async e => {
-    try {
-      const { user } = await signInWithEmailAndPassword(fbAuth, e.email, e.password);
-      await dispatch(
-        USER_LOGIN({
-          nickname: user.displayName,
-          email: user.email,
-          image: '',
-        }),
-      );
-      Router.push('/friends');
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
+  const onSubmitForm = useCallback(() => {}, []);
 
   return (
     <>

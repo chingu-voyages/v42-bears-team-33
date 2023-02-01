@@ -1,20 +1,15 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSession, signOut } from 'next-auth/react';
 import { Row, Avatar, Space, Dropdown, Menu } from 'antd';
-import Router from 'next/router';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ScheduleModal from '@components/Friends/ScheduleModal';
-import { fbAuth } from 'javascripts/firebaseConfig';
-import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGIN, USER_LOGOUT } from '@reducers/user';
+import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB } from '@reducers/user';
 import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderMenu, LayoutHeaderBtn } from '@style/applayout';
 
 const AppLayout = ({ children }) => {
   const dispatch = useDispatch();
-
-  const { data: session, status } = useSession();
   const { focusTab, me } = useSelector(state => state.user);
   const { scheduleModalVisible } = useSelector(state => state.schedule);
 
@@ -26,12 +21,7 @@ const AppLayout = ({ children }) => {
     if (focusTab === '1') dispatch(FOCUS_SIGN_UP_TAB());
   }, []);
 
-  const onClickLogout = useCallback(async () => {
-    await signOut({ callbackUrl: '/' });
-    await fbAuth.signOut();
-    await dispatch(USER_LOGOUT());
-    Router.push('/');
-  }, []);
+  const onClickLogout = useCallback(() => {}, []);
 
   const menu = () => {
     return (
@@ -55,18 +45,6 @@ const AppLayout = ({ children }) => {
       </LayoutHeaderMenu>
     );
   };
-
-  useEffect(() => {
-    if (status === 'authenticated' && !me) {
-      dispatch(
-        USER_LOGIN({
-          nickname: session.user.name,
-          email: session.user.email,
-          image: session.user.image,
-        }),
-      );
-    }
-  }, [session, status, me]);
 
   return (
     <>

@@ -17,7 +17,6 @@
     "lodash": "^4.17.21",
     "mongodb": "^4.13.0",
     "next": "^12.1.6",
-    "next-auth": "^4.18.10",
     "next-redux-wrapper": "^8.1.0",
     "pino": "^8.8.0",
     "prop-types": "^15.8.1",
