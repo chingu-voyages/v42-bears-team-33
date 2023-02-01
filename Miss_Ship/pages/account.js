@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Col, Tabs } from 'antd';
+import { Tabs, Row, Col } from 'antd';
 import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
@@ -11,6 +11,11 @@ import { AccountWrapper, AccountHeaderWrapper } from '@style/account/accountHead
 const Account = () => {
   const { focusTab } = useSelector(state => state.user);
 
+  const items = [
+    { label: 'Log in', key: '1', children: <LoginForm /> },
+    { label: 'Sign up', key: '2', children: <SignupForm /> },
+  ];
+
   return (
     <>
       <Head>
@@ -19,22 +24,16 @@ const Account = () => {
 
       <AppLayout>
         <AccountWrapper>
-          <AccountHeaderWrapper span={24}>
+          <AccountHeaderWrapper>
             <header>Welcome back!</header>
             <p>Join us to auto-text happy birthday message to your friends!</p>
           </AccountHeaderWrapper>
 
-          <Col span={24}>
-            <Tabs defaultActiveKey={focusTab}>
-              <Tabs.TabPane tab="Log in" key="1">
-                <LoginForm />
-              </Tabs.TabPane>
-
-              <Tabs.TabPane tab="Sign up" key="2">
-                <SignupForm />
-              </Tabs.TabPane>
-            </Tabs>
-          </Col>
+          <Row align="center">
+            <Col span={24}>
+              <Tabs defaultActiveKey={focusTab} items={items} />
+            </Col>
+          </Row>
         </AccountWrapper>
       </AppLayout>
     </>

@@ -1,23 +1,65 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Row, Form, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
-
+import Router from 'next/router';
 import Link from 'next/link';
 
+import { loginAuth } from '@util/auther.js';
+import { USER_LOGIN } from '@reducers/user';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { LoginFormWrapper, LoginFormInput, LoginFormOption, LoginFormBtn } from '@style/account/loginForm';
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const [googleLoginLoading, setgoogleLoginLoading] = useState(false);
+  const [generalLoginLoading, setGeneralLoginLoading] = useState(false);
 
-  const SigninGoogle = useCallback(() => {}, []);
+  const onGoogleLogin = useCallback(async () => {
+    setgoogleLoginLoading(true);
+    const authInfo = await loginAuth('google');
 
-  const onSubmitForm = useCallback(() => {}, []);
+    if (authInfo) {
+      dispatch(
+        USER_LOGIN({
+          id: authInfo.id,
+          nickname: authInfo.nickname,
+          email: authInfo.email,
+          image: authInfo.image,
+          myToken: authInfo.token,
+        }),
+      );
+      Router.push('/friends');
+    } else {
+      console.log(authInfo);
+    }
+  }, []);
+
+  const onSubmitForm = useCallback(async e => {
+    setGeneralLoginLoading(true);
+    const authInfo = await loginAuth('', e);
+
+    if (authInfo) {
+      dispatch(
+        USER_LOGIN({
+          id: authInfo.id,
+          nickname: authInfo.nickname,
+          email: authInfo.email,
+          image: authInfo.image,
+          myToken: authInfo.token,
+        }),
+      );
+      Router.push('/friends');
+    } else {
+      console.log(authInfo);
+    }
+  }, []);
 
   return (
     <>
       <AccountGoogleSignin>
-        <Button icon={<GoogleOutlined />} type="primary" onClick={SigninGoogle}>
+        <Button icon={<GoogleOutlined />} type="primary" loading={googleLoginLoading} onClick={onGoogleLogin}>
           Sign in with Google
         </Button>
 
@@ -78,7 +120,9 @@ const LoginForm = () => {
 
         <Row align="center">
           <Form.Item>
-            <LoginFormBtn htmlType="submit">Log in</LoginFormBtn>
+            <LoginFormBtn htmlType="submit" loading={generalLoginLoading}>
+              Log in
+            </LoginFormBtn>
           </Form.Item>
         </Row>
       </LoginFormWrapper>

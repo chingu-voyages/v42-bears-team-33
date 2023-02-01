@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { Row, Col } from 'antd';
+import { Row } from 'antd';
 
-export const AccountWrapper = styled(Row)`
-  padding: 6em 20em;
+export const AccountWrapper = styled.div`
+  height: 100%;
   background-color: ${({ theme }) => theme.colors.primary};
+  padding: 6em 18em;
 
   @media ${({ theme }) => theme.media.tablet} {
     padding: 4em 12em;
@@ -14,9 +15,10 @@ export const AccountWrapper = styled(Row)`
   }
 `;
 
-export const AccountHeaderWrapper = styled(Col)`
+export const AccountHeaderWrapper = styled(Row)`
   text-align: center;
   margin-bottom: 2.5em;
+  ${({ theme }) => theme.flexColumnSet()};
 
   & > header {
     font-size: ${({ theme }) => theme.calcRem(38)};

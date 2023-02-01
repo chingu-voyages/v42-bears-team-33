@@ -1,11 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Avatar, Space, Dropdown, Menu } from 'antd';
+import Router from 'next/router';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ScheduleModal from '@components/Friends/ScheduleModal';
-import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB } from '@reducers/user';
+import { fbAuth } from '@pages/api/auth/fBase';
+import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGOUT } from '@reducers/user';
 import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderMenu, LayoutHeaderBtn } from '@style/applayout';
 
 const AppLayout = ({ children }) => {
@@ -21,7 +23,20 @@ const AppLayout = ({ children }) => {
     if (focusTab === '1') dispatch(FOCUS_SIGN_UP_TAB());
   }, []);
 
-  const onClickLogout = useCallback(() => {}, []);
+  const onClickLogout = useCallback(() => {
+    fbAuth.signOut();
+    dispatch(USER_LOGOUT());
+  }, []);
+
+  useEffect(() => {
+    fbAuth.onAuthStateChanged(user => {
+      if (user) console.log('User login');
+      else {
+        console.log('User logout');
+        Router.push('/account');
+      }
+    });
+  }, []);
 
   const menu = () => {
     return (
@@ -37,10 +52,8 @@ const AppLayout = ({ children }) => {
           </button>
         </Menu.Item>
 
-        <Menu.Item key="logout" danger>
-          <button type="button" onClick={onClickLogout}>
-            Log out
-          </button>
+        <Menu.Item key="logout" danger onClick={onClickLogout}>
+          Log out
         </Menu.Item>
       </LayoutHeaderMenu>
     );
