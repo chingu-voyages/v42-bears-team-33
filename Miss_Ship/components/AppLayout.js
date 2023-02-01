@@ -33,7 +33,7 @@ const AppLayout = ({ children }) => {
       if (user) console.log('User login');
       else {
         console.log('User logout');
-        Router.push('/account');
+        Router.push('/');
       }
     });
   }, []);

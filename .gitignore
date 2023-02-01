@@ -1,6 +1,7 @@
 node_modules
 .env
 .next
+fBaseKeys.js
 
 # macos General
 .DS_Store
