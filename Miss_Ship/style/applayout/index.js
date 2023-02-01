@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { Row, Button, Space } from 'antd';
+import { Row, Button, Space, Menu } from 'antd';
 
 export const Layout = styled(Row)`
   padding: 1em 3em;
   box-shadow: 0px 2px 8px 0px rgba(240, 241, 242, 1);
+  align-items: center;
 
   @media ${({ theme }) => theme.media.tablet} {
     padding: 0.5em 1.5em;
@@ -56,6 +57,32 @@ export const LayoutHeaderProfile = styled(Space)`
     }
 
     & > div > p {
+      font-size: ${({ theme }) => theme.calcRem(12)};
+    }
+  }
+`;
+
+export const LayoutHeaderMenu = styled(Menu)`
+  width: 15em;
+  left: 20%;
+
+  & > li {
+    font-size: ${({ theme }) => theme.calcRem(15)};
+  }
+
+  @media ${({ theme }) => theme.media.tablet} {
+    width: 10em;
+    left: 15%;
+
+    & > li {
+      font-size: ${({ theme }) => theme.calcRem(13)};
+    }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 8em;
+
+    & > li {
       font-size: ${({ theme }) => theme.calcRem(12)};
     }
   }
