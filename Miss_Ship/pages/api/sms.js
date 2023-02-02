@@ -3,13 +3,7 @@ import pino from 'pino';
 import _ from 'lodash';
 import { ObjectId } from 'mongodb';
 import clientPromise from '../../config/mongodb';
-import {
-  HTTP,
-  HTTP_STATUS_CODE,
-  MONGODB_COLLECTION,
-  MONGODB_DATABASE,
-  TWILIO_SENDER,
-} from '../../config/constant';
+import { HTTP, HTTP_STATUS_CODE, MONGODB_COLLECTION, MONGODB_DATABASE, TWILIO_SENDER } from '../../config/constant';
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -33,9 +27,7 @@ export default async function handler(req, res) {
         res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).end('null in field');
       }
 
-      const friend = await db
-        .collection(MONGODB_COLLECTION.FRIEND)
-        .findOne({ _id: ObjectId(body.friendId) });
+      const friend = await db.collection(MONGODB_COLLECTION.FRIEND).findOne({ _id: ObjectId(body.friendId) });
 
       if (_.isNil(friend)) {
         res.status(HTTP_STATUS_CODE.NOT_FOUND).json(friend);
@@ -47,11 +39,11 @@ export default async function handler(req, res) {
           body: body.message,
           to: friend.countryCode + friend.mobileNumber,
         })
-        .then((message) => {
+        .then(message => {
           logger.info(message.sid);
           res.status(HTTP_STATUS_CODE.CREATED).json(message);
         })
-        .catch((err) => {
+        .catch(err => {
           logger.error(err);
           res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json(err);
         });
@@ -60,9 +52,7 @@ export default async function handler(req, res) {
     }
     default: {
       res.setHeader('Allow', [HTTP.POST]);
-      res
-        .status(HTTP_STATUS_CODE.METHOD_NOT_ALLOWED)
-        .end(`Method ${method} Not Allowed`);
+      res.status(HTTP_STATUS_CODE.METHOD_NOT_ALLOWED).end(`Method ${method} Not Allowed`);
       break;
     }
   }
