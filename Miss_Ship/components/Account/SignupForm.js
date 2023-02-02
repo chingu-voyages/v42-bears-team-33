@@ -30,10 +30,7 @@ const SignupForm = () => {
         }),
       );
       Router.push('/listSetting');
-    } else {
-      console.log(authInfo);
     }
-    Router.push('/listSetting');
   }, []);
 
   const onSubmitForm = useCallback(async e => {
@@ -51,10 +48,7 @@ const SignupForm = () => {
         }),
       );
       Router.push('/listSetting');
-    } else {
-      console.log(authInfo);
     }
-    Router.push('/listSetting');
   }, []);
 
   return (

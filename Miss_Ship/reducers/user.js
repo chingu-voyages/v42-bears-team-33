@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   me: null,
+  loginDone: false,
   firendsInfo: null,
   focusTab: '1',
 };
@@ -25,9 +26,11 @@ const userSlice = createSlice({
       state.focusTab = '2';
     },
     USER_LOGIN: (state, action) => {
+      state.loginDone = true;
       state.me = action.payload;
     },
     USER_LOGOUT: state => {
+      state.loginDone = false;
       state.me = null;
     },
     LOAD_MY_FRIENDS_SUCCESS: state => {

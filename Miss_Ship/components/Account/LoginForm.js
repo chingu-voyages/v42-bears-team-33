@@ -21,7 +21,7 @@ const LoginForm = () => {
     const authInfo = await loginAuth('google');
 
     if (authInfo) {
-      dispatch(
+      await dispatch(
         USER_LOGIN({
           id: authInfo.id,
           nickname: authInfo.nickname,
@@ -31,8 +31,6 @@ const LoginForm = () => {
         }),
       );
       Router.push('/friends');
-    } else {
-      console.log(authInfo);
     }
   }, []);
 
@@ -51,8 +49,6 @@ const LoginForm = () => {
         }),
       );
       Router.push('/friends');
-    } else {
-      console.log(authInfo);
     }
   }, []);
 

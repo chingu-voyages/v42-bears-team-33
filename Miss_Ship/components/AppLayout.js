@@ -1,18 +1,19 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Avatar, Space, Dropdown, Menu } from 'antd';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ScheduleModal from '@components/Friends/ScheduleModal';
 import { fbAuth } from '@pages/api/auth/fBase';
-import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGOUT } from '@reducers/user';
+import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGIN, USER_LOGOUT } from '@reducers/user';
 import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderMenu, LayoutHeaderBtn } from '@style/applayout';
 
 const AppLayout = ({ children }) => {
   const dispatch = useDispatch();
-  const { focusTab, me } = useSelector(state => state.user);
+  const router = useRouter();
+  const { focusTab, me, loginDone } = useSelector(state => state.user);
   const { scheduleModalVisible } = useSelector(state => state.schedule);
 
   const onClickLogin = useCallback(() => {
@@ -23,17 +24,24 @@ const AppLayout = ({ children }) => {
     if (focusTab === '1') dispatch(FOCUS_SIGN_UP_TAB());
   }, []);
 
-  const onClickLogout = useCallback(() => {
-    fbAuth.signOut();
-    dispatch(USER_LOGOUT());
+  const onClickLogout = useCallback(async () => {
+    await fbAuth.signOut();
+    await dispatch(USER_LOGOUT());
+    Router.push(router.pathname === '/' ? '/' : '/account');
   }, []);
 
   useEffect(() => {
     fbAuth.onAuthStateChanged(user => {
-      if (user) console.log('User login');
-      else {
-        console.log('User logout');
-        Router.push('/');
+      if (!me && user && !loginDone) {
+        dispatch(
+          USER_LOGIN({
+            id: user?.uid,
+            nickname: user?.displayName,
+            email: user?.email,
+            image: user?.photoURL,
+            myToken: user?.accessToken,
+          }),
+        );
       }
     });
   }, []);
@@ -76,7 +84,7 @@ const AppLayout = ({ children }) => {
 
         <Row>
           {me ? (
-            <Dropdown overlay={menu} trigger="click">
+            <Dropdown overlay={menu} trigger="hover">
               <a>
                 <LayoutHeaderProfile>
                   <Avatar src={me.image} alt="profile image" />
