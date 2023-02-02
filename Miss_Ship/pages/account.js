@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Tabs, Row, Col } from 'antd';
+import { Tabs, Col } from 'antd';
 import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
@@ -24,16 +24,14 @@ const Account = () => {
 
       <AppLayout>
         <AccountWrapper>
-          <AccountHeaderWrapper>
+          <AccountHeaderWrapper span={24}>
             <header>Welcome back!</header>
             <p>Join us to auto-text happy birthday message to your friends!</p>
           </AccountHeaderWrapper>
 
-          <Row align="center">
-            <Col span={24}>
-              <Tabs defaultActiveKey={focusTab} items={items} />
-            </Col>
-          </Row>
+          <Col span={24}>
+            <Tabs defaultActiveKey={focusTab} items={items} />
+          </Col>
         </AccountWrapper>
       </AppLayout>
     </>

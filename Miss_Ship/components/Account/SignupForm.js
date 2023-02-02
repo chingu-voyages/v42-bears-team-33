@@ -115,7 +115,7 @@ const SignupForm = () => {
             },
           ]}
         >
-          <SignupFormInput type="password" placeholder="Input password" minLength={6} allowClear />
+          <SignupFormInput type="password" placeholder="Input password" minLength={6} allowClear password="true" />
         </Form.Item>
 
         <Form.Item
@@ -138,7 +138,7 @@ const SignupForm = () => {
             }),
           ]}
         >
-          <SignupFormInput type="password" placeholder="Comfirm password" minLength={6} allowClear />
+          <SignupFormInput type="password" placeholder="Comfirm password" minLength={6} allowClear password="true" />
         </Form.Item>
 
         <SignupFormOption align="center">

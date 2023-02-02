@@ -1,9 +1,11 @@
 import styled from 'styled-components';
-import { Row } from 'antd';
+import { Row, Col } from 'antd';
 
-export const AccountWrapper = styled.div`
-  height: 100%;
+export const AccountWrapper = styled(Row)`
+  box-sizing: border-box;
+  min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.primary};
+  ${({ theme }) => theme.flexColumnSet('start', 'stretch')};
   padding: 6em 18em;
 
   @media ${({ theme }) => theme.media.tablet} {
@@ -15,10 +17,9 @@ export const AccountWrapper = styled.div`
   }
 `;
 
-export const AccountHeaderWrapper = styled(Row)`
+export const AccountHeaderWrapper = styled(Col)`
   text-align: center;
   margin-bottom: 2.5em;
-  ${({ theme }) => theme.flexColumnSet()};
 
   & > header {
     font-size: ${({ theme }) => theme.calcRem(38)};

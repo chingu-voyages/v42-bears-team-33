@@ -73,7 +73,6 @@ const LoginForm = () => {
         <Form.Item
           name="email"
           label="Email address"
-          hasFeedback
           rules={[
             {
               type: 'email',
