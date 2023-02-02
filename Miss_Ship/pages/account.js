@@ -11,11 +11,6 @@ import { AccountWrapper, AccountHeaderWrapper } from '@style/account/accountHead
 const Account = () => {
   const { focusTab } = useSelector(state => state.user);
 
-  const items = [
-    { label: 'Log in', key: '1', children: <LoginForm /> },
-    { label: 'Sign up', key: '2', children: <SignupForm /> },
-  ];
-
   return (
     <>
       <Head>
@@ -30,7 +25,15 @@ const Account = () => {
           </AccountHeaderWrapper>
 
           <Col span={24}>
-            <Tabs defaultActiveKey={focusTab} items={items} />
+            <Tabs defaultActiveKey={focusTab}>
+              <Tabs.TabPane tab="Log in" key="1">
+                <LoginForm />
+              </Tabs.TabPane>
+
+              <Tabs.TabPane tab="Sign up" key="2">
+                <SignupForm />
+              </Tabs.TabPane>
+            </Tabs>
           </Col>
         </AccountWrapper>
       </AppLayout>

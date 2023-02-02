@@ -63,27 +63,19 @@ export const LayoutHeaderProfile = styled(Space)`
 `;
 
 export const LayoutHeaderMenu = styled(Menu)`
-  width: 15em;
-  left: 20%;
-
   & > li {
     font-size: ${({ theme }) => theme.calcRem(15)};
   }
 
   @media ${({ theme }) => theme.media.tablet} {
-    width: 10em;
-    left: 15%;
-
     & > li {
       font-size: ${({ theme }) => theme.calcRem(13)};
     }
   }
 
   @media ${({ theme }) => theme.media.mobile} {
-    width: 8em;
-
     & > li {
-      font-size: ${({ theme }) => theme.calcRem(12)};
+      font-size: ${({ theme }) => theme.calcRem(11)};
     }
   }
 `;
