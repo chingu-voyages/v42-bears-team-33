@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   const headerToken = req.headers.authorization;
   logger.debug(`Token Received: ${headerToken}`);
   if (_.isNil(headerToken)) {
-    res.status(HTTP_STATUS_CODE.UNAUTHORIZED);
+    res.status(HTTP_STATUS_CODE.UNAUTHORIZED).json({ error: 'Invalid Firebase Token' });
   }
   const token = headerToken.split(' ')[1];
 
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     })
     .catch(error => {
       logger.error(error);
-      res.status(HTTP_STATUS_CODE.UNAUTHORIZED);
+      // res.status(HTTP_STATUS_CODE.UNAUTHORIZED).json({ error: 'Invalid Firebase Token' });
     });
 
   switch (method) {
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       logger.info('HTTP GET: /api/friends/');
 
       let friendsList;
-      uid=12345;
+      // uid = 12345;
       if (_.isNil(uid)) {
         friendsList = await db.collection(MONGODB_COLLECTION.FRIEND).find({}).toArray();
       } else {
@@ -50,6 +50,8 @@ export default async function handler(req, res) {
     }
     case HTTP.POST: {
       const body = JSON.parse(JSON.stringify(req.body));
+      logger.info(`HTTP POST: /api/friends/ BODY: ${body}`);
+
       const friend = await db.collection(MONGODB_COLLECTION.FRIEND).insertOne(body);
       res.status(HTTP_STATUS_CODE.CREATED).json(friend);
       break;
