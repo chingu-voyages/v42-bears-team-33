@@ -1,5 +1,4 @@
 import admin from 'firebase-admin';
-import { applicationDefault } from 'firebase-admin/app';
 import pino from 'pino';
 
 const logger = pino();
@@ -7,8 +6,9 @@ try {
   // admin.initializeApp({
   //   credential: admin.credential.cert(firebaseConfig),
   // });
+  const credential = JSON.parse(Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'base64').toString());
   admin.initializeApp({
-    credential: applicationDefault(),
+    credential: admin.credential.cert(credential),
   });
   logger.info('Firebase Admin SDK Initialised.');
 } catch (error) {
