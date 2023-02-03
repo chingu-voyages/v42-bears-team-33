@@ -27,6 +27,7 @@ export const MONGODB_COLLECTION = {
   FRIEND: 'friend',
   USER: 'user',
   SMS: 'sms',
+  SCHEDULED_SMS: 'schduled_sms',
 };
 
 export const TWILIO_SENDER = '+13134258191';
