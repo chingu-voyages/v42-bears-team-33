@@ -1,17 +1,18 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 import Router from 'next/router';
 
 import { signUpAuth } from '@util/auther.js';
-import { USER_LOGIN } from '@reducers/user';
+import { USER_SIGNUP } from '@reducers/user';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { SignupFormWrapper, SignupFormInput, SignupFormOption, SignupFormBtn } from '@style/account/signupForm';
 
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const { me, signUpDone } = useSelector(state => state.user);
   const [googleSignupLoading, setGoogleSignupLoading] = useState(false);
   const [generalSignupLoading, setGeneralSignupLoading] = useState(false);
 
@@ -19,37 +20,21 @@ const SignupForm = () => {
     setGoogleSignupLoading(true);
     const authInfo = await signUpAuth('google');
 
-    if (authInfo) {
-      dispatch(
-        USER_LOGIN({
-          id: authInfo.id,
-          nickname: authInfo.nickname,
-          email: authInfo.email,
-          image: authInfo.image,
-          myToken: authInfo.token,
-        }),
-      );
-      Router.push('/listSetting');
-    }
+    if (authInfo) dispatch(USER_SIGNUP(authInfo));
   }, []);
 
   const onSubmitForm = useCallback(async e => {
     setGeneralSignupLoading(true);
     const authInfo = await signUpAuth('', e);
 
-    if (authInfo) {
-      dispatch(
-        USER_LOGIN({
-          id: authInfo.id,
-          nickname: authInfo.nickname,
-          email: authInfo.email,
-          image: authInfo.image,
-          myToken: authInfo.token,
-        }),
-      );
+    if (authInfo) dispatch(USER_SIGNUP(authInfo));
+  }, []);
+
+  useEffect(() => {
+    if (me && signUpDone) {
       Router.push('/listSetting');
     }
-  }, []);
+  }, [me, signUpDone]);
 
   return (
     <>

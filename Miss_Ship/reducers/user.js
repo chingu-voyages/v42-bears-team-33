@@ -4,6 +4,7 @@ const initialState = {
   me: null,
   loginDone: false,
   firendsInfo: null,
+  signUpDone: false,
   focusTab: '1',
 };
 
@@ -33,12 +34,16 @@ const userSlice = createSlice({
       state.loginDone = false;
       state.me = null;
     },
+    USER_SIGNUP: (state, action) => {
+      state.signUpDone = true;
+      state.me = action.payload;
+    },
     LOAD_MY_FRIENDS_SUCCESS: state => {
       state.firendsInfo = dummyFriends;
     },
   },
 });
 
-export const { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGIN, USER_LOGOUT, LOAD_MY_FRIENDS_SUCCESS } =
+export const { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGIN, USER_LOGOUT, LOAD_MY_FRIENDS_SUCCESS, USER_SIGNUP } =
   userSlice.actions;
 export default userSlice.reducer;

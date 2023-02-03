@@ -1,3 +1,4 @@
+import firebase from 'firebase/compat/app';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -21,6 +22,7 @@ export const loginAuth = async (type, loginInfo) => {
       credential = await signInWithEmailAndPassword(fbAuth, loginInfo.email, loginInfo.password);
       idToken = await credential.user.getIdToken();
     }
+
     return {
       id: credential.user.uid,
       nickname: credential.user.displayName,

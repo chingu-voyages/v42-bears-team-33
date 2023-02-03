@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Form, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 import Router from 'next/router';
@@ -13,6 +13,7 @@ import { LoginFormWrapper, LoginFormInput, LoginFormOption, LoginFormBtn } from 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const { me, loginDone } = useSelector(state => state.user);
   const [googleLoginLoading, setgoogleLoginLoading] = useState(false);
   const [generalLoginLoading, setGeneralLoginLoading] = useState(false);
 
@@ -20,37 +21,21 @@ const LoginForm = () => {
     setgoogleLoginLoading(true);
     const authInfo = await loginAuth('google');
 
-    if (authInfo) {
-      await dispatch(
-        USER_LOGIN({
-          id: authInfo.id,
-          nickname: authInfo.nickname,
-          email: authInfo.email,
-          image: authInfo.image,
-          myToken: authInfo.token,
-        }),
-      );
-      Router.push('/friends');
-    }
+    if (authInfo) dispatch(USER_LOGIN(authInfo));
   }, []);
 
   const onSubmitForm = useCallback(async e => {
     setGeneralLoginLoading(true);
     const authInfo = await loginAuth('', e);
 
-    if (authInfo) {
-      dispatch(
-        USER_LOGIN({
-          id: authInfo.id,
-          nickname: authInfo.nickname,
-          email: authInfo.email,
-          image: authInfo.image,
-          myToken: authInfo.token,
-        }),
-      );
+    if (authInfo) dispatch(USER_LOGIN(authInfo));
+  }, []);
+
+  useEffect(() => {
+    if (me && loginDone) {
       Router.push('/friends');
     }
-  }, []);
+  }, [me, loginDone]);
 
   return (
     <>
