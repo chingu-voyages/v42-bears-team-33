@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   scheduleModalVisible: false,
   scheduleInfo: null,
-  addSchedulDone: false,
   category: [],
 };
 
@@ -18,12 +17,6 @@ const scheduleSlice = createSlice({
     CLOSE_SCHEDULE_MODAL: state => {
       state.scheduleModalVisible = false;
       state.scheduleInfo = null;
-    },
-    ADD_SCHEDUL: state => {
-      state.addSchedulDone = true;
-    },
-    ADD_SCHEDUL_INIT: state => {
-      state.addSchedulDone = false;
     },
     ADD_CATEGORY: (state, action) => {
       state.category.push(action.payload);

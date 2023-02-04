@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Steps, Form, Row, DatePicker, Button, Select } from 'antd';
+import { Steps, Form, Row, DatePicker, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
 export const FriendSettingWrapper = styled.div`
@@ -40,8 +40,10 @@ export const SettingItemsWrapper = styled(Row)`
   }
 `;
 
-export const SettingPrefix = styled(Select)`
-  width: 70px !important;
+export const SettingItemsPhone = styled(Row)`
+  & > div > div {
+    margin-bottom: 0;
+  }
 `;
 
 export const SettingDatePicker = styled(DatePicker)`

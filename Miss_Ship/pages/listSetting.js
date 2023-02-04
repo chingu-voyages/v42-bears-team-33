@@ -7,17 +7,14 @@ import Head from 'next/head';
 import AppLayout from '@components/AppLayout';
 import FriendSettingForm from '@components/Account/FriendSettingForm';
 import { USER_LOGIN } from '@reducers/user';
-import { ADD_SCHEDUL_INIT } from '@reducers/schedule';
 import { FriendSettingWrapper, FriendSettingHeader } from '@style/account/friendSettingForm';
 import { fbAuth } from './api/auth/fBase';
 
 const ListSetting = () => {
   const dispatch = useDispatch();
-  const { me } = useSelector(state => state.user);
-  const { addSchedulDone } = useSelector(state => state.schedule);
+  const { me, addFriendsDone } = useSelector(state => state.user);
 
   const onClickSuccessBtn = useCallback(() => {
-    dispatch(ADD_SCHEDUL_INIT());
     Router.push('/friends');
   }, []);
 
@@ -45,13 +42,13 @@ const ListSetting = () => {
 
       <AppLayout>
         <FriendSettingWrapper>
-          <FriendSettingHeader current={addSchedulDone ? 2 : 1}>
+          <FriendSettingHeader current={addFriendsDone ? 2 : 1}>
             <Steps.Step title="Register" />
             <Steps.Step title="Create Friends’ Birthday List" />
             <Steps.Step title="Done" />
           </FriendSettingHeader>
 
-          {addSchedulDone ? (
+          {addFriendsDone ? (
             <Result
               status="success"
               title="Sign up Successfully!"

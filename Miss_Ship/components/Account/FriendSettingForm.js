@@ -4,39 +4,43 @@ import { Form, Input, Button, Row, Col, Select } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
+import countries from '@util/countryCode';
+import { addFriends } from '@actions/user';
 import {
   FriendSettingFormWrapper,
   SettingItemsWrapper,
-  SettingPrefix,
+  SettingItemsPhone,
   SettingDatePicker,
   DeleteItemBtn,
   AddItemBtn,
   SkipSettingBtn,
 } from '@style/account/friendSettingForm';
-import { ADD_SCHEDUL } from '@reducers/schedule';
 
 const FriendSettingForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
   const onSubmitForm = useCallback(e => {
-    console.log(e);
-    console.log(e.setting_details[0].birthday.format('YYYY-MM-DD HH:mm:ss'));
+    const values = [];
 
-    dispatch(ADD_SCHEDUL());
+    e.setting_details.forEach(v => {
+      const fullDate = v.birthday._d;
+      const year = fullDate.getFullYear();
+      const month = `0${1 + fullDate.getMonth()}`.slice(-2);
+      const day = `0${fullDate.getDate()}`.slice(-2);
+
+      delete v.birthday;
+      v.dateOfBirth = `${year}-${month}-${day}`;
+
+      values.push(v);
+    });
+    dispatch(addFriends(values));
   }, []);
 
-  const prefixSelector = (
-    <SettingPrefix>
-      <Select.Option value="86">+86</Select.Option>
-      <Select.Option value="87">+87</Select.Option>
-    </SettingPrefix>
-  );
-
   const formInitialValue = [
-    { name: '', phone: '', birthday: '' },
-    { name: '', phone: '', birthday: '' },
-    { name: '', phone: '', birthday: '' },
+    { name: '', mobileNumber: '', dateOfBirth: '' },
+    { name: '', mobileNumber: '', dateOfBirth: '' },
+    { name: '', mobileNumber: '', dateOfBirth: '' },
   ];
 
   return (
@@ -47,7 +51,7 @@ const FriendSettingForm = () => {
             {fields.map(({ key, name, ...restField }) => {
               return (
                 <SettingItemsWrapper key={key} gutter={10}>
-                  <Col xs={24} sm={24} md={24} lg={8}>
+                  <Col xs={24} sm={24} md={24} lg={6}>
                     <Form.Item
                       {...restField}
                       name={[name, 'name']}
@@ -57,23 +61,45 @@ const FriendSettingForm = () => {
                     </Form.Item>
                   </Col>
 
-                  <Col xs={24} sm={24} md={24} lg={8}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'phone']}
-                      rules={[{ required: true, message: 'Enter your phone number' }]}
-                    >
-                      <Input addonBefore={prefixSelector} placeholder="Phone number" />
-                    </Form.Item>
+                  <Col xs={24} sm={24} md={24} lg={12}>
+                    <SettingItemsPhone>
+                      <Col span={6}>
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'countryCode']}
+                          rules={[{ required: true, message: 'Enter your country mobile code' }]}
+                        >
+                          <Select
+                            showSearch
+                            placeholder="Code"
+                            optionFilterProp="children"
+                            filterOption={(input, option) => (option?.label ?? '').includes(input)}
+                            filterSort={(optionA, optionB) =>
+                              (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                            }
+                            options={countries}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col span={18}>
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'mobileNumber']}
+                          rules={[{ required: true, message: 'Enter your phone number' }]}
+                        >
+                          <Input placeholder="Phone number" />
+                        </Form.Item>
+                      </Col>
+                    </SettingItemsPhone>
                   </Col>
 
-                  <Col xs={24} sm={24} md={24} lg={7}>
+                  <Col xs={24} sm={24} md={24} lg={5}>
                     <Form.Item
                       {...restField}
                       name={[name, 'birthday']}
                       rules={[{ required: true, message: 'Enter your birthday' }]}
                     >
-                      <SettingDatePicker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="Select date" />
+                      <SettingDatePicker placeholder="Select date" />
                     </Form.Item>
                   </Col>
 

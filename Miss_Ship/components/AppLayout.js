@@ -71,7 +71,14 @@ const AppLayout = ({ children }) => {
             <Dropdown overlay={menu} trigger="hover">
               <a>
                 <LayoutHeaderProfile>
-                  <Avatar src={me.image} alt="profile image" />
+                  <Avatar
+                    src={
+                      me.image
+                        ? me.image
+                        : 'https://cdn.discordapp.com/attachments/1058927333584678982/1070695898578948158/header_user-profile_placeholder.png'
+                    }
+                    alt="profile image"
+                  />
                   <p>{me.nickname}</p>
                 </LayoutHeaderProfile>
               </a>

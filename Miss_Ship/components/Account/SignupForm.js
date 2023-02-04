@@ -4,7 +4,7 @@ import { Form, Row, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 import Router from 'next/router';
 
-import { signUpAuth } from '@util/auther.js';
+import { signUpAuth } from '@util/auther';
 import { USER_SIGNUP } from '@reducers/user';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { SignupFormWrapper, SignupFormInput, SignupFormOption, SignupFormBtn } from '@style/account/signupForm';

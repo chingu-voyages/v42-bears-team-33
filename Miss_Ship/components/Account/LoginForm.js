@@ -5,7 +5,7 @@ import { GoogleOutlined } from '@ant-design/icons';
 import Router from 'next/router';
 import Link from 'next/link';
 
-import { loginAuth } from '@util/auther.js';
+import { loginAuth } from '@util/auther';
 import { USER_LOGIN } from '@reducers/user';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { LoginFormWrapper, LoginFormInput, LoginFormOption, LoginFormBtn } from '@style/account/loginForm';
