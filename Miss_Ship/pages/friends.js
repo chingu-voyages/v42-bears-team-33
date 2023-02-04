@@ -22,7 +22,6 @@ const Friends = () => {
             nickname: user?.displayName,
             email: user?.email,
             image: user?.photoURL,
-            myToken: user?.accessToken,
           }),
         );
       }

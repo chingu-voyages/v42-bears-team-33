@@ -27,6 +27,7 @@ const AppLayout = ({ children }) => {
   const onClickLogout = useCallback(async () => {
     await fbAuth.signOut();
     await dispatch(USER_LOGOUT());
+    sessionStorage.removeItem('fbToken');
     Router.push(router.pathname === '/' ? '/' : '/account');
   }, []);
 

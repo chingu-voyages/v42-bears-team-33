@@ -4,9 +4,7 @@ import { addFriends } from '@actions/user';
 
 const initialState = {
   me: null,
-  loginDone: false,
   firendsInfo: null,
-  signUpDone: false,
   focusTab: '1',
   addFriendsLoading: false,
   addFriendsDone: false,
@@ -47,17 +45,14 @@ const userSlice = createSlice({
       state.focusTab = '2';
     },
     USER_LOGIN: (state, action) => {
-      state.loginDone = true;
       state.me = action.payload;
     },
     USER_LOGOUT: state => {
-      state.loginDone = false;
       state.me = null;
     },
-    USER_SIGNUP: (state, action) => {
-      state.signUpDone = true;
-      state.me = action.payload;
-    },
+    // USER_SIGNUP: (state, action) => {
+    //   state.me = action.payload;
+    // },
     LOAD_MY_FRIENDS_SUCCESS: state => {
       state.firendsInfo = dummyFriends;
     },

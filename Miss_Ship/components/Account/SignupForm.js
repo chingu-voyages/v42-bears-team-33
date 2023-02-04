@@ -1,18 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Row, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 import Router from 'next/router';
 
 import { signUpAuth } from '@util/auther';
-import { USER_SIGNUP } from '@reducers/user';
+import { USER_LOGIN } from '@reducers/user';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { SignupFormWrapper, SignupFormInput, SignupFormOption, SignupFormBtn } from '@style/account/signupForm';
 
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const { me, signUpDone } = useSelector(state => state.user);
   const [googleSignupLoading, setGoogleSignupLoading] = useState(false);
   const [generalSignupLoading, setGeneralSignupLoading] = useState(false);
 
@@ -20,21 +19,17 @@ const SignupForm = () => {
     setGoogleSignupLoading(true);
     const authInfo = await signUpAuth('google');
 
-    if (authInfo) dispatch(USER_SIGNUP(authInfo));
+    if (authInfo) dispatch(USER_LOGIN(authInfo));
+    Router.push('/listSetting');
   }, []);
 
   const onSubmitForm = useCallback(async e => {
     setGeneralSignupLoading(true);
     const authInfo = await signUpAuth('', e);
 
-    if (authInfo) dispatch(USER_SIGNUP(authInfo));
+    if (authInfo) dispatch(USER_LOGIN(authInfo));
+    Router.push('/listSetting');
   }, []);
-
-  useEffect(() => {
-    if (me && signUpDone) {
-      Router.push('/listSetting');
-    }
-  }, [me, signUpDone]);
 
   return (
     <>
