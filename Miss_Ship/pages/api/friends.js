@@ -52,8 +52,8 @@ export default async function handler(req, res) {
       const body = JSON.parse(JSON.stringify(req.body));
       logger.info(`HTTP POST: /api/friends/ BODY: ${body}`);
 
-      const friend = await db.collection(MONGODB_COLLECTION.FRIEND).insertOne(body);
-      res.status(HTTP_STATUS_CODE.CREATED).json(friend);
+      const result = await db.collection(MONGODB_COLLECTION.FRIEND).insertMany(body);
+      res.status(HTTP_STATUS_CODE.CREATED).json(result);
       break;
     }
     default: {
