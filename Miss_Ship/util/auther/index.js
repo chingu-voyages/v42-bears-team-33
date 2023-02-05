@@ -11,18 +11,18 @@ import { fbAuth } from '@pages/api/auth/fBase';
 export const loginAuth = async (type, loginInfo) => {
   try {
     let credential;
-    let fbToken;
+    let FB_TOKEN;
 
     if (type) {
       const provider = new GoogleAuthProvider();
       credential = await signInWithPopup(fbAuth, provider);
-      fbToken = await credential.user.getIdToken();
+      FB_TOKEN = await credential.user.getIdToken();
     } else {
       credential = await signInWithEmailAndPassword(fbAuth, loginInfo.email, loginInfo.password);
-      fbToken = await credential.user.getIdToken();
+      FB_TOKEN = await credential.user.getIdToken();
     }
 
-    sessionStorage.setItem('fbToken', fbToken);
+    sessionStorage.setItem('FB_TOKEN', FB_TOKEN);
 
     return {
       id: credential.user.uid,
@@ -38,19 +38,19 @@ export const loginAuth = async (type, loginInfo) => {
 export const signUpAuth = async (type, loginInfo) => {
   try {
     let credential;
-    let fbToken;
+    let FB_TOKEN;
 
     if (type) {
       const provider = new GoogleAuthProvider();
       credential = await signInWithPopup(fbAuth, provider);
-      fbToken = await credential.user.getIdToken();
+      FB_TOKEN = await credential.user.getIdToken();
     } else {
       credential = await createUserWithEmailAndPassword(fbAuth, loginInfo.email, loginInfo.password);
       await updateProfile(fbAuth.currentUser, { displayName: loginInfo.nickname });
-      fbToken = await credential.user.getIdToken();
+      FB_TOKEN = await credential.user.getIdToken();
     }
 
-    sessionStorage.setItem('fbToken', fbToken);
+    sessionStorage.setItem('FB_TOKEN', FB_TOKEN);
 
     return {
       id: credential.user.uid,

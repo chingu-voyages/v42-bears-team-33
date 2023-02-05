@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input, Button, Row, Col, Select } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
 import countries from '@util/countryCode';
-import { addFriends } from '@actions/user';
+import { addFriends } from '@actions/schedule';
 import {
   FriendSettingFormWrapper,
   SettingItemsWrapper,
@@ -19,6 +19,7 @@ import {
 const FriendSettingForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const { addFriendsDone } = useSelector(state => state.schedule);
 
   const onSubmitForm = useCallback(e => {
     const values = [];
@@ -136,7 +137,9 @@ const FriendSettingForm = () => {
               <SkipSettingBtn type="text">Skip this step</SkipSettingBtn>
             </a>
           </Link>
-          <Button htmlType="submit">Submit</Button>
+          <Button htmlType="submit" loading={addFriendsDone}>
+            Submit
+          </Button>
         </Form.Item>
       </Row>
     </FriendSettingFormWrapper>

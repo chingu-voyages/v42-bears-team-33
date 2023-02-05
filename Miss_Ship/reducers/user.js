@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { addFriends } from '@actions/user';
+// import { addFriends } from '@actions/user';
 
 const initialState = {
   me: null,
   firendsInfo: null,
   focusTab: '1',
-  addFriendsLoading: false,
-  addFriendsDone: false,
-  addFriendsError: null,
+  // addFriendsLoading: false,
+  // addFriendsDone: false,
+  // addFriendsError: null,
 };
 
 const dummyFriends = [
@@ -22,21 +22,21 @@ const dummyFriends = [
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  extraReducers: builder =>
-    builder
-      .addCase(addFriends.pending, state => {
-        state.addFriendsLoading = true;
-        state.addFriendsDone = false;
-        state.addFriendsError = null;
-      })
-      .addCase(addFriends.fulfilled, state => {
-        state.addFriendsLoading = false;
-        state.addFriendsDone = true;
-      })
-      .addCase(addFriends.rejected, (state, action) => {
-        state.addFriendsLoading = false;
-        state.addFriendsError = action.payload;
-      }),
+  // extraReducers: builder =>
+  //   builder
+  //     .addCase(addFriends.pending, state => {
+  //       state.addFriendsLoading = true;
+  //       state.addFriendsDone = false;
+  //       state.addFriendsError = null;
+  //     })
+  //     .addCase(addFriends.fulfilled, state => {
+  //       state.addFriendsLoading = false;
+  //       state.addFriendsDone = true;
+  //     })
+  //     .addCase(addFriends.rejected, (state, action) => {
+  //       state.addFriendsLoading = false;
+  //       state.addFriendsError = action.payload;
+  //     }),
   reducers: {
     FOCUS_LOGIN_TAB: state => {
       state.focusTab = '1';
@@ -50,9 +50,6 @@ const userSlice = createSlice({
     USER_LOGOUT: state => {
       state.me = null;
     },
-    // USER_SIGNUP: (state, action) => {
-    //   state.me = action.payload;
-    // },
     LOAD_MY_FRIENDS_SUCCESS: state => {
       state.firendsInfo = dummyFriends;
     },

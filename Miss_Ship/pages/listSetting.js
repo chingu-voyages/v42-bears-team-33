@@ -12,7 +12,8 @@ import { fbAuth } from './api/auth/fBase';
 
 const ListSetting = () => {
   const dispatch = useDispatch();
-  const { me, addFriendsDone } = useSelector(state => state.user);
+  const { me } = useSelector(state => state.user);
+  const { addFriendsDone } = useSelector(state => state.schedule);
 
   const onClickSuccessBtn = useCallback(() => {
     Router.push('/friends');
