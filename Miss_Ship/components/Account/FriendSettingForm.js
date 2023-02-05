@@ -19,7 +19,7 @@ import {
 const FriendSettingForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const { addFriendsDone } = useSelector(state => state.schedule);
+  const { addFriendsLoading } = useSelector(state => state.schedule);
 
   const onSubmitForm = useCallback(e => {
     const values = [];
@@ -137,7 +137,7 @@ const FriendSettingForm = () => {
               <SkipSettingBtn type="text">Skip this step</SkipSettingBtn>
             </a>
           </Link>
-          <Button htmlType="submit" loading={addFriendsDone}>
+          <Button htmlType="submit" loading={addFriendsLoading}>
             Submit
           </Button>
         </Form.Item>

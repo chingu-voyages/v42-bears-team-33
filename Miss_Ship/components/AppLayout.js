@@ -6,8 +6,8 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ScheduleModal from '@components/Friends/ScheduleModal';
-import { fbAuth } from '@pages/api/auth/fBase';
-import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGOUT } from '@reducers/user';
+import { logout } from '@actions/user';
+import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB } from '@reducers/user';
 import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderMenu, LayoutHeaderBtn } from '@style/applayout';
 
 const AppLayout = ({ children }) => {
@@ -24,10 +24,8 @@ const AppLayout = ({ children }) => {
     if (focusTab === '1') dispatch(FOCUS_SIGN_UP_TAB());
   }, []);
 
-  const onClickLogout = useCallback(async () => {
-    await fbAuth.signOut();
-    await dispatch(USER_LOGOUT());
-    sessionStorage.removeItem('fbToken');
+  const onClickLogout = useCallback(() => {
+    dispatch(logout());
     Router.push(router.pathname === '/' ? '/' : '/account');
   }, []);
 

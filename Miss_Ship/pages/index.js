@@ -6,7 +6,7 @@ import AppLayout from '@components/AppLayout';
 import LandingHeader from '@components/Landing/LandingHeader';
 import LandingContent from '@components/Landing/LandingContent';
 import LandingFooter from '@components/Landing/LandingFooter';
-import { USER_LOGIN } from '@reducers/user';
+import { LOAD_USER } from '@reducers/user';
 import { fbAuth } from './api/auth/fBase';
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
     fbAuth.onAuthStateChanged(user => {
       if (!me && user) {
         dispatch(
-          USER_LOGIN({
+          LOAD_USER({
             id: user?.uid,
             nickname: user?.displayName,
             email: user?.email,

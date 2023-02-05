@@ -1,41 +1,30 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Form, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
-import Router from 'next/router';
 import Link from 'next/link';
 
-import { loginAuth } from '@util/auther';
-import { USER_LOGIN } from '@reducers/user';
+import { login } from '@actions/user';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { LoginFormWrapper, LoginFormInput, LoginFormOption, LoginFormBtn } from '@style/account/loginForm';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [googleLoginLoading, setgoogleLoginLoading] = useState(false);
-  const [generalLoginLoading, setGeneralLoginLoading] = useState(false);
+  const { loginLoading } = useSelector(state => state.user);
 
-  const onGoogleLogin = useCallback(async () => {
-    setgoogleLoginLoading(true);
-    const authInfo = await loginAuth('google');
-
-    if (authInfo) dispatch(USER_LOGIN(authInfo));
-    Router.push('/friends');
+  const onGoogleLogin = useCallback(() => {
+    dispatch(login({ type: 'google' }));
   }, []);
 
-  const onSubmitForm = useCallback(async e => {
-    setGeneralLoginLoading(true);
-    const authInfo = await loginAuth('', e);
-
-    if (authInfo) dispatch(USER_LOGIN(authInfo));
-    Router.push('/friends');
+  const onSubmitForm = useCallback(loginInfo => {
+    dispatch(login({ type: '', loginInfo }));
   }, []);
 
   return (
     <>
       <AccountGoogleSignin>
-        <Button icon={<GoogleOutlined />} type="primary" loading={googleLoginLoading} onClick={onGoogleLogin}>
+        <Button icon={<GoogleOutlined />} type="primary" loading={loginLoading} onClick={onGoogleLogin}>
           Sign in with Google
         </Button>
 
@@ -95,7 +84,7 @@ const LoginForm = () => {
 
         <Row align="center">
           <Form.Item>
-            <LoginFormBtn htmlType="submit" loading={generalLoginLoading}>
+            <LoginFormBtn htmlType="submit" loading={loginLoading}>
               Log in
             </LoginFormBtn>
           </Form.Item>

@@ -6,7 +6,7 @@ import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
 import FriendSettingForm from '@components/Account/FriendSettingForm';
-import { USER_LOGIN } from '@reducers/user';
+import { LOAD_USER } from '@reducers/user';
 import { FriendSettingWrapper, FriendSettingHeader } from '@style/account/friendSettingForm';
 import { fbAuth } from './api/auth/fBase';
 
@@ -23,7 +23,7 @@ const ListSetting = () => {
     fbAuth.onAuthStateChanged(user => {
       if (!me && user) {
         dispatch(
-          USER_LOGIN({
+          LOAD_USER({
             id: user?.uid,
             nickname: user?.displayName,
             email: user?.email,

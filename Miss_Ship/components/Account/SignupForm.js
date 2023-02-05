@@ -1,40 +1,29 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
-import Router from 'next/router';
 
-import { signUpAuth } from '@util/auther';
-import { USER_LOGIN } from '@reducers/user';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { SignupFormWrapper, SignupFormInput, SignupFormOption, SignupFormBtn } from '@style/account/signupForm';
+import { signup } from '@actions/user';
 
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [googleSignupLoading, setGoogleSignupLoading] = useState(false);
-  const [generalSignupLoading, setGeneralSignupLoading] = useState(false);
+  const { signupDone } = useSelector(state => state.user);
 
-  const onGoogleSignup = useCallback(async () => {
-    setGoogleSignupLoading(true);
-    const authInfo = await signUpAuth('google');
-
-    if (authInfo) dispatch(USER_LOGIN(authInfo));
-    Router.push('/listSetting');
+  const onGoogleSignup = useCallback(() => {
+    dispatch(signup({ type: 'google' }));
   }, []);
 
-  const onSubmitForm = useCallback(async e => {
-    setGeneralSignupLoading(true);
-    const authInfo = await signUpAuth('', e);
-
-    if (authInfo) dispatch(USER_LOGIN(authInfo));
-    Router.push('/listSetting');
+  const onSubmitForm = useCallback(signupInfo => {
+    dispatch(signup({ type: '', signupInfo }));
   }, []);
 
   return (
     <>
       <AccountGoogleSignin>
-        <Button icon={<GoogleOutlined />} type="primary" loading={googleSignupLoading} onClick={onGoogleSignup}>
+        <Button icon={<GoogleOutlined />} type="primary" loading={signupDone} onClick={onGoogleSignup}>
           Sign in with Google
         </Button>
 
@@ -138,7 +127,7 @@ const SignupForm = () => {
 
         <Row align="center">
           <Form.Item>
-            <SignupFormBtn htmlType="submit" loading={generalSignupLoading}>
+            <SignupFormBtn htmlType="submit" loading={signupDone}>
               Create my account
             </SignupFormBtn>
           </Form.Item>

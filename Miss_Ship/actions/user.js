@@ -1,3 +1,7 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import Router from 'next/router';
+
+import { fbAuth } from '@pages/api/auth/fBase';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -6,23 +10,23 @@ import {
   updateProfile,
 } from 'firebase/auth';
 
-import { fbAuth } from '@pages/api/auth/fBase';
-
-export const loginAuth = async (type, loginInfo) => {
+export const login = createAsyncThunk('user/login', async (data, { rejectWithValue }) => {
   try {
     let credential;
     let FB_TOKEN;
 
-    if (type) {
+    if (data.type === 'google') {
       const provider = new GoogleAuthProvider();
       credential = await signInWithPopup(fbAuth, provider);
       FB_TOKEN = await credential.user.getIdToken();
     } else {
-      credential = await signInWithEmailAndPassword(fbAuth, loginInfo.email, loginInfo.password);
+      credential = await signInWithEmailAndPassword(fbAuth, data.loginInfo.email, data.loginInfo.password);
       FB_TOKEN = await credential.user.getIdToken();
     }
 
     sessionStorage.setItem('FB_TOKEN', FB_TOKEN);
+
+    Router.push('/friends');
 
     return {
       id: credential.user.uid,
@@ -31,26 +35,29 @@ export const loginAuth = async (type, loginInfo) => {
       image: credential.user.photoURL,
     };
   } catch (error) {
-    return error;
+    return rejectWithValue(error.response.data);
   }
-};
+});
 
-export const signUpAuth = async (type, loginInfo) => {
+export const signup = createAsyncThunk('user/signup', async (data, { rejectWithValue }) => {
   try {
     let credential;
     let FB_TOKEN;
 
-    if (type) {
+    if (data.type === 'google') {
       const provider = new GoogleAuthProvider();
       credential = await signInWithPopup(fbAuth, provider);
       FB_TOKEN = await credential.user.getIdToken();
     } else {
-      credential = await createUserWithEmailAndPassword(fbAuth, loginInfo.email, loginInfo.password);
-      await updateProfile(fbAuth.currentUser, { displayName: loginInfo.nickname });
+      credential = await createUserWithEmailAndPassword(fbAuth, data.signupInfo.email, data.signupInfo.password);
+      await updateProfile(fbAuth.currentUser, { displayName: data.signupInfo.nickname });
+      await signInWithEmailAndPassword(fbAuth, data.signupInfo.email, data.signupInfo.password);
       FB_TOKEN = await credential.user.getIdToken();
     }
 
     sessionStorage.setItem('FB_TOKEN', FB_TOKEN);
+
+    Router.push('/listSetting');
 
     return {
       id: credential.user.uid,
@@ -59,6 +66,13 @@ export const signUpAuth = async (type, loginInfo) => {
       image: credential.user.photoURL,
     };
   } catch (error) {
-    return error;
+    return rejectWithValue(error.response.data);
   }
-};
+});
+
+export const logout = createAsyncThunk('user/logout', async () => {
+  await fbAuth.signOut();
+  sessionStorage.removeItem('FB_TOKEN');
+
+  return true;
+});
