@@ -24,7 +24,17 @@ export const login = createAsyncThunk('user/login', async (data, { rejectWithVal
       FB_TOKEN = await credential.user.getIdToken();
     }
 
-    sessionStorage.setItem('FB_TOKEN', FB_TOKEN);
+    if (data.loginInfo.remember) {
+      localStorage.setItem(
+        'USER_INFO',
+        JSON.stringify({
+          email: data.loginInfo.email,
+          password: data.loginInfo.password,
+          remember: data.loginInfo.remember,
+        }),
+      );
+    }
+    localStorage.setItem('FB_TOKEN', FB_TOKEN);
 
     Router.push('/friends');
 
@@ -55,7 +65,7 @@ export const signup = createAsyncThunk('user/signup', async (data, { rejectWithV
       FB_TOKEN = await credential.user.getIdToken();
     }
 
-    sessionStorage.setItem('FB_TOKEN', FB_TOKEN);
+    localStorage.setItem('FB_TOKEN', FB_TOKEN);
 
     Router.push('/listSetting');
 
@@ -72,7 +82,7 @@ export const signup = createAsyncThunk('user/signup', async (data, { rejectWithV
 
 export const logout = createAsyncThunk('user/logout', async () => {
   await fbAuth.signOut();
-  sessionStorage.removeItem('FB_TOKEN');
+  localStorage.removeItem('FB_TOKEN');
 
   return true;
 });

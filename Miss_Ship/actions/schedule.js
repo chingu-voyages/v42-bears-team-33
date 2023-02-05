@@ -8,7 +8,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 axios.interceptors.request.use(
   config => {
-    config.headers.Authorization = `Bearer ${sessionStorage.getItem('FB_TOKEN')}`;
+    config.headers.Authorization = `Bearer ${localStorage.getItem('FB_TOKEN')}`;
     return config;
   },
   error => {

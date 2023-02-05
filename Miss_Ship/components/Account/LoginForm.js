@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Form, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
@@ -12,6 +12,9 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { loginLoading } = useSelector(state => state.user);
+  const [rememberUser] = useState(
+    () => typeof window !== 'undefined' && JSON.parse(window.localStorage.getItem('USER_INFO')),
+  );
 
   const onGoogleLogin = useCallback(() => {
     dispatch(login({ type: 'google' }));
@@ -38,6 +41,13 @@ const LoginForm = () => {
         onFinish={onSubmitForm}
         scrollToFirstError
         requiredMark={false}
+        initialValues={
+          rememberUser && {
+            email: rememberUser.email,
+            password: rememberUser.password,
+            remember: rememberUser.remember,
+          }
+        }
       >
         <Form.Item
           name="email"
