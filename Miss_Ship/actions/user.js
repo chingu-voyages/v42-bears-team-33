@@ -16,6 +16,7 @@ export const login = createAsyncThunk('user/login', async (data, { rejectWithVal
     let FB_TOKEN;
 
     if (data.type === 'google') {
+      localStorage.clear();
       const provider = new GoogleAuthProvider();
       credential = await signInWithPopup(fbAuth, provider);
       FB_TOKEN = await credential.user.getIdToken();
@@ -24,7 +25,7 @@ export const login = createAsyncThunk('user/login', async (data, { rejectWithVal
       FB_TOKEN = await credential.user.getIdToken();
     }
 
-    if (data.loginInfo.remember) {
+    if (data.loginInfo.remember && data.type !== 'google') {
       localStorage.setItem(
         'USER_INFO',
         JSON.stringify({

@@ -1,5 +1,11 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Row, Button, Space, Menu } from 'antd';
+
+export const DropdownGlobal = createGlobalStyle`
+  .ant-dropdown, .ant-dropdown-placement-bottomLeft {    
+    position: fixed;           
+  }  
+`;
 
 export const Layout = styled(Row)`
   padding: 1em 3em;
@@ -63,34 +69,63 @@ export const LayoutHeaderProfile = styled(Space)`
 `;
 
 export const LayoutHeaderMenu = styled(Menu)`
-  & > li {
-    font-size: ${({ theme }) => theme.calcRem(15)};
+  width: max-content;
+  padding: 0;
+  margin-top: 18%;
+
+  & > li > span {
+    font-size: ${({ theme }) => theme.calcRem(14)};
   }
 
   @media ${({ theme }) => theme.media.tablet} {
-    & > li {
+    margin-top: 12%;
+
+    & > li > span {
       font-size: ${({ theme }) => theme.calcRem(13)};
+      margin-right: 1em;
+    }
+
+    & > li > span > a > .profile-button-text {
+      display: none;
     }
   }
 
   @media ${({ theme }) => theme.media.mobile} {
     & > li {
-      font-size: ${({ theme }) => theme.calcRem(11)};
+      padding: 0.3em 0.3em 0.3em 0.6em;
+    }
+
+    & > li > span {
+      font-size: ${({ theme }) => theme.calcRem(12)};
     }
   }
 `;
 
 export const LayoutHeaderBtn = styled(Button)`
-  width: 6em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: ${props => (props.schedule ? '12em' : '6em')};
 
   @media ${({ theme }) => theme.media.tablet} {
-    width: 3.5em;
+    width: ${props => (props.schedule ? '10em' : '5em')};
     height: 2em;
-    padding: 0;
 
     & > span {
-      font-size: ${({ theme }) => theme.calcRem(5)};
-      line-height: 3;
+      font-size: ${({ theme }) => theme.calcRem(13)};
+    }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    width: ${props => (props.schedule ? '6em' : '4em')};
+    height: 1.5em;
+
+    & > .now-button-text {
+      display: none;
+    }
+
+    & > span {
+      font-size: ${({ theme }) => theme.calcRem(10)};
     }
   }
 `;

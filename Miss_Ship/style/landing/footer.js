@@ -70,10 +70,14 @@ export const FooterDivider = styled.div`
 `;
 
 export const FooterBtn = styled(Button)`
-  width: 7em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14em;
+  font-size: ${({ theme }) => theme.calcRem(18)};
 
   @media ${({ theme }) => theme.media.tablet} {
     width: 9em;
-    font-size: ${({ theme }) => theme.calcRem(17)};
+    font-size: ${({ theme }) => theme.calcRem(15)};
   }
 `;
