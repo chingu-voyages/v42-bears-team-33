@@ -25,7 +25,7 @@ export const login = createAsyncThunk('user/login', async (data, { rejectWithVal
       FB_TOKEN = await credential.user.getIdToken();
     }
 
-    if (data.loginInfo.remember && data.type !== 'google') {
+    if (data.type !== 'google' && data?.loginInfo.remember) {
       localStorage.setItem(
         'USER_INFO',
         JSON.stringify({

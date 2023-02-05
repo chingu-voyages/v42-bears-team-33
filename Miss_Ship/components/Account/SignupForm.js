@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
@@ -10,20 +10,29 @@ import { signup } from '@actions/user';
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const { signupDone } = useSelector(state => state.user);
+  const { signupLoading } = useSelector(state => state.user);
+  const [googleSignUp, setGoogleSignUp] = useState(false);
+  const [genericSignUp, setGenericSignUp] = useState(false);
 
   const onGoogleSignup = useCallback(() => {
+    setGoogleSignUp(true);
     dispatch(signup({ type: 'google' }));
   }, []);
 
   const onSubmitForm = useCallback(signupInfo => {
+    setGenericSignUp(true);
     dispatch(signup({ type: '', signupInfo }));
   }, []);
 
   return (
     <>
       <AccountGoogleSignin>
-        <Button icon={<GoogleOutlined />} type="primary" loading={signupDone} onClick={onGoogleSignup}>
+        <Button
+          icon={<GoogleOutlined />}
+          type="primary"
+          loading={signupLoading && googleSignUp}
+          onClick={onGoogleSignup}
+        >
           Sign in with Google
         </Button>
 
@@ -127,7 +136,7 @@ const SignupForm = () => {
 
         <Row align="center">
           <Form.Item>
-            <SignupFormBtn htmlType="submit" loading={signupDone}>
+            <SignupFormBtn htmlType="submit" loading={signupLoading && genericSignUp}>
               Create my account
             </SignupFormBtn>
           </Form.Item>

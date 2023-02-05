@@ -12,22 +12,26 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { loginLoading } = useSelector(state => state.user);
+  const [googleLogin, setGoogleLogin] = useState(false);
+  const [genericLogin, setGenericLogin] = useState(false);
   const [rememberUser] = useState(
     () => typeof window !== 'undefined' && JSON.parse(window.localStorage.getItem('USER_INFO')),
   );
 
   const onGoogleLogin = useCallback(() => {
+    setGoogleLogin(true);
     dispatch(login({ type: 'google' }));
   }, []);
 
   const onSubmitForm = useCallback(loginInfo => {
+    setGenericLogin(true);
     dispatch(login({ type: '', loginInfo }));
   }, []);
 
   return (
     <>
       <AccountGoogleSignin>
-        <Button icon={<GoogleOutlined />} type="primary" loading={loginLoading} onClick={onGoogleLogin}>
+        <Button icon={<GoogleOutlined />} type="primary" loading={googleLogin && loginLoading} onClick={onGoogleLogin}>
           Sign in with Google
         </Button>
 
@@ -94,7 +98,7 @@ const LoginForm = () => {
 
         <Row align="center">
           <Form.Item>
-            <LoginFormBtn htmlType="submit" loading={loginLoading}>
+            <LoginFormBtn htmlType="submit" loading={genericLogin && loginLoading}>
               Log in
             </LoginFormBtn>
           </Form.Item>
