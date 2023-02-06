@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 import countries from '@util/countryCode';
 import { addFriends } from '@actions/schedule';
+import { INVISIBLE_ADD_FRIENDS } from '@reducers/schedule';
 import {
   FriendSettingFormWrapper,
   SettingItemsWrapper,
@@ -19,7 +20,7 @@ import {
 const FriendSettingForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const { addFriendsLoading } = useSelector(state => state.schedule);
+  const { addFriendsLoading, addFriendsVisible } = useSelector(state => state.schedule);
 
   const onSubmitForm = useCallback(e => {
     const values = [];
@@ -35,7 +36,13 @@ const FriendSettingForm = () => {
 
       values.push(v);
     });
+
     dispatch(addFriends(values));
+    if (addFriendsVisible) dispatch(INVISIBLE_ADD_FRIENDS());
+  }, []);
+
+  const onCancelAddFriends = useCallback(() => {
+    dispatch(INVISIBLE_ADD_FRIENDS());
   }, []);
 
   const formInitialValue = [
@@ -45,7 +52,13 @@ const FriendSettingForm = () => {
   ];
 
   return (
-    <FriendSettingFormWrapper form={form} name="friend_list_settings" onFinish={onSubmitForm} autoComplete="off">
+    <FriendSettingFormWrapper
+      addfriendsvisible={addFriendsVisible}
+      form={form}
+      name="friend_list_settings"
+      onFinish={onSubmitForm}
+      autoComplete="off"
+    >
       <Form.List name="setting_details" initialValue={formInitialValue}>
         {(fields, { add, remove }) => (
           <>
@@ -134,9 +147,16 @@ const FriendSettingForm = () => {
         <Form.Item>
           <Link href="/friends">
             <a>
-              <SkipSettingBtn type="text">Skip this step</SkipSettingBtn>
+              {addFriendsVisible ? (
+                <SkipSettingBtn type="text" onClick={onCancelAddFriends}>
+                  Cancel
+                </SkipSettingBtn>
+              ) : (
+                <SkipSettingBtn type="text">Skip this step</SkipSettingBtn>
+              )}
             </a>
           </Link>
+
           <Button htmlType="submit" loading={addFriendsLoading}>
             Submit
           </Button>

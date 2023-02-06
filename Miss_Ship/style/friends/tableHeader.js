@@ -50,6 +50,7 @@ export const ListTableDropdown = styled(Button)`
   }
 
   @media ${({ theme }) => theme.media.tablet} {
+    display: ${props => props.addfriendsvisible && 'none'};
     margin: 0 0 2em 0;
   }
 `;
@@ -98,10 +99,12 @@ export const ListTableDropdownForm = styled(Form)`
 `;
 
 export const ListTableBtn = styled(Button)`
+  width: ${props => props.firstchild && '11em'};
   margin-right: ${props => props.firstchild && '0.5em'};
 
   @media ${({ theme }) => theme.media.tablet} {
     width: 100%;
     margin: 0 0 1em 0;
+    display: ${props => props.addfriendsvisible && 'none'};
   }
 `;

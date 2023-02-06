@@ -8,7 +8,7 @@ import { FriendsHeader } from '@style/friends/header';
 
 const ListHeader = () => {
   const dispatch = useDispatch();
-  const { friendsInfo } = useSelector(state => state.schedule);
+  const { friendsInfo, addFriendsVisible } = useSelector(state => state.schedule);
 
   const onClickSchedule = useCallback(() => {
     dispatch(OPEN_SCHEDULE_MODAL());
@@ -20,8 +20,18 @@ const ListHeader = () => {
 
   return (
     <>
+      {addFriendsVisible && (
+        <FriendsHeader friendsinfo="true">
+          <header>Welcome to the Miss. Ship!</header>
+          <p>
+            <button type="button">Build friendships</button> with your friends by{' '}
+            <button type="button">adding new ones!</button>
+          </p>
+        </FriendsHeader>
+      )}
+
       {friendsInfo ? (
-        <FriendsHeader friendsinfo={friendsInfo}>
+        <FriendsHeader friendsinfo={friendsInfo} addfriendsvisible={addFriendsVisible}>
           <header>Welcome to the Friendship App!</header>
 
           <p>
@@ -37,7 +47,7 @@ const ListHeader = () => {
           </p>
         </FriendsHeader>
       ) : (
-        <FriendsHeader align="center" friendsinfo={friendsInfo}>
+        <FriendsHeader align="center" friendsinfo={friendsInfo} addfriendsvisible={addFriendsVisible}>
           <img src="https://ifh.cc/g/VxB9AZ.png" alt="friends page header img" />
 
           <header>Create a new friend list and start scheduling greeting messages!</header>

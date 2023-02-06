@@ -5,6 +5,7 @@ import { addFriends, loadMyFriends } from '@actions/schedule';
 const initialState = {
   friendsInfo: null,
   category: [],
+  addFriendsVisible: false,
   scheduleModalVisible: false,
   scheduleInfo: null,
   addFriendsLoading: false,
@@ -48,6 +49,12 @@ const scheduleSlice = createSlice({
         state.loadMyFriendsError = action.payload;
       }),
   reducers: {
+    VISIBLE_ADD_FRIENDS: state => {
+      state.addFriendsVisible = true;
+    },
+    INVISIBLE_ADD_FRIENDS: state => {
+      state.addFriendsVisible = false;
+    },
     OPEN_SCHEDULE_MODAL: (state, action) => {
       state.scheduleModalVisible = true;
       state.scheduleInfo = action.payload;
@@ -66,6 +73,8 @@ const scheduleSlice = createSlice({
 });
 
 export const {
+  VISIBLE_ADD_FRIENDS,
+  INVISIBLE_ADD_FRIENDS,
   OPEN_SCHEDULE_MODAL,
   CLOSE_SCHEDULE_MODAL,
   ADD_SCHEDUL,
