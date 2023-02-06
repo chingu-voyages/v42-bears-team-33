@@ -26,7 +26,7 @@ export const FriendsHeader = styled(Row)`
   }
 
   & > p {
-    font-size: ${({ theme }) => theme.calcRem(16)};
+    font-size: ${({ theme }) => theme.calcRem(14)};
   }
 
   & > p > button,
@@ -45,7 +45,7 @@ export const FriendsHeader = styled(Row)`
     }
 
     & > p {
-      font-size: ${({ theme }) => theme.calcRem(13)};
+      font-size: ${({ theme }) => theme.calcRem(12)};
     }
   }
 `;
