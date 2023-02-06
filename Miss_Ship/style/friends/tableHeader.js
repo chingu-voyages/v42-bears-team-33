@@ -27,7 +27,7 @@ export const ListTableHeader = styled.div`
     ${({ theme }) => theme.flexColumnSet()};
 
     & > h2 {
-      font-size: ${({ theme }) => theme.calcRem(22)};
+      font-size: ${({ theme }) => theme.calcRem(20)};
       padding: 0.5em 0 0 0;
       margin-bottom: 0.5em;
     }

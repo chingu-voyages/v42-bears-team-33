@@ -13,6 +13,7 @@ import { fbAuth } from './api/auth/fBase';
 const Friends = () => {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
+  const { friendsInfo } = useSelector(state => state.schedule);
 
   useEffect(() => {
     fbAuth.onAuthStateChanged(user => {
@@ -40,7 +41,7 @@ const Friends = () => {
       </Head>
 
       <AppLayout>
-        <FriendsWrapper>
+        <FriendsWrapper friendsInfo={friendsInfo}>
           <ListHeader />
           <ListTable />
         </FriendsWrapper>

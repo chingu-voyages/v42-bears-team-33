@@ -42,7 +42,6 @@ const scheduleSlice = createSlice({
         state.loadMyFriendsLoading = false;
         state.loadMyFriendsDone = true;
         // state.friendsInfo = action.payload.data;
-        state.friendsInfo = null;
       })
       .addCase(loadMyFriends.rejected, (state, action) => {
         state.loadMyFriendsLoading = false;
