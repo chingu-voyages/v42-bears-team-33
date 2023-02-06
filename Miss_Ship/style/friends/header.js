@@ -17,7 +17,7 @@ export const FriendsHeader = styled(Row)`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: ${props => (props.friendsInfo ? 'flex-start' : 'center')};
+  align-items: ${props => (props.friendsinfo ? 'flex-start' : 'center')};
   width: 100%;
   background-color: white;
   padding: 1.4em 1.6em;
@@ -41,8 +41,8 @@ export const FriendsHeader = styled(Row)`
 
   & > header {
     font-weight: 700;
-    font-size: ${props => (props.friendsInfo ? '1.2rem' : '1rem')};
-    margin-bottom: ${props => (props.friendsInfo ? '0.7em' : '2.5em')};
+    font-size: ${props => (props.friendsinfo ? '1.2rem' : '1rem')};
+    margin-bottom: ${props => (props.friendsinfo ? '0.7em' : '2.5em')};
   }
 
   & > p {
@@ -73,8 +73,8 @@ export const FriendsHeader = styled(Row)`
     }
 
     & > header {
-      font-size: ${props => (props.friendsInfo ? '1rem' : '0.85rem')};
-      margin-bottom: ${props => (props.friendsInfo ? '1em' : '2em')};
+      font-size: ${props => (props.friendsinfo ? '1rem' : '0.85rem')};
+      margin-bottom: ${props => (props.friendsinfo ? '1em' : '2em')};
     }
 
     & > p {
@@ -95,8 +95,8 @@ export const FriendsHeader = styled(Row)`
     }
 
     & > header {
-      font-size: ${props => props.friendsInfo || '0.6rem'};
-      margin-bottom: ${props => props.friendsInfo || '1.5em'};
+      font-size: ${props => props.friendsinfo || '0.6rem'};
+      margin-bottom: ${props => props.friendsinfo || '1.5em'};
     }
 
     & > p {
