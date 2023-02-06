@@ -6,6 +6,7 @@ import AppLayout from '@components/AppLayout';
 import ListHeader from '@components/Friends/ListHeader';
 import ListTable from '@components/Friends/ListTable';
 import { LOAD_USER } from '@reducers/user';
+import { loadMyFriends } from '@actions/schedule';
 import { FriendsWrapper } from '@style/friends/header';
 import { fbAuth } from './api/auth/fBase';
 
@@ -26,6 +27,10 @@ const Friends = () => {
         );
       }
     });
+  }, []);
+
+  useEffect(() => {
+    dispatch(loadMyFriends());
   }, []);
 
   return (

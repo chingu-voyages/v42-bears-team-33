@@ -1,14 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { addFriends } from '@actions/schedule';
+import { addFriends, loadMyFriends } from '@actions/schedule';
 
 const initialState = {
+  friendsInfo: null,
+  category: [],
   scheduleModalVisible: false,
   scheduleInfo: null,
-  category: [],
   addFriendsLoading: false,
   addFriendsDone: false,
   addFriendsError: null,
+  loadMyFriendsLoading: false,
+  loadMyFriendsDone: false,
+  loadMyFriendsError: null,
 };
 
 const scheduleSlice = createSlice({
@@ -28,6 +32,20 @@ const scheduleSlice = createSlice({
       .addCase(addFriends.rejected, (state, action) => {
         state.addFriendsLoading = false;
         state.addFriendsError = action.payload;
+      })
+      .addCase(loadMyFriends.pending, state => {
+        state.loadMyFriendsLoading = true;
+        state.loadMyFriendsDone = false;
+        state.loadMyFriendsError = null;
+      })
+      .addCase(loadMyFriends.fulfilled, (state, action) => {
+        state.loadMyFriendsLoading = false;
+        state.loadMyFriendsDone = true;
+        state.friendsInfo = action.payload.data;
+      })
+      .addCase(loadMyFriends.rejected, (state, action) => {
+        state.loadMyFriendsLoading = false;
+        state.loadMyFriendsError = action.payload;
       }),
   reducers: {
     OPEN_SCHEDULE_MODAL: (state, action) => {

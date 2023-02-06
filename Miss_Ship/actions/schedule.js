@@ -24,3 +24,8 @@ export const addFriends = createAsyncThunk('schedule/addFriends', async (data, {
     return rejectWithValue(error.response.data);
   }
 });
+
+export const loadMyFriends = createAsyncThunk('schedule/loadMyFriends', async () => {
+  const response = await axios.get('/friends');
+  return response.data;
+});

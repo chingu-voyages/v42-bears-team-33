@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Space, Divider, Dropdown, Menu } from 'antd';
 
 import { OPEN_SCHEDULE_MODAL } from '@reducers/schedule';
-import { LOAD_MY_FRIENDS_SUCCESS } from '@reducers/user';
 import {
   TableContentWrapper,
   TableContentHeader,
@@ -13,7 +12,7 @@ import {
 
 const TableContent = () => {
   const dispatch = useDispatch();
-  const { firendsInfo } = useSelector(state => state.user);
+  const { friendsInfo } = useSelector(state => state.schedule);
   const [tableSize, setTableSize] = useState(10);
   const [desktop, setDesktop] = useState(true);
 
@@ -56,14 +55,14 @@ const TableContent = () => {
       title: <TableContentHeader>Status</TableContentHeader>,
       dataIndex: 'status',
       key: 'status',
-      render: status => <TableContentBadge status={status.info} text={status.text} />,
+      // render: status => <TableContentBadge status={status?.info} text={status?.text} />,
     },
     {
       title: <TableContentHeader>Birthday</TableContentHeader>,
-      dataIndex: 'birthday',
+      dataIndex: 'dateOfBirth',
       key: 'birthday',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => new Date(a.birthday) - new Date(b.birthday),
+      sorter: (a, b) => new Date(a.dateOfBirth) - new Date(b.dateOfBirth),
     },
     {
       title: <TableContentHeader>Action</TableContentHeader>,
@@ -99,8 +98,8 @@ const TableContent = () => {
       else setDesktop(false);
 
       if (document.documentElement.clientHeight > 900) setTableSize(10);
-      else if (document.documentElement.clientHeight > 700) setTableSize(8);
-      else setTableSize(6);
+      else if (document.documentElement.clientHeight > 700) setTableSize(6);
+      else setTableSize(4);
     }
 
     window.addEventListener('load', onResize);
@@ -112,10 +111,6 @@ const TableContent = () => {
     };
   }, []);
 
-  useEffect(() => {
-    dispatch(LOAD_MY_FRIENDS_SUCCESS());
-  }, []);
-
   return (
     <>
       <TableContentWrapper
@@ -125,7 +120,8 @@ const TableContent = () => {
         }}
         pagination={{ pageSize: tableSize }}
         columns={columns}
-        dataSource={firendsInfo}
+        dataSource={friendsInfo}
+        rowKey={record => record._id}
       />
     </>
   );
