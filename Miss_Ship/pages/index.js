@@ -6,28 +6,27 @@ import AppLayout from '@components/AppLayout';
 import LandingHeader from '@components/Landing/LandingHeader';
 import LandingContent from '@components/Landing/LandingContent';
 import LandingFooter from '@components/Landing/LandingFooter';
-import { fbAuth } from 'javascripts/firebaseConfig';
-import { USER_LOGIN } from '@reducers/user';
+import { LOAD_USER } from '@reducers/user';
+import { fbAuth } from './api/auth/fBase';
 
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
 
   useEffect(() => {
-    if (!me) {
-      fbAuth.onAuthStateChanged(user => {
-        if (user) {
-          dispatch(
-            USER_LOGIN({
-              nickname: user.displayName,
-              email: user.email,
-              image: '',
-            }),
-          );
-        }
-      });
-    }
-  }, [me]);
+    fbAuth.onAuthStateChanged(user => {
+      if (!me && user) {
+        dispatch(
+          LOAD_USER({
+            id: user?.uid,
+            nickname: user?.displayName,
+            email: user?.email,
+            image: user?.photoURL,
+          }),
+        );
+      }
+    });
+  }, []);
 
   return (
     <>

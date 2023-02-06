@@ -1,34 +1,32 @@
 import React, { useEffect } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
 import ListHeader from '@components/Friends/ListHeader';
 import ListTable from '@components/Friends/ListTable';
+import { LOAD_USER } from '@reducers/user';
 import { FriendsWrapper } from '@style/friends/header';
-import { useDispatch, useSelector } from 'react-redux';
-import { fbAuth } from 'javascripts/firebaseConfig';
-import { USER_LOGIN } from '@reducers/user';
+import { fbAuth } from './api/auth/fBase';
 
 const Friends = () => {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
 
   useEffect(() => {
-    if (!me) {
-      fbAuth.onAuthStateChanged(user => {
-        if (user) {
-          dispatch(
-            USER_LOGIN({
-              nickname: user.displayName,
-              email: user.email,
-              image: '',
-            }),
-          );
-        }
-      });
-    }
-  }, [me]);
+    fbAuth.onAuthStateChanged(user => {
+      if (!me && user) {
+        dispatch(
+          LOAD_USER({
+            id: user?.uid,
+            nickname: user?.displayName,
+            email: user?.email,
+            image: user?.photoURL,
+          }),
+        );
+      }
+    });
+  }, []);
 
   return (
     <>

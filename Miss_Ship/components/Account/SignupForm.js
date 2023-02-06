@@ -1,45 +1,38 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { signIn } from 'next-auth/react';
-import { fbAuth } from 'javascripts/firebaseConfig';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
-import Router from 'next/router';
 
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { SignupFormWrapper, SignupFormInput, SignupFormOption, SignupFormBtn } from '@style/account/signupForm';
-import { USER_LOGIN } from '@reducers/user';
+import { signup } from '@actions/user';
 
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const { signupLoading } = useSelector(state => state.user);
+  const [googleSignUp, setGoogleSignUp] = useState(false);
+  const [genericSignUp, setGenericSignUp] = useState(false);
 
-  const SigninGoogle = useCallback(() => {
-    signIn('google', { callbackUrl: '/listSetting' });
+  const onGoogleSignup = useCallback(() => {
+    setGoogleSignUp(true);
+    dispatch(signup({ type: 'google' }));
   }, []);
 
-  const onSubmitForm = useCallback(async e => {
-    try {
-      const { user } = await createUserWithEmailAndPassword(fbAuth, e.email, e.password);
-      await updateProfile(fbAuth.currentUser, { displayName: e.nickname });
-      await dispatch(
-        USER_LOGIN({
-          nickname: user.displayName,
-          email: user.email,
-          image: '',
-        }),
-      );
-      Router.push('/listSetting');
-    } catch (error) {
-      console.log(error.message);
-    }
+  const onSubmitForm = useCallback(signupInfo => {
+    setGenericSignUp(true);
+    dispatch(signup({ type: '', signupInfo }));
   }, []);
 
   return (
     <>
       <AccountGoogleSignin>
-        <Button icon={<GoogleOutlined />} type="primary" onClick={SigninGoogle}>
+        <Button
+          icon={<GoogleOutlined />}
+          type="primary"
+          loading={signupLoading && googleSignUp}
+          onClick={onGoogleSignup}
+        >
           Sign in with Google
         </Button>
 
@@ -100,7 +93,7 @@ const SignupForm = () => {
             },
           ]}
         >
-          <SignupFormInput type="password" placeholder="Input password" minLength={6} allowClear />
+          <SignupFormInput type="password" placeholder="Input password" minLength={6} allowClear password="true" />
         </Form.Item>
 
         <Form.Item
@@ -123,7 +116,7 @@ const SignupForm = () => {
             }),
           ]}
         >
-          <SignupFormInput type="password" placeholder="Comfirm password" minLength={6} allowClear />
+          <SignupFormInput type="password" placeholder="Comfirm password" minLength={6} allowClear password="true" />
         </Form.Item>
 
         <SignupFormOption align="center">
@@ -143,7 +136,9 @@ const SignupForm = () => {
 
         <Row align="center">
           <Form.Item>
-            <SignupFormBtn htmlType="submit">Create my account</SignupFormBtn>
+            <SignupFormBtn htmlType="submit" loading={signupLoading && genericSignUp}>
+              Create my account
+            </SignupFormBtn>
           </Form.Item>
         </Row>
       </SignupFormWrapper>

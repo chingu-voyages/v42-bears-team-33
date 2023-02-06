@@ -3,18 +3,19 @@ import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
 
-const Message = () => {
+const Profile = () => {
   return (
     <>
       <Head>
-        <title>Send Message | Friendship Maintainer</title>
+        <title>Profile Page | Friendship Maintainer</title>
       </Head>
 
       <AppLayout>
-        <div>Message Page</div>
+        <div>Welcome !</div>
+        <div>Profile Page</div>
       </AppLayout>
     </>
   );
 };
 
-export default Message;
+export default Profile;

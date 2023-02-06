@@ -2,8 +2,11 @@ import styled from 'styled-components';
 import { Row, Col } from 'antd';
 
 export const AccountWrapper = styled(Row)`
-  padding: 6em 20em;
+  box-sizing: border-box;
+  min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.primary};
+  ${({ theme }) => theme.flexColumnSet('start', 'stretch')};
+  padding: 6em 18em;
 
   @media ${({ theme }) => theme.media.tablet} {
     padding: 4em 12em;

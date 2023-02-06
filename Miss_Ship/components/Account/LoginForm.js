@@ -1,45 +1,37 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { signIn } from 'next-auth/react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { fbAuth } from 'javascripts/firebaseConfig';
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Form, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
-import Router from 'next/router';
 import Link from 'next/link';
 
-import { USER_LOGIN } from '@reducers/user';
+import { login } from '@actions/user';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { LoginFormWrapper, LoginFormInput, LoginFormOption, LoginFormBtn } from '@style/account/loginForm';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const { loginLoading } = useSelector(state => state.user);
+  const [googleLogin, setGoogleLogin] = useState(false);
+  const [genericLogin, setGenericLogin] = useState(false);
+  const [rememberUser] = useState(
+    () => typeof window !== 'undefined' && JSON.parse(window.localStorage.getItem('USER_INFO')),
+  );
 
-  const SigninGoogle = useCallback(() => {
-    signIn('google', { callbackUrl: '/friends' });
+  const onGoogleLogin = useCallback(() => {
+    setGoogleLogin(true);
+    dispatch(login({ type: 'google' }));
   }, []);
 
-  const onSubmitForm = useCallback(async e => {
-    try {
-      const { user } = await signInWithEmailAndPassword(fbAuth, e.email, e.password);
-      await dispatch(
-        USER_LOGIN({
-          nickname: user.displayName,
-          email: user.email,
-          image: '',
-        }),
-      );
-      Router.push('/friends');
-    } catch (error) {
-      console.log(error.message);
-    }
+  const onSubmitForm = useCallback(loginInfo => {
+    setGenericLogin(true);
+    dispatch(login({ type: '', loginInfo }));
   }, []);
 
   return (
     <>
       <AccountGoogleSignin>
-        <Button icon={<GoogleOutlined />} type="primary" onClick={SigninGoogle}>
+        <Button icon={<GoogleOutlined />} type="primary" loading={googleLogin && loginLoading} onClick={onGoogleLogin}>
           Sign in with Google
         </Button>
 
@@ -53,11 +45,17 @@ const LoginForm = () => {
         onFinish={onSubmitForm}
         scrollToFirstError
         requiredMark={false}
+        initialValues={
+          rememberUser && {
+            email: rememberUser.email,
+            password: rememberUser.password,
+            remember: rememberUser.remember,
+          }
+        }
       >
         <Form.Item
           name="email"
           label="Email address"
-          hasFeedback
           rules={[
             {
               type: 'email',
@@ -100,7 +98,9 @@ const LoginForm = () => {
 
         <Row align="center">
           <Form.Item>
-            <LoginFormBtn htmlType="submit">Log in</LoginFormBtn>
+            <LoginFormBtn htmlType="submit" loading={genericLogin && loginLoading}>
+              Log in
+            </LoginFormBtn>
           </Form.Item>
         </Row>
       </LoginFormWrapper>

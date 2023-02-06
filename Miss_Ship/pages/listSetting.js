@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Steps, Result, Button } from 'antd';
 import Router from 'next/router';
@@ -6,16 +6,32 @@ import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
 import FriendSettingForm from '@components/Account/FriendSettingForm';
-import { ADD_SCHEDUL_INIT } from '@reducers/schedule';
+import { LOAD_USER } from '@reducers/user';
 import { FriendSettingWrapper, FriendSettingHeader } from '@style/account/friendSettingForm';
+import { fbAuth } from './api/auth/fBase';
 
 const ListSetting = () => {
   const dispatch = useDispatch();
-  const { addSchedulDone } = useSelector(state => state.schedule);
+  const { me } = useSelector(state => state.user);
+  const { addFriendsDone } = useSelector(state => state.schedule);
 
   const onClickSuccessBtn = useCallback(() => {
-    dispatch(ADD_SCHEDUL_INIT());
     Router.push('/friends');
+  }, []);
+
+  useEffect(() => {
+    fbAuth.onAuthStateChanged(user => {
+      if (!me && user) {
+        dispatch(
+          LOAD_USER({
+            id: user?.uid,
+            nickname: user?.displayName,
+            email: user?.email,
+            image: user?.photoURL,
+          }),
+        );
+      }
+    });
   }, []);
 
   return (
@@ -26,13 +42,13 @@ const ListSetting = () => {
 
       <AppLayout>
         <FriendSettingWrapper>
-          <FriendSettingHeader current={addSchedulDone ? 2 : 1}>
+          <FriendSettingHeader current={addFriendsDone ? 2 : 1}>
             <Steps.Step title="Register" />
             <Steps.Step title="Create Friends’ Birthday List" />
             <Steps.Step title="Done" />
           </FriendSettingHeader>
 
-          {addSchedulDone ? (
+          {addFriendsDone ? (
             <Result
               status="success"
               title="Sign up Successfully!"

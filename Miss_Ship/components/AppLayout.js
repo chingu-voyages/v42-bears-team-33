@@ -1,20 +1,26 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSession, signOut } from 'next-auth/react';
 import { Row, Avatar, Space, Dropdown, Menu } from 'antd';
-import Router from 'next/router';
+import { ClockCircleFilled, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
+import Router, { useRouter } from 'next/router';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import ScheduleModal from '@components/Friends/ScheduleModal';
-import { fbAuth } from 'javascripts/firebaseConfig';
-import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB, USER_LOGIN, USER_LOGOUT } from '@reducers/user';
-import { Layout, LayoutInfo, LayoutHeaderProfile, LayoutHeaderMenu, LayoutHeaderBtn } from '@style/applayout';
+import { logout } from '@actions/user';
+import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB } from '@reducers/user';
+import {
+  Layout,
+  LayoutInfo,
+  LayoutHeaderProfile,
+  LayoutHeaderMenu,
+  LayoutHeaderBtn,
+  DropdownGlobal,
+} from '@style/applayout';
 
 const AppLayout = ({ children }) => {
   const dispatch = useDispatch();
-
-  const { data: session, status } = useSession();
+  const router = useRouter();
   const { focusTab, me } = useSelector(state => state.user);
   const { scheduleModalVisible } = useSelector(state => state.schedule);
 
@@ -26,50 +32,32 @@ const AppLayout = ({ children }) => {
     if (focusTab === '1') dispatch(FOCUS_SIGN_UP_TAB());
   }, []);
 
-  const onClickLogout = useCallback(async () => {
-    await signOut({ callbackUrl: '/' });
-    await fbAuth.signOut();
-    await dispatch(USER_LOGOUT());
-    Router.push('/');
+  const onClickLogout = useCallback(() => {
+    dispatch(logout());
+    Router.push(router.pathname === '/' ? '/' : '/account');
   }, []);
 
   const menu = () => {
     return (
       <LayoutHeaderMenu>
-        <Menu.Item key="goProfile">
-          <button
-            type="button"
-            onClick={() => {
-              console.log('Go to your profile page');
-            }}
-          >
-            Go to profile
-          </button>
+        <Menu.Item key="goProfile" icon={<SettingOutlined />}>
+          <Link href="/profile">
+            <a>
+              Profile <span className="profile-button-text">Setting</span>
+            </a>
+          </Link>
         </Menu.Item>
 
-        <Menu.Item key="logout" danger>
-          <button type="button" onClick={onClickLogout}>
-            Log out
-          </button>
+        <Menu.Item key="logout" danger icon={<LogoutOutlined />} onClick={onClickLogout}>
+          Log out
         </Menu.Item>
       </LayoutHeaderMenu>
     );
   };
 
-  useEffect(() => {
-    if (status === 'authenticated' && !me) {
-      dispatch(
-        USER_LOGIN({
-          nickname: session.user.name,
-          email: session.user.email,
-          image: session.user.image,
-        }),
-      );
-    }
-  }, [session, status, me]);
-
   return (
     <>
+      <DropdownGlobal />
       <Layout justify="space-between">
         <Link href="/">
           <a>
@@ -85,14 +73,31 @@ const AppLayout = ({ children }) => {
 
         <Row>
           {me ? (
-            <Dropdown overlay={menu} trigger="click">
-              <a>
-                <LayoutHeaderProfile>
-                  <Avatar src={me.image} alt="profile image" />
-                  <p>{me.nickname}</p>
-                </LayoutHeaderProfile>
-              </a>
-            </Dropdown>
+            <Space size="middle">
+              <Link href="/friends">
+                <a>
+                  <LayoutHeaderBtn schedule="true" type="primary" icon={<ClockCircleFilled />}>
+                    Schedule &nbsp;<span className="now-button-text">Now!</span>
+                  </LayoutHeaderBtn>
+                </a>
+              </Link>
+
+              <Dropdown overlay={menu} trigger="hover">
+                <a>
+                  <LayoutHeaderProfile>
+                    <Avatar
+                      src={
+                        me.image
+                          ? me.image
+                          : 'https://cdn.discordapp.com/attachments/1058927333584678982/1070695898578948158/header_user-profile_placeholder.png'
+                      }
+                      alt="profile image"
+                    />
+                    <p>{me.nickname}</p>
+                  </LayoutHeaderProfile>
+                </a>
+              </Dropdown>
+            </Space>
           ) : (
             <Space>
               <Link href="/account">

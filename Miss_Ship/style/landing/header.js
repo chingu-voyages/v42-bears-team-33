@@ -20,17 +20,37 @@ export const LandingHeaderInfo = styled(Col)`
   }
 
   & > a > button {
-    width: 7em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 10em;
+    height: 3em;
   }
 
   @media ${({ theme }) => theme.media.tablet} {
     & > h1 {
-      font-size: ${({ theme }) => theme.calcRem(12)};
-      font-weight: 700;
+      font-size: ${({ theme }) => theme.calcRem(23)};
     }
 
     & > a > button {
-      font-size: ${({ theme }) => theme.calcRem(11)};
+      width: 8em;
+      height: 2em;
+    }
+
+    & > img {
+      width: 13em;
+      margin: 0 auto;
+    }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    & > h1 {
+      font-size: ${({ theme }) => theme.calcRem(15)};
+    }
+
+    & > a > button {
+      width: 6em;
+      font-size: ${({ theme }) => theme.calcRem(12)};
     }
 
     & > img {

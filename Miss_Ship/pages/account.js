@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Col, Tabs } from 'antd';
+import { Tabs, Col } from 'antd';
 import Head from 'next/head';
 
 import AppLayout from '@components/AppLayout';
