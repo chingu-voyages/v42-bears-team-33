@@ -31,8 +31,8 @@ const Friends = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(loadMyFriends());
-  }, []);
+    if (me) dispatch(loadMyFriends());
+  }, [me]);
 
   return (
     <>

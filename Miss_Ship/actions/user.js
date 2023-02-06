@@ -10,19 +10,37 @@ import {
   updateProfile,
 } from 'firebase/auth';
 
+const setToken = token => {
+  localStorage.setItem('FB_TOKEN', token);
+};
+
+export const getToken = () => {
+  fbAuth.onIdTokenChanged(async user => {
+    if (user) {
+      const newToken = await user.getIdToken();
+      setToken(newToken);
+    }
+  });
+  const token = localStorage.getItem('FB_TOKEN') ?? '';
+  return token;
+};
+
 export const login = createAsyncThunk('user/login', async (data, { rejectWithValue }) => {
   try {
     let credential;
-    let FB_TOKEN;
 
     if (data.type === 'google') {
       localStorage.clear();
       const provider = new GoogleAuthProvider();
       credential = await signInWithPopup(fbAuth, provider);
-      FB_TOKEN = await credential.user.getIdToken();
+
+      const token = await credential.user.getIdToken();
+      setToken(token);
     } else {
       credential = await signInWithEmailAndPassword(fbAuth, data.loginInfo.email, data.loginInfo.password);
-      FB_TOKEN = await credential.user.getIdToken();
+
+      const token = await credential.user.getIdToken();
+      setToken(token);
     }
 
     if (data.type !== 'google' && data?.loginInfo.remember) {
@@ -35,7 +53,6 @@ export const login = createAsyncThunk('user/login', async (data, { rejectWithVal
         }),
       );
     }
-    localStorage.setItem('FB_TOKEN', FB_TOKEN);
 
     Router.push('/friends');
 
@@ -53,20 +70,22 @@ export const login = createAsyncThunk('user/login', async (data, { rejectWithVal
 export const signup = createAsyncThunk('user/signup', async (data, { rejectWithValue }) => {
   try {
     let credential;
-    let FB_TOKEN;
 
     if (data.type === 'google') {
+      localStorage.clear();
       const provider = new GoogleAuthProvider();
       credential = await signInWithPopup(fbAuth, provider);
-      FB_TOKEN = await credential.user.getIdToken();
+
+      const token = await credential.user.getIdToken();
+      setToken(token);
     } else {
       credential = await createUserWithEmailAndPassword(fbAuth, data.signupInfo.email, data.signupInfo.password);
       await updateProfile(fbAuth.currentUser, { displayName: data.signupInfo.nickname });
       await signInWithEmailAndPassword(fbAuth, data.signupInfo.email, data.signupInfo.password);
-      FB_TOKEN = await credential.user.getIdToken();
-    }
 
-    localStorage.setItem('FB_TOKEN', FB_TOKEN);
+      const token = await credential.user.getIdToken();
+      setToken(token);
+    }
 
     Router.push('/listSetting');
 
@@ -82,8 +101,10 @@ export const signup = createAsyncThunk('user/signup', async (data, { rejectWithV
 });
 
 export const logout = createAsyncThunk('user/logout', async () => {
-  await fbAuth.signOut();
-  localStorage.removeItem('FB_TOKEN');
-
-  return true;
+  try {
+    await fbAuth.signOut();
+    localStorage.removeItem('FB_TOKEN');
+  } catch (error) {
+    console.log(error);
+  }
 });
