@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
+import { CookiesProvider } from 'react-cookie';
 
 import 'antd/dist/antd.css';
 import GlobalStyles from '@style/global';
@@ -10,11 +11,13 @@ import wrapper from '../store/configureStore';
 const App = ({ Component, pageProps }) => {
   return (
     <>
-      <GlobalStyles />
+      <CookiesProvider>
+        <GlobalStyles />
 
-      <ThemeProvider theme={Theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+        <ThemeProvider theme={Theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </CookiesProvider>
     </>
   );
 };

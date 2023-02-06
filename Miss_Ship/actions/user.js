@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Cookies } from 'react-cookie';
 import Router from 'next/router';
 
 import { fbAuth } from '@pages/api/auth/fBase';
@@ -10,8 +11,10 @@ import {
   updateProfile,
 } from 'firebase/auth';
 
+const cookie = new Cookies();
+
 const setToken = token => {
-  localStorage.setItem('FB_TOKEN', token);
+  cookie.set('FB_TOKEN', token);
 };
 
 export const getToken = () => {
@@ -21,7 +24,8 @@ export const getToken = () => {
       setToken(newToken);
     }
   });
-  const token = localStorage.getItem('FB_TOKEN') ?? '';
+
+  const token = cookie.get('FB_TOKEN') ?? '';
   return token;
 };
 
@@ -103,7 +107,7 @@ export const signup = createAsyncThunk('user/signup', async (data, { rejectWithV
 export const logout = createAsyncThunk('user/logout', async () => {
   try {
     await fbAuth.signOut();
-    localStorage.removeItem('FB_TOKEN');
+    cookie.remove('FB_TOKEN');
   } catch (error) {
     console.log(error);
   }
