@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input, Button, Row, Col, Select } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -20,7 +20,7 @@ import {
 const FriendSettingForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const { addFriendsLoading, addFriendsDone, addFriendsVisible } = useSelector(state => state.schedule);
+  const { addFriendsLoading, addFriendsVisible } = useSelector(state => state.schedule);
 
   const onSubmitForm = useCallback(e => {
     const values = [];
@@ -49,10 +49,6 @@ const FriendSettingForm = () => {
     { name: '', mobileNumber: '', dateOfBirth: '' },
     { name: '', mobileNumber: '', dateOfBirth: '' },
   ];
-
-  useEffect(() => {
-    if (addFriendsDone && addFriendsVisible) dispatch(INVISIBLE_ADD_FRIENDS());
-  }, [addFriendsDone, addFriendsVisible]);
 
   return (
     <FriendSettingFormWrapper
