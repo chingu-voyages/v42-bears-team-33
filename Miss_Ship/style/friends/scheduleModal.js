@@ -49,6 +49,14 @@ export const ScheduleModalForm = styled(Form)`
     font-weight: 700;
   }
 
+  .ant-form-item:first-child {
+    margin-bottom: ${props => props.messagenowmodalvisible && '3em'};
+  }
+
+  .ant-form-item:nth-child(2) {
+    margin-bottom: ${props => props.messagenowmodalvisible && '2em'};
+  }
+
   @media ${({ theme }) => theme.media.mobile} {
     .ant-form-item {
       margin-bottom: 0.5em;

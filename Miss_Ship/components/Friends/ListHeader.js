@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Divider } from 'antd';
-import Link from 'next/link';
 
-import { OPEN_SCHEDULE_MODAL } from '@reducers/schedule';
+import { OPEN_SCHEDULE_MODAL, OPEN_MESSAGE_NOW_MODAL } from '@reducers/schedule';
 import { FriendsHeader } from '@style/friends/header';
 
 const ListHeader = () => {
@@ -12,6 +11,10 @@ const ListHeader = () => {
 
   const onClickSchedule = useCallback(() => {
     dispatch(OPEN_SCHEDULE_MODAL());
+  }, []);
+
+  const onClickMessageNow = useCallback(() => {
+    dispatch(OPEN_MESSAGE_NOW_MODAL());
   }, []);
 
   const onClickCreateBtn = useCallback(() => {
@@ -40,9 +43,9 @@ const ListHeader = () => {
               “Schedule a message”
             </button>{' '}
             to edit the message. The{' '}
-            <Link href="/message">
-              <a>“Send Now”</a>
-            </Link>
+            <button type="button" onClick={onClickMessageNow}>
+              “Send Now”
+            </button>
             is to send the message immediatelly.
           </p>
         </FriendsHeader>

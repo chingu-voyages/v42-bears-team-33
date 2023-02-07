@@ -8,6 +8,7 @@ const initialState = {
   addFriendsVisible: false,
   scheduleModalVisible: false,
   scheduleInfo: null,
+  messageNowModalVisible: false,
   addFriendsLoading: false,
   addFriendsDone: false,
   addFriendsError: null,
@@ -60,8 +61,14 @@ const scheduleSlice = createSlice({
       state.scheduleModalVisible = true;
       state.scheduleInfo = action.payload;
     },
+    OPEN_MESSAGE_NOW_MODAL: (state, action) => {
+      state.scheduleModalVisible = true;
+      state.messageNowModalVisible = true;
+      state.scheduleInfo = action.payload;
+    },
     CLOSE_SCHEDULE_MODAL: state => {
       state.scheduleModalVisible = false;
+      state.messageNowModalVisible = false;
       state.scheduleInfo = null;
     },
     ADD_CATEGORY: (state, action) => {
@@ -77,6 +84,7 @@ export const {
   VISIBLE_ADD_FRIENDS,
   INVISIBLE_ADD_FRIENDS,
   OPEN_SCHEDULE_MODAL,
+  OPEN_MESSAGE_NOW_MODAL,
   CLOSE_SCHEDULE_MODAL,
   ADD_SCHEDUL,
   ADD_SCHEDUL_INIT,

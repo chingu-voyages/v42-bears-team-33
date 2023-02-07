@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Space, Divider, Dropdown, Menu } from 'antd';
 
-import { OPEN_SCHEDULE_MODAL } from '@reducers/schedule';
+import { OPEN_SCHEDULE_MODAL, OPEN_MESSAGE_NOW_MODAL } from '@reducers/schedule';
 import {
   TableContentWrapper,
   TableContentHeader,
@@ -23,6 +23,13 @@ const TableContent = () => {
     [],
   );
 
+  const onClickMessageNow = useCallback(
+    record => () => {
+      dispatch(OPEN_MESSAGE_NOW_MODAL(record));
+    },
+    [],
+  );
+
   const menu = record => () => {
     return (
       <Menu>
@@ -33,7 +40,9 @@ const TableContent = () => {
         </Menu.Item>
 
         <Menu.Item key="send">
-          <button type="button">Send now</button>
+          <button type="button" onClick={onClickMessageNow(record)}>
+            Send now
+          </button>
         </Menu.Item>
       </Menu>
     );
@@ -74,7 +83,9 @@ const TableContent = () => {
             Schedule a message
           </TableContentBtn>
           <Divider type="vertical" />
-          <TableContentBtn type="button">Send now</TableContentBtn>
+          <TableContentBtn type="button" onClick={onClickMessageNow(record)}>
+            Send now
+          </TableContentBtn>
         </Space>
       ),
       responsive: ['md'],
