@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Divider } from 'antd';
 
-import { OPEN_SCHEDULE_MODAL, OPEN_MESSAGE_NOW_MODAL } from '@reducers/schedule';
+import { OPEN_SCHEDULE_MODAL, OPEN_MESSAGE_NOW_MODAL, VISIBLE_ADD_FRIENDS } from '@reducers/schedule';
 import { FriendsHeader } from '@style/friends/header';
 
 const ListHeader = () => {
@@ -18,7 +18,7 @@ const ListHeader = () => {
   }, []);
 
   const onClickCreateBtn = useCallback(() => {
-    console.log('친구 추가 모달 열기');
+    dispatch(VISIBLE_ADD_FRIENDS());
   }, []);
 
   return (
@@ -35,7 +35,7 @@ const ListHeader = () => {
 
       {friendsInfo ? (
         <FriendsHeader friendsinfo={friendsInfo} addfriendsvisible={addFriendsVisible || undefined}>
-          <header>Welcome to the Friendship App!</header>
+          <header>Welcome to the Miss. Ship!</header>
 
           <p>
             Click / press{' '}
