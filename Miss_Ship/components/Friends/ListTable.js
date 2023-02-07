@@ -78,15 +78,15 @@ const ListTable = () => {
           <ListTableItems>
             <Dropdown overlay={menu} trigger="hover" disabled={addFriendsVisible}>
               <a>
-                <ListTableDropdown addfriendsvisible={addFriendsVisible}>
+                <ListTableDropdown addfriendsvisible={addFriendsVisible || undefined}>
                   Choose Category <DownOutlined />
                 </ListTableDropdown>
               </a>
             </Dropdown>
 
             <ListTableBtn
-              firstchild
-              addfriendsvisible={addFriendsVisible}
+              firstchild="true"
+              addfriendsvisible={addFriendsVisible || undefined}
               danger
               disabled={addFriendsVisible}
               icon={<DeleteOutlined />}
