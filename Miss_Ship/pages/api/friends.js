@@ -9,40 +9,35 @@ export default async function handler(req, res) {
   const client = await clientPromise;
   const db = client.db(MONGODB_DATABASE);
   const { method } = req;
-  let uid;
+  let userId;
 
   const headerToken = req.headers.authorization;
   logger.debug(`Token Received: ${headerToken}`);
   if (_.isNil(headerToken)) {
     res.status(HTTP_STATUS_CODE.UNAUTHORIZED).json({ error: 'Invalid Firebase Token' });
   }
-  const token = headerToken.split(' ')[1];
 
-  admin
-    .auth()
-    .verifyIdToken(token)
-    .then(decodedToken => {
-     logger.info(`Decoded Token User ID: ${ decodedToken.uid}`);
-      uid = decodedToken.uid;
-    })
-    .catch(error => {
-      logger.error(error);
-      // res.status(HTTP_STATUS_CODE.UNAUTHORIZED).json({ error: 'Invalid/Expired Firebase Token' });
-    });
+  try {
+    const token = headerToken.split(' ')[1];
+    userId = await admin.auth().verifyIdToken(token);
+  } catch (e) {
+    logger.error(e);
+    // res.status(HTTP_STATUS_CODE.UNAUTHORIZED).json({ error: 'Invalid/Expired Firebase Token' });
+  }
 
   switch (method) {
     case HTTP.GET: {
       logger.info('HTTP GET: /api/friends/');
 
       let friendsList;
-      // uid = 12345;
-      if (_.isNil(uid)) {
-        logger.info('UserID is invalid, retrieving all friends')
+      // userId = 'Yk1eA8Vbh7fFIRd3eTNXvyHCdwH3';
+      if (_.isNil(userId)) {
+        logger.info('UserID is invalid, retrieving all friends');
         friendsList = await db.collection(MONGODB_COLLECTION.FRIEND).find({}).toArray();
       } else {
         friendsList = await db
           .collection(MONGODB_COLLECTION.FRIEND)
-          .find({ userId: { $eq: uid } })
+          .find({ userId: { $eq: userId } })
           .toArray();
       }
 
@@ -54,12 +49,12 @@ export default async function handler(req, res) {
       logger.info(`HTTP POST: /api/friends/ BODY: ${body}`);
       logger.info(body);
 
-      for (const friend of body){
-        if(_.isNil(uid)){
-          logger.info('Invalid Firebase Token, Adding to mock account')
+      for (const friend of body) {
+        if (_.isNil(userId)) {
+          logger.info('Invalid Firebase Token, Adding to mock account');
           friend.userId = 'Yk1eA8Vbh7fFIRd3eTNXvyHCdwH3';
         } else {
-          friend.userId = uid;
+          friend.userId = userId;
         }
       }
 
