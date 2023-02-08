@@ -4,7 +4,6 @@ import { Form, Row, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 
 import { signup } from '@actions/user';
-import { INITIAL_ADD_FRIENDS_STATE } from '@reducers/schedule';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { SignupFormWrapper, SignupFormInput, SignupFormOption, SignupFormBtn } from '@style/account/signupForm';
 
@@ -17,13 +16,11 @@ const SignupForm = () => {
 
   const onGoogleSignup = useCallback(() => {
     setGoogleSignUp(true);
-    dispatch(INITIAL_ADD_FRIENDS_STATE());
     dispatch(signup({ type: 'google' }));
   }, []);
 
   const onSubmitForm = useCallback(signupInfo => {
     setGenericSignUp(true);
-    dispatch(INITIAL_ADD_FRIENDS_STATE());
     dispatch(signup({ type: '', signupInfo }));
   }, []);
 

@@ -139,7 +139,7 @@ const TableContent = () => {
         }}
         pagination={{ pageSize: tableSize }}
         columns={columns}
-        dataSource={!friendsInfo ? initialFriendsInfo : friendsInfo}
+        dataSource={!friendsInfo?.length ? initialFriendsInfo : friendsInfo}
         rowKey={record => record._id}
       />
     </>

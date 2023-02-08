@@ -33,8 +33,8 @@ const ListHeader = () => {
         </FriendsHeader>
       )}
 
-      {friendsInfo ? (
-        <FriendsHeader friendsinfo={friendsInfo} $addfriendsvisible={addFriendsVisible}>
+      {friendsInfo?.length !== 0 ? (
+        <FriendsHeader friendsinfo={friendsInfo?.length} $addfriendsvisible={addFriendsVisible}>
           <header>Welcome to the Miss. Ship!</header>
 
           <p>
@@ -50,7 +50,7 @@ const ListHeader = () => {
           </p>
         </FriendsHeader>
       ) : (
-        <FriendsHeader friendsinfo={friendsInfo} $addfriendsvisible={addFriendsVisible}>
+        <FriendsHeader friendsinfo={friendsInfo?.length} $addfriendsvisible={addFriendsVisible}>
           <img src="https://ifh.cc/g/VxB9AZ.png" alt="friends page header img" />
 
           <header>Create a new friend list and start scheduling greeting messages!</header>
