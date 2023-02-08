@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
   try {
     const token = headerToken.split(' ')[1];
-    userId = await admin.auth().verifyIdToken(token);
+    userId = (await admin.auth().verifyIdToken(token)).uid;
   } catch (e) {
     logger.error(e);
     // res.status(HTTP_STATUS_CODE.UNAUTHORIZED).json({ error: 'Invalid/Expired Firebase Token' });
