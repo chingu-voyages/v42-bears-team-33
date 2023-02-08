@@ -32,11 +32,12 @@ const Friends = () => {
   }, []);
 
   useEffect(() => {
-    if (me || addFriendsDone) {
-      dispatch(loadMyFriends());
-      dispatch(INITIAL_ADD_FRIENDS_STATE());
-    }
-  }, [me, addFriendsDone]);
+    if (me) dispatch(loadMyFriends());
+  }, [me]);
+
+  useEffect(() => {
+    if (addFriendsDone) dispatch(INITIAL_ADD_FRIENDS_STATE());
+  }, [addFriendsDone]);
 
   return (
     <>
