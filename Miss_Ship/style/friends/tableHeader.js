@@ -50,7 +50,7 @@ export const ListTableDropdown = styled(Button)`
   }
 
   @media ${({ theme }) => theme.media.tablet} {
-    display: ${props => props.addfriendsvisible && 'none'};
+    display: ${props => props.$addfriendsvisible && 'none'};
     margin: 0 0 2em 0;
   }
 `;
@@ -105,6 +105,6 @@ export const ListTableBtn = styled(Button)`
   @media ${({ theme }) => theme.media.tablet} {
     width: 100%;
     margin: 0 0 1em 0;
-    display: ${props => props.addfriendsvisible && 'none'};
+    display: ${props => props.$addfriendsvisible && 'none'};
   }
 `;

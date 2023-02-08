@@ -55,6 +55,7 @@ const scheduleSlice = createSlice({
       state.addFriendsLoading = false;
       state.addFriendsDone = false;
       state.addFriendsError = null;
+      state.addFriendsVisible = false;
     },
     VISIBLE_ADD_FRIENDS: state => {
       state.addFriendsVisible = true;

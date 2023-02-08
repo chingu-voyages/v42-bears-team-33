@@ -14,7 +14,7 @@ export const FriendsWrapper = styled.div`
 `;
 
 export const FriendsHeader = styled(Row)`
-  display: ${props => (props.addfriendsvisible ? 'none' : 'flex')};
+  display: ${props => (props.$addfriendsvisible ? 'none' : 'flex')};
   flex-direction: column;
   justify-content: center;
   align-items: ${props => (props.friendsinfo ? 'flex-start' : 'center')};
