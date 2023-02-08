@@ -52,7 +52,7 @@ const FriendSettingForm = () => {
 
   return (
     <FriendSettingFormWrapper
-      addfriendsvisible={addFriendsVisible}
+      addfriendsvisible={addFriendsVisible || undefined}
       form={form}
       name="friend_list_settings"
       onFinish={onSubmitForm}

@@ -51,6 +51,11 @@ const scheduleSlice = createSlice({
         state.loadMyFriendsError = action.payload;
       }),
   reducers: {
+    INITIAL_ADD_FRIENDS_STATE: state => {
+      state.addFriendsLoading = false;
+      state.addFriendsDone = false;
+      state.addFriendsError = null;
+    },
     VISIBLE_ADD_FRIENDS: state => {
       state.addFriendsVisible = true;
     },
@@ -81,6 +86,7 @@ const scheduleSlice = createSlice({
 });
 
 export const {
+  INITIAL_ADD_FRIENDS_STATE,
   VISIBLE_ADD_FRIENDS,
   INVISIBLE_ADD_FRIENDS,
   OPEN_SCHEDULE_MODAL,
