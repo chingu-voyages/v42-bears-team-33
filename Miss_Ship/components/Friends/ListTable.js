@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Menu, Form, Input, Button, Row, Divider, Col } from 'antd';
 import { DownOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -15,10 +15,12 @@ import {
   ListTableDropdownForm,
   ListTableBtn,
 } from '@style/friends/tableHeader';
+import { removeFriend } from '@actions/schedule';
 
 const ListTable = () => {
   const dispatch = useDispatch();
-  const { category, addFriendsVisible } = useSelector(state => state.schedule);
+  const { category, addFriendsVisible, removeFriendLoading } = useSelector(state => state.schedule);
+  const [deleteFriends, setDeleteFriends] = useState('');
 
   const onClickDropdownItem = useCallback(e => {
     console.log(e.key);
@@ -28,7 +30,7 @@ const ListTable = () => {
     dispatch(ADD_CATEGORY(e.item));
   });
 
-  const onClickDeleteBtn = useCallback(
+  const onClickDeleteCategory = useCallback(
     v => () => {
       dispatch(DELETE_CATEGORY(v));
     },
@@ -39,12 +41,20 @@ const ListTable = () => {
     dispatch(VISIBLE_ADD_FRIENDS());
   }, []);
 
+  const onClickDeleteFriends = useCallback(() => {
+    dispatch(
+      removeFriend({
+        friendId: deleteFriends,
+      }),
+    );
+  }, [deleteFriends]);
+
   const menu = (
     <ListTableDropdownMenu onClick={onClickDropdownItem}>
       {category.map(v => (
         <Row>
           <Menu.Item>{v}</Menu.Item>
-          <Button type="text" icon={<DeleteOutlined />} onClick={onClickDeleteBtn(v)} />
+          <Button type="text" icon={<DeleteOutlined />} onClick={onClickDeleteCategory(v)} />
         </Row>
       ))}
 
@@ -90,6 +100,8 @@ const ListTable = () => {
               danger
               disabled={addFriendsVisible}
               icon={<DeleteOutlined />}
+              onClick={onClickDeleteFriends}
+              loading={removeFriendLoading}
             >
               Delete Friend
             </ListTableBtn>
@@ -101,7 +113,7 @@ const ListTable = () => {
           </ListTableItems>
         </ListTableHeader>
 
-        {addFriendsVisible ? <FriendSettingForm /> : <TableContent />}
+        {addFriendsVisible ? <FriendSettingForm /> : <TableContent setDeleteFriends={setDeleteFriends} />}
       </ListTableWrapper>
     </>
   );

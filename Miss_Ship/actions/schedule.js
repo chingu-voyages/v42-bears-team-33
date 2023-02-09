@@ -18,6 +18,11 @@ axios.interceptors.request.use(
   },
 );
 
+export const loadMyFriends = createAsyncThunk('schedule/loadMyFriends', async () => {
+  const response = await axios.get('/friends');
+  return response.data;
+});
+
 export const addFriends = createAsyncThunk('schedule/addFriends', async (data, { rejectWithValue }) => {
   try {
     const response = await axios.post('/friends', data);
@@ -27,7 +32,11 @@ export const addFriends = createAsyncThunk('schedule/addFriends', async (data, {
   }
 });
 
-export const loadMyFriends = createAsyncThunk('schedule/loadMyFriends', async () => {
-  const response = await axios.get('/friends');
-  return response.data;
+export const removeFriend = createAsyncThunk('schedule/removeFriend', async (data, { rejectWithValue }) => {
+  try {
+    const response = await axios.delete(`/friends/${data.friendId}`);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
 });

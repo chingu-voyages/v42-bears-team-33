@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Modal, Form, Button } from 'antd';
+import { Modal, Form, Button, Input } from 'antd';
 
 export const ScheduleModalWrapper = styled(Modal)`
   position: fixed;
@@ -50,11 +50,11 @@ export const ScheduleModalForm = styled(Form)`
   }
 
   .ant-form-item:first-child {
-    margin-bottom: ${props => props.messagenowmodalvisible && '3em'};
+    margin-bottom: ${props => props.$messagenowmodalvisible && '3em'};
   }
 
   .ant-form-item:nth-child(2) {
-    margin-bottom: ${props => props.messagenowmodalvisible && '2em'};
+    margin-bottom: ${props => props.$messagenowmodalvisible && '2em'};
   }
 
   @media ${({ theme }) => theme.media.mobile} {
@@ -62,6 +62,10 @@ export const ScheduleModalForm = styled(Form)`
       margin-bottom: 0.5em;
     }
   }
+`;
+
+export const ScheduleModalInput = styled(Input)`
+  padding-right: 1.5em;
 `;
 
 export const ScheduleModalBtn = styled(Button)`

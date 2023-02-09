@@ -14,7 +14,7 @@ import { fbAuth } from './api/auth/fBase';
 const Friends = () => {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
-  const { friendsInfo, addFriendsDone } = useSelector(state => state.schedule);
+  const { friendsInfo, addFriendsDone, removeFriendDone } = useSelector(state => state.schedule);
 
   useEffect(() => {
     fbAuth.onAuthStateChanged(user => {
@@ -32,8 +32,8 @@ const Friends = () => {
   }, []);
 
   useEffect(() => {
-    if (me) dispatch(loadMyFriends());
-  }, [me]);
+    if (me || addFriendsDone || removeFriendDone) dispatch(loadMyFriends());
+  }, [me, addFriendsDone, removeFriendDone]);
 
   useEffect(() => {
     if (addFriendsDone) dispatch(INITIAL_ADD_FRIENDS_STATE());

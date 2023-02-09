@@ -2,19 +2,23 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Divider } from 'antd';
 
-import { OPEN_SCHEDULE_MODAL, OPEN_MESSAGE_NOW_MODAL, VISIBLE_ADD_FRIENDS } from '@reducers/schedule';
+import {
+  VISIBLE_ADD_FRIENDS,
+  OPEN_ANONYMOUS_SCHEDULE_MODAL,
+  OPEN_ANONYMOUS_MESSAGE_NOW_MODAL,
+} from '@reducers/schedule';
 import { FriendsHeader } from '@style/friends/header';
 
 const ListHeader = () => {
   const dispatch = useDispatch();
   const { friendsInfo, addFriendsVisible } = useSelector(state => state.schedule);
 
-  const onClickSchedule = useCallback(() => {
-    dispatch(OPEN_SCHEDULE_MODAL());
+  const onClickAnonymousSchedule = useCallback(() => {
+    dispatch(OPEN_ANONYMOUS_SCHEDULE_MODAL());
   }, []);
 
-  const onClickMessageNow = useCallback(() => {
-    dispatch(OPEN_MESSAGE_NOW_MODAL());
+  const onClickAnonymousMessageNow = useCallback(() => {
+    dispatch(OPEN_ANONYMOUS_MESSAGE_NOW_MODAL());
   }, []);
 
   const onClickCreateBtn = useCallback(() => {
@@ -39,11 +43,11 @@ const ListHeader = () => {
 
           <p>
             Click / press{' '}
-            <button type="button" onClick={onClickSchedule}>
+            <button type="button" onClick={onClickAnonymousSchedule}>
               “Schedule a message”
             </button>{' '}
             to edit the message. The{' '}
-            <button type="button" onClick={onClickMessageNow}>
+            <button type="button" onClick={onClickAnonymousMessageNow}>
               “Send Now”
             </button>
             is to send the message immediatelly.
