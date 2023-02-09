@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import _find from 'lodash/find';
 
 import { addFriends, loadMyFriends } from '@actions/schedule';
 
@@ -6,6 +7,7 @@ const initialState = {
   friendsInfo: null,
   category: [],
   addFriendsVisible: false,
+  anonymousScheduleModalVisible: false,
   scheduleModalVisible: false,
   scheduleInfo: null,
   messageNowModalVisible: false,
@@ -63,6 +65,18 @@ const scheduleSlice = createSlice({
     INVISIBLE_ADD_FRIENDS: state => {
       state.addFriendsVisible = false;
     },
+    OPEN_ANONYMOUS_SCHEDULE_MODAL: state => {
+      state.anonymousScheduleModalVisible = true;
+      state.scheduleModalVisible = true;
+    },
+    OPEN_ANONYMOUS_MESSAGE_NOW_MODAL: state => {
+      state.anonymousScheduleModalVisible = true;
+      state.scheduleModalVisible = true;
+      state.messageNowModalVisible = true;
+    },
+    ANONYMOUS_MODAL_SELECT_USER: (state, action) => {
+      state.scheduleInfo = _find(state.friendsInfo, { _id: action.payload });
+    },
     OPEN_SCHEDULE_MODAL: (state, action) => {
       state.scheduleModalVisible = true;
       state.scheduleInfo = action.payload;
@@ -75,6 +89,7 @@ const scheduleSlice = createSlice({
     CLOSE_SCHEDULE_MODAL: state => {
       state.scheduleModalVisible = false;
       state.messageNowModalVisible = false;
+      state.anonymousScheduleModalVisible = false;
       state.scheduleInfo = null;
     },
     ADD_CATEGORY: (state, action) => {
@@ -90,6 +105,9 @@ export const {
   INITIAL_ADD_FRIENDS_STATE,
   VISIBLE_ADD_FRIENDS,
   INVISIBLE_ADD_FRIENDS,
+  OPEN_ANONYMOUS_SCHEDULE_MODAL,
+  OPEN_ANONYMOUS_MESSAGE_NOW_MODAL,
+  ANONYMOUS_MODAL_SELECT_USER,
   OPEN_SCHEDULE_MODAL,
   OPEN_MESSAGE_NOW_MODAL,
   CLOSE_SCHEDULE_MODAL,

@@ -1,22 +1,63 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, DatePicker, Input, Row } from 'antd';
+import { Form, DatePicker, Input, Row, Select } from 'antd';
 
-import { CLOSE_SCHEDULE_MODAL } from '@reducers/schedule';
-import { ScheduleModalWrapper, ScheduleModalForm, ScheduleModalBtn } from '@style/friends/scheduleModal';
+import { CLOSE_SCHEDULE_MODAL, ANONYMOUS_MODAL_SELECT_USER } from '@reducers/schedule';
+import {
+  ScheduleModalWrapper,
+  ScheduleModalForm,
+  ScheduleModalInput,
+  ScheduleModalBtn,
+} from '@style/friends/scheduleModal';
 
 const ScheduleModal = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const { scheduleModalVisible, messageNowModalVisible, scheduleInfo } = useSelector(state => state.schedule);
+  const { friendsInfo, anonymousScheduleModalVisible, scheduleModalVisible, messageNowModalVisible, scheduleInfo } =
+    useSelector(state => state.schedule);
 
-  const onSubmitForm = useCallback(fieldsValue => {
-    console.log(fieldsValue);
-  }, []);
+  const onSubmitForm = useCallback(
+    e => {
+      let values;
+
+      if (!messageNowModalVisible) {
+        const fullDate = e.date._d;
+        const year = fullDate.getFullYear();
+        const month = `0${1 + fullDate.getMonth()}`.slice(-2);
+        const day = `0${fullDate.getDate()}`.slice(-2);
+
+        values = {
+          friendId: scheduleInfo._id,
+          message: e.message,
+          scheduledDate: `${year}-${month}-${day}`,
+        };
+      } else {
+        values = {
+          friendId: scheduleInfo._id,
+          message: e.message,
+        };
+      }
+
+      console.log(values);
+    },
+    [scheduleInfo],
+  );
 
   const onCloseSchedule = useCallback(() => {
     dispatch(CLOSE_SCHEDULE_MODAL());
   }, []);
+
+  const onChangeName = useCallback(e => {
+    dispatch(ANONYMOUS_MODAL_SELECT_USER(e));
+  }, []);
+
+  useEffect(() => {
+    if (scheduleInfo)
+      form.setFieldsValue({
+        to: scheduleInfo?.name,
+        birthday: scheduleInfo?.dateOfBirth,
+      });
+  }, [form, scheduleInfo]);
 
   return (
     <ScheduleModalWrapper
@@ -26,22 +67,35 @@ const ScheduleModal = () => {
       footer={null}
     >
       <ScheduleModalForm
-        messagenowmodalvisible={messageNowModalVisible || undefined}
+        $messagenowmodalvisible={messageNowModalVisible}
         form={form}
         name="schedule"
         layout="vertical"
         requiredMark={false}
         onFinish={onSubmitForm}
-        initialValues={{ to: scheduleInfo?.name, birthday: scheduleInfo?.birthday }}
       >
-        <Form.Item name="to" label="To">
-          <Input placeholder="Recipient" allowClear disabled={scheduleInfo && true} />
-        </Form.Item>
+        {anonymousScheduleModalVisible ? (
+          <Form.Item name="to" label="To">
+            <Select placeholder="Recipient" onChange={onChangeName} disabled={scheduleInfo && true}>
+              {friendsInfo?.map(v => {
+                return (
+                  <Select.Option key={v._id} value={v._id}>
+                    {v.name}
+                  </Select.Option>
+                );
+              })}
+            </Select>
+          </Form.Item>
+        ) : (
+          <Form.Item name="to" label="To">
+            <ScheduleModalInput placeholder="Recipient" allowClear disabled={scheduleInfo && true} />
+          </Form.Item>
+        )}
 
         {messageNowModalVisible || (
           <>
             <Form.Item name="birthday" label="Birthday">
-              <Input placeholder="Birthday day" allowClear disabled={scheduleInfo && true} />
+              <ScheduleModalInput placeholder="Birthday day" allowClear disabled={scheduleInfo && true} />
             </Form.Item>
             <Form.Item
               name="date"
@@ -71,7 +125,7 @@ const ScheduleModal = () => {
             maxLength={160}
             autoSize={{
               minRows: 2,
-              maxRows: 4,
+              maxRows: 10,
             }}
           />
         </Form.Item>
