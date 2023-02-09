@@ -5,16 +5,17 @@ import user from './user';
 import schedule from './schedule';
 
 const reducer = (state, action) => {
-  if (action.type === HYDRATE) {
-    return {
-      ...state,
-      ...action.payload,
-    };
+  switch (action.type) {
+    case HYDRATE:
+      return action.payload;
+    default: {
+      const combineReducer = combineReducers({
+        user,
+        schedule,
+      });
+      return combineReducer(state, action);
+    }
   }
-  return combineReducers({
-    user,
-    schedule,
-  })(state, action);
 };
 
 export default reducer;

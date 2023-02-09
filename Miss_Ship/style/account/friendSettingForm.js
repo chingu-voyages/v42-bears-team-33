@@ -24,8 +24,14 @@ export const FriendSettingHeader = styled(Steps)`
 `;
 
 export const FriendSettingFormWrapper = styled(Form)`
+  width: ${props => props.$addfriendsvisible && '100%'};
+  margin-top: ${props => props.$addfriendsvisible && '2em'};
   ${({ theme }) => theme.flexColumnSet()};
   padding: 0 1em;
+
+  @media ${({ theme }) => theme.media.tablet} {
+    margin-top: ${props => props.$addfriendsvisible && '1em'};
+  }
 `;
 
 export const SettingItemsWrapper = styled(Row)`

@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Space, Divider, Dropdown, Menu } from 'antd';
 
-import { OPEN_SCHEDULE_MODAL } from '@reducers/schedule';
-import { LOAD_MY_FRIENDS_SUCCESS } from '@reducers/user';
+import { OPEN_SCHEDULE_MODAL, OPEN_MESSAGE_NOW_MODAL } from '@reducers/schedule';
 import {
   TableContentWrapper,
   TableContentHeader,
@@ -13,13 +12,20 @@ import {
 
 const TableContent = () => {
   const dispatch = useDispatch();
-  const { firendsInfo } = useSelector(state => state.user);
+  const { friendsInfo } = useSelector(state => state.schedule);
   const [tableSize, setTableSize] = useState(10);
   const [desktop, setDesktop] = useState(true);
 
   const onClickSchedule = useCallback(
     record => () => {
       dispatch(OPEN_SCHEDULE_MODAL(record));
+    },
+    [],
+  );
+
+  const onClickMessageNow = useCallback(
+    record => () => {
+      dispatch(OPEN_MESSAGE_NOW_MODAL(record));
     },
     [],
   );
@@ -34,7 +40,9 @@ const TableContent = () => {
         </Menu.Item>
 
         <Menu.Item key="send">
-          <button type="button">Send now</button>
+          <button type="button" onClick={onClickMessageNow(record)}>
+            Send now
+          </button>
         </Menu.Item>
       </Menu>
     );
@@ -56,14 +64,14 @@ const TableContent = () => {
       title: <TableContentHeader>Status</TableContentHeader>,
       dataIndex: 'status',
       key: 'status',
-      render: status => <TableContentBadge status={status.info} text={status.text} />,
+      render: status => <TableContentBadge status={status?.info} text={status?.text} />,
     },
     {
       title: <TableContentHeader>Birthday</TableContentHeader>,
-      dataIndex: 'birthday',
+      dataIndex: 'dateOfBirth',
       key: 'birthday',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => new Date(a.birthday) - new Date(b.birthday),
+      sorter: (a, b) => new Date(a.dateOfBirth) - new Date(b.dateOfBirth),
     },
     {
       title: <TableContentHeader>Action</TableContentHeader>,
@@ -75,7 +83,9 @@ const TableContent = () => {
             Schedule a message
           </TableContentBtn>
           <Divider type="vertical" />
-          <TableContentBtn type="button">Send now</TableContentBtn>
+          <TableContentBtn type="button" onClick={onClickMessageNow(record)}>
+            Send now
+          </TableContentBtn>
         </Space>
       ),
       responsive: ['md'],
@@ -99,8 +109,8 @@ const TableContent = () => {
       else setDesktop(false);
 
       if (document.documentElement.clientHeight > 900) setTableSize(10);
-      else if (document.documentElement.clientHeight > 700) setTableSize(8);
-      else setTableSize(6);
+      else if (document.documentElement.clientHeight > 700) setTableSize(6);
+      else setTableSize(4);
     }
 
     window.addEventListener('load', onResize);
@@ -112,9 +122,13 @@ const TableContent = () => {
     };
   }, []);
 
-  useEffect(() => {
-    dispatch(LOAD_MY_FRIENDS_SUCCESS());
-  }, []);
+  const initialFriendsInfo = [
+    { _id: 1, name: 'Jenny Wilson', status: { info: 'success', text: 'Sent' }, dateOfBirth: '2022-12-05' },
+    { _id: 2, name: 'Floyd Miles', status: { info: 'default', text: 'Draft' }, dateOfBirth: '2023-02-13' },
+    { _id: 3, name: 'Brooklyn Simmons', status: { info: 'error', text: 'Overdue' }, dateOfBirth: '2023-01-06' },
+    // { key: 1, name: 'Dummy 2', status: { info: 'processing', text: 'None' }, dateOfBirth: '1992-06-23' },
+    // { key: 2, name: 'Dummy 1', status: { info: 'warning', text: 'Scheduled' }, dateOfBirth: '2001-02-21' },
+  ];
 
   return (
     <>
@@ -125,7 +139,8 @@ const TableContent = () => {
         }}
         pagination={{ pageSize: tableSize }}
         columns={columns}
-        dataSource={firendsInfo}
+        dataSource={!friendsInfo?.length ? initialFriendsInfo : friendsInfo}
+        rowKey={record => record._id}
       />
     </>
   );

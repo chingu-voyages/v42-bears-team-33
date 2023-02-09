@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 
+import { signup } from '@actions/user';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { SignupFormWrapper, SignupFormInput, SignupFormOption, SignupFormBtn } from '@style/account/signupForm';
-import { signup } from '@actions/user';
 
 const SignupForm = () => {
   const dispatch = useDispatch();

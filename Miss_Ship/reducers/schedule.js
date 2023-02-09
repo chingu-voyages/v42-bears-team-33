@@ -1,14 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { addFriends } from '@actions/schedule';
+import { addFriends, loadMyFriends } from '@actions/schedule';
 
 const initialState = {
+  friendsInfo: null,
+  category: [],
+  addFriendsVisible: false,
   scheduleModalVisible: false,
   scheduleInfo: null,
-  category: [],
+  messageNowModalVisible: false,
   addFriendsLoading: false,
   addFriendsDone: false,
   addFriendsError: null,
+  loadMyFriendsLoading: false,
+  loadMyFriendsDone: false,
+  loadMyFriendsError: null,
 };
 
 const scheduleSlice = createSlice({
@@ -24,18 +30,51 @@ const scheduleSlice = createSlice({
       .addCase(addFriends.fulfilled, state => {
         state.addFriendsLoading = false;
         state.addFriendsDone = true;
+        state.addFriendsVisible = false;
       })
       .addCase(addFriends.rejected, (state, action) => {
         state.addFriendsLoading = false;
         state.addFriendsError = action.payload;
+      })
+      .addCase(loadMyFriends.pending, state => {
+        state.loadMyFriendsLoading = true;
+        state.loadMyFriendsDone = false;
+        state.loadMyFriendsError = null;
+      })
+      .addCase(loadMyFriends.fulfilled, (state, action) => {
+        state.loadMyFriendsLoading = false;
+        state.loadMyFriendsDone = true;
+        state.friendsInfo = action.payload.data;
+      })
+      .addCase(loadMyFriends.rejected, (state, action) => {
+        state.loadMyFriendsLoading = false;
+        state.loadMyFriendsError = action.payload;
       }),
   reducers: {
+    INITIAL_ADD_FRIENDS_STATE: state => {
+      state.addFriendsLoading = false;
+      state.addFriendsDone = false;
+      state.addFriendsError = null;
+      state.addFriendsVisible = false;
+    },
+    VISIBLE_ADD_FRIENDS: state => {
+      state.addFriendsVisible = true;
+    },
+    INVISIBLE_ADD_FRIENDS: state => {
+      state.addFriendsVisible = false;
+    },
     OPEN_SCHEDULE_MODAL: (state, action) => {
       state.scheduleModalVisible = true;
       state.scheduleInfo = action.payload;
     },
+    OPEN_MESSAGE_NOW_MODAL: (state, action) => {
+      state.scheduleModalVisible = true;
+      state.messageNowModalVisible = true;
+      state.scheduleInfo = action.payload;
+    },
     CLOSE_SCHEDULE_MODAL: state => {
       state.scheduleModalVisible = false;
+      state.messageNowModalVisible = false;
       state.scheduleInfo = null;
     },
     ADD_CATEGORY: (state, action) => {
@@ -48,7 +87,11 @@ const scheduleSlice = createSlice({
 });
 
 export const {
+  INITIAL_ADD_FRIENDS_STATE,
+  VISIBLE_ADD_FRIENDS,
+  INVISIBLE_ADD_FRIENDS,
   OPEN_SCHEDULE_MODAL,
+  OPEN_MESSAGE_NOW_MODAL,
   CLOSE_SCHEDULE_MODAL,
   ADD_SCHEDUL,
   ADD_SCHEDUL_INIT,

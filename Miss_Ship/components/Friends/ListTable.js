@@ -1,9 +1,11 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Menu, Form, Input, Button, Row, Divider, Col } from 'antd';
-import { DownOutlined, UsergroupAddOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
+import { DownOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import TableContent from '@components/Friends/TableContent';
+import FriendSettingForm from '@components/Account/FriendSettingForm';
+import { ADD_CATEGORY, DELETE_CATEGORY, VISIBLE_ADD_FRIENDS } from '@reducers/schedule';
 import {
   ListTableWrapper,
   ListTableHeader,
@@ -13,11 +15,10 @@ import {
   ListTableDropdownForm,
   ListTableBtn,
 } from '@style/friends/tableHeader';
-import { ADD_CATEGORY, DELETE_CATEGORY } from '@reducers/schedule';
 
 const ListTable = () => {
   const dispatch = useDispatch();
-  const { category } = useSelector(state => state.schedule);
+  const { category, addFriendsVisible } = useSelector(state => state.schedule);
 
   const onClickDropdownItem = useCallback(e => {
     console.log(e.key);
@@ -33,6 +34,10 @@ const ListTable = () => {
     },
     [],
   );
+
+  const onClickAddFriends = useCallback(() => {
+    dispatch(VISIBLE_ADD_FRIENDS());
+  }, []);
 
   const menu = (
     <ListTableDropdownMenu onClick={onClickDropdownItem}>
@@ -71,24 +76,32 @@ const ListTable = () => {
           <h2>My Friend List</h2>
 
           <ListTableItems>
-            <Dropdown overlay={menu} trigger="hover">
+            <Dropdown overlay={menu} trigger="hover" disabled={addFriendsVisible}>
               <a>
-                <ListTableDropdown>
+                <ListTableDropdown $addfriendsvisible={addFriendsVisible}>
                   Choose Category <DownOutlined />
                 </ListTableDropdown>
               </a>
             </Dropdown>
 
-            <ListTableBtn firstchild="true" icon={<UsergroupAddOutlined />}>
-              Manage Friend List
+            <ListTableBtn
+              firstchild="true"
+              $addfriendsvisible={addFriendsVisible}
+              danger
+              disabled={addFriendsVisible}
+              icon={<DeleteOutlined />}
+            >
+              Delete Friend
             </ListTableBtn>
-            <ListTableBtn type="primary" icon={<PlusOutlined />}>
-              Add New Friend
-            </ListTableBtn>
+            {addFriendsVisible || (
+              <ListTableBtn type="primary" icon={<PlusOutlined />} onClick={onClickAddFriends}>
+                Add New Friend
+              </ListTableBtn>
+            )}
           </ListTableItems>
         </ListTableHeader>
 
-        <TableContent />
+        {addFriendsVisible ? <FriendSettingForm /> : <TableContent />}
       </ListTableWrapper>
     </>
   );

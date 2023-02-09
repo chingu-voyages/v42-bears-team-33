@@ -8,7 +8,7 @@ import { ScheduleModalWrapper, ScheduleModalForm, ScheduleModalBtn } from '@styl
 const ScheduleModal = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const { scheduleModalVisible, scheduleInfo } = useSelector(state => state.schedule);
+  const { scheduleModalVisible, messageNowModalVisible, scheduleInfo } = useSelector(state => state.schedule);
 
   const onSubmitForm = useCallback(fieldsValue => {
     console.log(fieldsValue);
@@ -26,6 +26,7 @@ const ScheduleModal = () => {
       footer={null}
     >
       <ScheduleModalForm
+        messagenowmodalvisible={messageNowModalVisible || undefined}
         form={form}
         name="schedule"
         layout="vertical"
@@ -36,16 +37,22 @@ const ScheduleModal = () => {
         <Form.Item name="to" label="To">
           <Input placeholder="Recipient" allowClear disabled={scheduleInfo && true} />
         </Form.Item>
-        <Form.Item name="birthday" label="Birthday">
-          <Input placeholder="Birthday day" allowClear disabled={scheduleInfo && true} />
-        </Form.Item>
-        <Form.Item
-          name="date"
-          label="Text Date"
-          rules={[{ type: 'object', required: true, message: 'Please select date' }]}
-        >
-          <DatePicker />
-        </Form.Item>
+
+        {messageNowModalVisible || (
+          <>
+            <Form.Item name="birthday" label="Birthday">
+              <Input placeholder="Birthday day" allowClear disabled={scheduleInfo && true} />
+            </Form.Item>
+            <Form.Item
+              name="date"
+              label="Text Date"
+              rules={[{ type: 'object', required: true, message: 'Please select date' }]}
+            >
+              <DatePicker />
+            </Form.Item>
+          </>
+        )}
+
         <Form.Item
           name="message"
           label="Text Message"

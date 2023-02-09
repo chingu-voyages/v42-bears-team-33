@@ -1,14 +1,16 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { backendUrl } from '@config/config';
+import { getToken } from './user';
 
 axios.defaults.baseURL = backendUrl;
 axios.defaults.withCredentials = true;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 axios.interceptors.request.use(
-  config => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('FB_TOKEN')}`;
+  async config => {
+    const token = await getToken();
+    config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   error => {
@@ -23,4 +25,9 @@ export const addFriends = createAsyncThunk('schedule/addFriends', async (data, {
   } catch (error) {
     return rejectWithValue(error.response.data);
   }
+});
+
+export const loadMyFriends = createAsyncThunk('schedule/loadMyFriends', async () => {
+  const response = await axios.get('/friends');
+  return response.data;
 });
