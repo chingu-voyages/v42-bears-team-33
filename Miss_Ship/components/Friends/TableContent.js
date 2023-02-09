@@ -94,10 +94,8 @@ const TableContent = ({ setDeleteFriends }) => {
   ];
 
   const rowSelection = {
-    // onChange: (selectedRowKeys, selectedRows) => {
     onChange: selectedRowKeys => {
       setDeleteFriends(selectedRowKeys);
-      // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     },
 
     getCheckboxProps: record => ({
@@ -129,8 +127,6 @@ const TableContent = ({ setDeleteFriends }) => {
     { _id: 1, name: 'Jenny Wilson', status: { info: 'success', text: 'Sent' }, dateOfBirth: '2022-12-05' },
     { _id: 2, name: 'Floyd Miles', status: { info: 'default', text: 'Draft' }, dateOfBirth: '2023-02-13' },
     { _id: 3, name: 'Brooklyn Simmons', status: { info: 'error', text: 'Overdue' }, dateOfBirth: '2023-01-06' },
-    // { key: 1, name: 'Dummy 2', status: { info: 'processing', text: 'None' }, dateOfBirth: '1992-06-23' },
-    // { key: 2, name: 'Dummy 1', status: { info: 'warning', text: 'Scheduled' }, dateOfBirth: '2001-02-21' },
   ];
 
   return (
