@@ -95,7 +95,7 @@ const TableContent = ({ setDeleteFriends }) => {
 
   const rowSelection = {
     onChange: selectedRowKeys => {
-      setDeleteFriends(selectedRowKeys);
+      setDeleteFriends(selectedRowKeys.join(''));
     },
 
     getCheckboxProps: record => ({
@@ -133,7 +133,7 @@ const TableContent = ({ setDeleteFriends }) => {
     <>
       <TableContentWrapper
         rowSelection={{
-          type: 'checkbox',
+          type: 'radio',
           ...rowSelection,
         }}
         pagination={{ pageSize: tableSize }}

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _find from 'lodash/find';
 
-import { addFriends, loadMyFriends } from '@actions/schedule';
+import { loadMyFriends, addFriends, removeFriend } from '@actions/schedule';
 
 const initialState = {
   friendsInfo: null,
@@ -11,12 +11,15 @@ const initialState = {
   scheduleModalVisible: false,
   scheduleInfo: null,
   messageNowModalVisible: false,
-  addFriendsLoading: false,
-  addFriendsDone: false,
-  addFriendsError: null,
   loadMyFriendsLoading: false,
   loadMyFriendsDone: false,
   loadMyFriendsError: null,
+  addFriendsLoading: false,
+  addFriendsDone: false,
+  addFriendsError: null,
+  removeFriendLoading: false,
+  removeFriendDone: false,
+  removeFriendError: null,
 };
 
 const scheduleSlice = createSlice({
@@ -24,6 +27,20 @@ const scheduleSlice = createSlice({
   initialState,
   extraReducers: builder =>
     builder
+      .addCase(loadMyFriends.pending, state => {
+        state.loadMyFriendsLoading = true;
+        state.loadMyFriendsDone = false;
+        state.loadMyFriendsError = null;
+      })
+      .addCase(loadMyFriends.fulfilled, (state, action) => {
+        state.loadMyFriendsLoading = false;
+        state.loadMyFriendsDone = true;
+        state.friendsInfo = action.payload.data;
+      })
+      .addCase(loadMyFriends.rejected, (state, action) => {
+        state.loadMyFriendsLoading = false;
+        state.loadMyFriendsError = action.payload;
+      })
       .addCase(addFriends.pending, state => {
         state.addFriendsLoading = true;
         state.addFriendsDone = false;
@@ -38,20 +55,21 @@ const scheduleSlice = createSlice({
         state.addFriendsLoading = false;
         state.addFriendsError = action.payload;
       })
-      .addCase(loadMyFriends.pending, state => {
-        state.loadMyFriendsLoading = true;
-        state.loadMyFriendsDone = false;
-        state.loadMyFriendsError = null;
+
+      .addCase(removeFriend.pending, state => {
+        state.removeFriendLoading = true;
+        state.removeFriendDone = false;
+        state.removeFriendError = null;
       })
-      .addCase(loadMyFriends.fulfilled, (state, action) => {
-        state.loadMyFriendsLoading = false;
-        state.loadMyFriendsDone = true;
-        state.friendsInfo = action.payload.data;
+      .addCase(removeFriend.fulfilled, state => {
+        state.removeFriendLoading = false;
+        state.removeFriendDone = true;
       })
-      .addCase(loadMyFriends.rejected, (state, action) => {
-        state.loadMyFriendsLoading = false;
-        state.loadMyFriendsError = action.payload;
+      .addCase(removeFriend.rejected, (state, action) => {
+        state.removeFriendLoading = false;
+        state.removeFriendError = action.payload;
       }),
+
   reducers: {
     INITIAL_ADD_FRIENDS_STATE: state => {
       state.addFriendsLoading = false;

@@ -15,11 +15,12 @@ import {
   ListTableDropdownForm,
   ListTableBtn,
 } from '@style/friends/tableHeader';
+import { removeFriend } from '@actions/schedule';
 
 const ListTable = () => {
   const dispatch = useDispatch();
-  const { category, addFriendsVisible } = useSelector(state => state.schedule);
-  const [deleteFriends, setDeleteFriends] = useState([]);
+  const { category, addFriendsVisible, removeFriendLoading } = useSelector(state => state.schedule);
+  const [deleteFriends, setDeleteFriends] = useState('');
 
   const onClickDropdownItem = useCallback(e => {
     console.log(e.key);
@@ -41,7 +42,11 @@ const ListTable = () => {
   }, []);
 
   const onClickDeleteFriends = useCallback(() => {
-    console.log(deleteFriends);
+    dispatch(
+      removeFriend({
+        friendId: deleteFriends,
+      }),
+    );
   }, [deleteFriends]);
 
   const menu = (
@@ -96,6 +101,7 @@ const ListTable = () => {
               disabled={addFriendsVisible}
               icon={<DeleteOutlined />}
               onClick={onClickDeleteFriends}
+              loading={removeFriendLoading}
             >
               Delete Friend
             </ListTableBtn>
