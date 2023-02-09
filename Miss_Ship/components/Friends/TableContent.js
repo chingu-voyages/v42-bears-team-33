@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Space, Divider, Dropdown, Menu } from 'antd';
+import PropTypes from 'prop-types';
 
 import { OPEN_SCHEDULE_MODAL, OPEN_MESSAGE_NOW_MODAL } from '@reducers/schedule';
 import {
@@ -10,7 +11,7 @@ import {
   TableContentBtn,
 } from '@style/friends/tableContent';
 
-const TableContent = () => {
+const TableContent = ({ setDeleteFriends }) => {
   const dispatch = useDispatch();
   const { friendsInfo } = useSelector(state => state.schedule);
   const [tableSize, setTableSize] = useState(10);
@@ -93,8 +94,10 @@ const TableContent = () => {
   ];
 
   const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    // onChange: (selectedRowKeys, selectedRows) => {
+    onChange: selectedRowKeys => {
+      setDeleteFriends(selectedRowKeys);
+      // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     },
 
     getCheckboxProps: record => ({
@@ -144,6 +147,10 @@ const TableContent = () => {
       />
     </>
   );
+};
+
+TableContent.propTypes = {
+  setDeleteFriends: PropTypes.func,
 };
 
 export default TableContent;
