@@ -40,3 +40,12 @@ export const removeFriend = createAsyncThunk('schedule/removeFriend', async (dat
     return rejectWithValue(error.response.data);
   }
 });
+
+export const sendMessage = createAsyncThunk('schedule/message', async (data, { rejectWithValue }) => {
+  try {
+    const response = await axios.post('/sms', data);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+});
