@@ -55,7 +55,7 @@ const TableContent = ({ setDeleteFriends }) => {
       dataIndex: 'name',
       key: 'name',
       render: (name, record) => (
-        <Dropdown overlay={menu(record)} trigger="click">
+        <Dropdown overlay={menu(record)} trigger="hover">
           <TableContentBtn type="button">{name}</TableContentBtn>
         </Dropdown>
       ),
