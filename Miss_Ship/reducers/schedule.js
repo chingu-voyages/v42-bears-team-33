@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _find from 'lodash/find';
 
-import { loadMyFriends, addFriends, removeFriend } from '@actions/schedule';
+import { loadMyFriends, addFriends, removeFriend, sendMessage, scheduling } from '@actions/schedule';
 
 const initialState = {
   friendsInfo: null,
@@ -20,6 +20,12 @@ const initialState = {
   removeFriendLoading: false,
   removeFriendDone: false,
   removeFriendError: null,
+  sendMessageLoading: false,
+  sendMessageDone: false,
+  sendMessageError: null,
+  schedulingLoading: false,
+  schedulingDone: false,
+  schedulingError: null,
 };
 
 const scheduleSlice = createSlice({
@@ -55,7 +61,6 @@ const scheduleSlice = createSlice({
         state.addFriendsLoading = false;
         state.addFriendsError = action.payload;
       })
-
       .addCase(removeFriend.pending, state => {
         state.removeFriendLoading = true;
         state.removeFriendDone = false;
@@ -68,8 +73,33 @@ const scheduleSlice = createSlice({
       .addCase(removeFriend.rejected, (state, action) => {
         state.removeFriendLoading = false;
         state.removeFriendError = action.payload;
+      })
+      .addCase(sendMessage.pending, state => {
+        state.sendMessageLoading = true;
+        state.sendMessageDone = false;
+        state.sendMessageError = null;
+      })
+      .addCase(sendMessage.fulfilled, state => {
+        state.sendMessageLoading = false;
+        state.sendMessageDone = true;
+      })
+      .addCase(sendMessage.rejected, (state, action) => {
+        state.sendMessageLoading = false;
+        state.sendMessageError = action.payload;
+      })
+      .addCase(scheduling.pending, state => {
+        state.schedulingLoading = true;
+        state.schedulingDone = false;
+        state.schedulingError = null;
+      })
+      .addCase(scheduling.fulfilled, state => {
+        state.schedulingLoading = false;
+        state.schedulingDone = true;
+      })
+      .addCase(scheduling.rejected, (state, action) => {
+        state.schedulingLoading = false;
+        state.schedulingError = action.payload;
       }),
-
   reducers: {
     INITIAL_ADD_FRIENDS_STATE: state => {
       state.addFriendsLoading = false;
