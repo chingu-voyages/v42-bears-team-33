@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, DatePicker, Input, Row, Select } from 'antd';
 
+import { sendMessage, scheduling } from '@actions/schedule';
 import { CLOSE_SCHEDULE_MODAL, ANONYMOUS_MODAL_SELECT_USER } from '@reducers/schedule';
 import {
   ScheduleModalWrapper,
@@ -9,7 +10,6 @@ import {
   ScheduleModalInput,
   ScheduleModalBtn,
 } from '@style/friends/scheduleModal';
-import { sendMessage } from '@actions/schedule';
 
 const ScheduleModal = () => {
   const [form] = Form.useForm();
@@ -21,6 +21,7 @@ const ScheduleModal = () => {
     messageNowModalVisible,
     scheduleInfo,
     sendMessageLoading,
+    schedulingLoading,
   } = useSelector(state => state.schedule);
 
   const onSubmitForm = useCallback(
@@ -38,6 +39,8 @@ const ScheduleModal = () => {
           message: e.message,
           scheduledDate: `${year}-${month}-${day}`,
         };
+
+        dispatch(scheduling(values));
       } else {
         values = {
           friendId: scheduleInfo._id,
@@ -146,7 +149,7 @@ const ScheduleModal = () => {
               type="primary"
               size="large"
               htmlType="submit"
-              loading={messageNowModalVisible && sendMessageLoading}
+              loading={messageNowModalVisible ? sendMessageLoading : schedulingLoading}
             >
               {messageNowModalVisible ? 'Send' : 'Reservation'}
             </ScheduleModalBtn>

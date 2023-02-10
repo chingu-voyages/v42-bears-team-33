@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _find from 'lodash/find';
 
-import { loadMyFriends, addFriends, removeFriend, sendMessage } from '@actions/schedule';
+import { loadMyFriends, addFriends, removeFriend, sendMessage, scheduling } from '@actions/schedule';
 
 const initialState = {
   friendsInfo: null,
@@ -23,6 +23,9 @@ const initialState = {
   sendMessageLoading: false,
   sendMessageDone: false,
   sendMessageError: null,
+  schedulingLoading: false,
+  schedulingDone: false,
+  schedulingError: null,
 };
 
 const scheduleSlice = createSlice({
@@ -83,6 +86,19 @@ const scheduleSlice = createSlice({
       .addCase(sendMessage.rejected, (state, action) => {
         state.sendMessageLoading = false;
         state.sendMessageError = action.payload;
+      })
+      .addCase(scheduling.pending, state => {
+        state.schedulingLoading = true;
+        state.schedulingDone = false;
+        state.schedulingError = null;
+      })
+      .addCase(scheduling.fulfilled, state => {
+        state.schedulingLoading = false;
+        state.schedulingDone = true;
+      })
+      .addCase(scheduling.rejected, (state, action) => {
+        state.schedulingLoading = false;
+        state.schedulingError = action.payload;
       }),
   reducers: {
     INITIAL_ADD_FRIENDS_STATE: state => {

@@ -49,3 +49,12 @@ export const sendMessage = createAsyncThunk('schedule/message', async (data, { r
     return rejectWithValue(error.response.data);
   }
 });
+
+export const scheduling = createAsyncThunk('schedule/scheduling', async (data, { rejectWithValue }) => {
+  try {
+    const response = await axios.post('/scheduledsms', data);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+});
