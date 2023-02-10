@@ -140,6 +140,12 @@ const scheduleSlice = createSlice({
       state.anonymousScheduleModalVisible = false;
       state.scheduleInfo = null;
     },
+    INITIAL_MESSAGE_STATE: state => {
+      state.sendMessageLoading = false;
+      state.sendMessageDone = false;
+      state.sendMessageError = null;
+    },
+
     ADD_CATEGORY: (state, action) => {
       state.category.push(action.payload);
     },
@@ -159,8 +165,7 @@ export const {
   OPEN_SCHEDULE_MODAL,
   OPEN_MESSAGE_NOW_MODAL,
   CLOSE_SCHEDULE_MODAL,
-  ADD_SCHEDUL,
-  ADD_SCHEDUL_INIT,
+  INITIAL_MESSAGE_STATE,
   ADD_CATEGORY,
   DELETE_CATEGORY,
 } = scheduleSlice.actions;
