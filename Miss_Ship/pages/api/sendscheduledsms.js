@@ -55,8 +55,13 @@ export default async function handler(req, res) {
 
           if (twilioResponse.errorCode == null) {
             sms.sentStatus = true;
-            await db.collection(MONGODB_COLLECTION.SCHEDULED_SMS).replaceOne({ _id: ObjectId(sms._id) }, sms);
             sentSMS++;
+            await db.collection(MONGODB_COLLECTION.SCHEDULED_SMS).replaceOne({ _id: ObjectId(sms._id) }, sms);
+            await db.collection(MONGODB_COLLECTION.SENT_SMS).insertOne({
+              userId: userId,
+              body: sms.message,
+              friendId: sms.friendId,
+            });
           }
           logger.info(response);
         } catch (e) {
