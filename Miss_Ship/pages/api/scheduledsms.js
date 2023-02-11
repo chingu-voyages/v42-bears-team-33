@@ -1,9 +1,8 @@
-import Twilio from 'twilio';
 import pino from 'pino';
 import _ from 'lodash';
-import { ObjectId } from 'mongodb';
+import admin from '@config/firebase';
 import clientPromise from '../../config/mongodb';
-import { HTTP, HTTP_STATUS_CODE, MONGODB_COLLECTION, MONGODB_DATABASE, TWILIO_SENDER } from '../../config/constant';
+import { HTTP, HTTP_STATUS_CODE, MONGODB_COLLECTION, MONGODB_DATABASE } from '../../config/constant';
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -13,68 +12,42 @@ export default async function handler(req, res) {
   const client = await clientPromise;
   const db = client.db(MONGODB_DATABASE);
 
+  // Bearer Token Retrieval
+  const headerToken = req.headers.authorization;
+  logger.debug(`Token Received: ${headerToken}`);
+  if (_.isNil(headerToken)) {
+    res.status(HTTP_STATUS_CODE.UNAUTHORIZED).json({ error: 'Invalid Firebase Token' });
+  }
+
+  let userId;
+
+  try {
+    const token = headerToken.split(' ')[1];
+    userId = (await admin.auth().verifyIdToken(token)).uid;
+  } catch (e) {
+    logger.error(e);
+    // res.status(HTTP_STATUS_CODE.UNAUTHORIZED).json({ error: 'Invalid/Expired Firebase Token' });
+
+    // Mock Account
+    userId = 'Yk1eA8Vbh7fFIRd3eTNXvyHCdwH3';
+  }
+
   switch (method) {
     case HTTP.GET: {
       logger.info('HTTP GET: /api/scheduledsms/');
-
-      // Twilio Config
-      const accountSid = process.env.TWILIO_SID;
-      const authToken = process.env.TWILIO_TOKEN;
-      const twilioClient = new Twilio(accountSid, authToken);
-
-      // Get today's date
-      const todayDate = new Date().toISOString().slice(0, -14);
-      logger.info(`Today's Date: ${todayDate}`);
-
-      // Retrieve all SMS to send out today
       const scheduledSMSList = await db
         .collection(MONGODB_COLLECTION.SCHEDULED_SMS)
-        .find({
-          scheduledDate: { $eq: todayDate },
-          sentStatus: false,
-        })
+        .find({ userId: { $eq: userId } })
         .toArray();
 
-      if (_.isNil(scheduledSMSList)) {
-        res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({ error: 'Cannot connect to MongoDB' });
-      }
-
-      const response = {
-        totalSMS: scheduledSMSList.length,
-      };
-      let sentSMS = 0;
-      for (const sms of scheduledSMSList) {
-        try {
-          const friend = await db.collection(MONGODB_COLLECTION.FRIEND).findOne({ _id: ObjectId(sms.friendId) });
-
-          const twilioResponse = await twilioClient.messages.create({
-            from: TWILIO_SENDER,
-            body: sms.message,
-            to: friend.countryCode + friend.mobileNumber,
-          });
-
-          if (twilioResponse.errorCode == null) {
-            sms.sentStatus = true;
-            await db
-              .collection(MONGODB_COLLECTION.SCHEDULED_SMS)
-              .replaceOne({ _id: ObjectId(sms._id) }, sms);
-            sentSMS++;
-          }
-          logger.info(response);
-        } catch (e) {
-          logger.error(e);
-        }
-
-        response.sentSMS = sentSMS;
-
-        res.status(HTTP_STATUS_CODE.CREATED).json(response);
-      }
+      res.json({ status: HTTP_STATUS_CODE.OK, data: scheduledSMSList });
       break;
     }
     case HTTP.POST: {
       const body = JSON.parse(JSON.stringify(req.body));
       logger.info(`HTTP POST: /api/scheduledsms BODY: ${JSON.stringify(req.body)}`);
       body.sentStatus = false;
+      body.userId = userId;
 
       const scheduledSMS = await db.collection(MONGODB_COLLECTION.SCHEDULED_SMS).insertOne(body);
       res.status(HTTP_STATUS_CODE.CREATED).json(scheduledSMS);
