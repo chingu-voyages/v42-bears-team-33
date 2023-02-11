@@ -33,8 +33,8 @@ const AppLayout = ({ children }) => {
   }, []);
 
   const onClickLogout = useCallback(() => {
-    dispatch(logout());
     Router.push(router.pathname === '/' ? '/' : '/account');
+    dispatch(logout());
   }, []);
 
   const menu = () => {

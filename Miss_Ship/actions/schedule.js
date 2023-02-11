@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { message } from 'antd';
 
-import { CLOSE_SCHEDULE_MODAL, INITIAL_ADD_FRIENDS_STATE } from '@reducers/schedule';
+import { CLOSE_SCHEDULE_MODAL } from '@reducers/schedule';
 import { backendUrl } from '@config/config';
 import { getToken } from './user';
 
@@ -26,16 +26,14 @@ export const loadMyFriends = createAsyncThunk('schedule/loadMyFriends', async ()
   return response.data;
 });
 
-export const addFriends = createAsyncThunk('schedule/addFriends', async (data, thunkAPI) => {
+export const addFriends = createAsyncThunk('schedule/addFriends', async (data, { rejectWithValue }) => {
   try {
     const response = await axios.post('/friends', data);
-    thunkAPI.dispatch(INITIAL_ADD_FRIENDS_STATE());
     message.success('A friend has been added.');
     return response.data;
   } catch (error) {
-    thunkAPI.dispatch(INITIAL_ADD_FRIENDS_STATE());
     message.error('Adding friend failed.');
-    return thunkAPI.rejectWithValue(error.response.data);
+    return rejectWithValue(error.response.data);
   }
 });
 
