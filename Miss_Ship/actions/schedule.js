@@ -50,14 +50,18 @@ export const removeFriend = createAsyncThunk('schedule/removeFriend', async (dat
 
 export const sendMessage = createAsyncThunk('schedule/message', async (data, thunkAPI) => {
   try {
-    const response = await axios.post('/sms', data);
+    await axios.post('/sms', data);
     thunkAPI.dispatch(CLOSE_SCHEDULE_MODAL());
     message.success('Your message has been sent successfully.');
-    return response.data;
+    return {
+      friendId: data.friendId,
+    };
   } catch (error) {
     thunkAPI.dispatch(CLOSE_SCHEDULE_MODAL());
     message.error('Message sending failed.');
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue({
+      friendId: data.friendId,
+    });
   }
 });
 
