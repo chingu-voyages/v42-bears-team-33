@@ -79,15 +79,15 @@ const scheduleSlice = createSlice({
         state.sendMessageDone = false;
         state.sendMessageError = null;
       })
-      .addCase(sendMessage.fulfilled, (state, action) => {
-        const friend = _find(state.friendsInfo, { _id: action.payload.friendId });
-        friend.status = { state: 'success', text: 'Sent' };
+      .addCase(sendMessage.fulfilled, state => {
+        // const friend = _find(state.friendsInfo, { _id: action.payload.friendId });
+        // friend.status = { state: 'success', text: 'Sent' };
         state.sendMessageLoading = false;
         state.sendMessageDone = true;
       })
       .addCase(sendMessage.rejected, (state, action) => {
-        const friend = _find(state.friendsInfo, { _id: action.payload.friendId });
-        friend.status = { state: 'error', text: 'Overdue' };
+        // const friend = _find(state.friendsInfo, { _id: action.payload.friendId });
+        // friend.status = { state: 'error', text: 'Overdue' };
         state.sendMessageLoading = false;
         state.sendMessageError = action.payload;
       })
