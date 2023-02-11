@@ -39,27 +39,33 @@ export default async function handler(req, res) {
         res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({ error: 'Cannot connect to MongoDB' });
       }
 
+      const response = {
+        totalSMS: scheduledSMSList.length,
+      };
+      let sentSMS = 0;
       for (const sms of scheduledSMSList) {
-        logger.info(JSON.stringify(sms));
+        try {
+          const friend = await db.collection(MONGODB_COLLECTION.FRIEND).findOne({ _id: ObjectId(sms.friendId) });
 
-        const friend = await db.collection(MONGODB_COLLECTION.FRIEND).findOne({ _id: ObjectId(sms.friendId) });
-        logger.info(friend);
-        // TODO: null check for friend
+          const twilioResponse = await twilioClient.messages.create({
+            from: TWILIO_SENDER,
+            body: sms.message,
+            to: friend.countryCode + friend.mobileNumber,
+          });
 
-        const response = await twilioClient.messages.create({
-          from: TWILIO_SENDER,
-          body: sms.message,
-          to: friend.countryCode + friend.mobileNumber,
-        });
-
-        if (response.errorCode == null) {
-          // all good
-          res.status(HTTP_STATUS_CODE.CREATED).json(response);
-          sms.sentStatus = true;
-          const result = await db
-            .collection(MONGODB_COLLECTION.SCHEDULED_SMS)
-            .replaceOne({ _id: ObjectId(sms._id) }, sms);
+          if (twilioResponse.errorCode == null) {
+            sms.sentStatus = true;
+            await db
+              .collection(MONGODB_COLLECTION.SCHEDULED_SMS)
+              .replaceOne({ _id: ObjectId(sms._id) }, sms);
+            sentSMS++;
+          }
+          logger.info(response);
+        } catch (e) {
+          logger.error(e);
         }
+
+        response.sentSMS = sentSMS;
 
         res.status(HTTP_STATUS_CODE.CREATED).json(response);
       }
