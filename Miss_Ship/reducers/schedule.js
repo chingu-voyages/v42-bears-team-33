@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _find from 'lodash/find';
 
-import { loadMyFriends, addFriends, removeFriend, sendMessage, scheduling } from '@actions/schedule';
+import { loadMyFriends, loadMySchedule, addFriends, removeFriend, sendMessage, scheduling } from '@actions/schedule';
 
 const initialState = {
   friendsInfo: null,
@@ -13,6 +13,9 @@ const initialState = {
   loadMyFriendsLoading: false,
   loadMyFriendsDone: false,
   loadMyFriendsError: null,
+  loadMyScheduleLoading: false,
+  loadMyScheduleDone: false,
+  loadMyScheduleError: null,
   addFriendsLoading: false,
   addFriendsDone: false,
   addFriendsError: null,
@@ -45,6 +48,23 @@ const scheduleSlice = createSlice({
       .addCase(loadMyFriends.rejected, (state, action) => {
         state.loadMyFriendsLoading = false;
         state.loadMyFriendsError = action.payload;
+      })
+      .addCase(loadMySchedule.pending, state => {
+        state.loadMyScheduleLoading = true;
+        state.loadMyScheduleDone = false;
+        state.loadMyScheduleError = null;
+      })
+      .addCase(loadMySchedule.fulfilled, (state, action) => {
+        action.payload.data.forEach(v => {
+          const friend = _find(state.friendsInfo, { _id: v.friendId });
+          if (friend) friend.sent = true;
+        });
+        state.loadMyScheduleLoading = false;
+        state.loadMyScheduleDone = true;
+      })
+      .addCase(loadMySchedule.rejected, (state, action) => {
+        state.loadMyScheduleLoading = false;
+        state.loadMyScheduleError = action.pyload;
       })
       .addCase(addFriends.pending, state => {
         state.addFriendsLoading = true;
@@ -79,14 +99,10 @@ const scheduleSlice = createSlice({
         state.sendMessageError = null;
       })
       .addCase(sendMessage.fulfilled, state => {
-        // const friend = _find(state.friendsInfo, { _id: action.payload.friendId });
-        // friend.status = { state: 'success', text: 'Sent' };
         state.sendMessageLoading = false;
         state.sendMessageDone = true;
       })
       .addCase(sendMessage.rejected, (state, action) => {
-        // const friend = _find(state.friendsInfo, { _id: action.payload.friendId });
-        // friend.status = { state: 'error', text: 'Overdue' };
         state.sendMessageLoading = false;
         state.sendMessageError = action.payload;
       })

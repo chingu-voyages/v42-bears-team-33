@@ -7,7 +7,7 @@ import { OPEN_SCHEDULE_MODAL, OPEN_MESSAGE_NOW_MODAL } from '@reducers/schedule'
 import {
   TableContentWrapper,
   TableContentHeader,
-  // TableContentBadge,
+  TableContentBadge,
   TableContentBtn,
 } from '@style/friends/tableContent';
 
@@ -61,14 +61,12 @@ const TableContent = ({ setDeleteFriends }) => {
       ),
       width: desktop && '50%',
     },
-    // {
-    //   title: <TableContentHeader>Status</TableContentHeader>,
-    //   dataIndex: 'status',
-    //   key: 'status',
-    //   render: status => (
-    //     <TableContentBadge status={status ? status.state : 'default'} text={status ? status.text : 'Draft'} />
-    //   ),
-    // },
+    {
+      title: <TableContentHeader>Status</TableContentHeader>,
+      dataIndex: 'sent',
+      key: 'sent',
+      render: sent => <TableContentBadge status={sent ? 'success' : 'default'} text={sent ? 'Sent' : 'Draft'} />,
+    },
     {
       title: <TableContentHeader>Birthday</TableContentHeader>,
       dataIndex: 'dateOfBirth',
