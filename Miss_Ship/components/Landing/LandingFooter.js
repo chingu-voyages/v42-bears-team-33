@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row } from 'antd';
 import Link from 'next/link';
 
 import { FOCUS_LOGIN_TAB } from '@reducers/user';
-import { FooterWrapper, FooterContent, FooterContentInfo, FooterDivider, FooterBtn } from '@style/landing/footer';
+import { FooterWrapper, FooterStep, FooterBtn } from '@style/landing/footer';
 
 const LandingFooter = () => {
   const dispatch = useDispatch();
@@ -15,53 +14,49 @@ const LandingFooter = () => {
   }, []);
 
   return (
-    <FooterWrapper>
-      <FooterContent align="center">
-        <FooterContentInfo>
-          <div>
-            <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="vision img" />
-            <h2>1. Step</h2>
-            <p>Ligula diam sem montes quis sed at adipiscing.</p>
-          </div>
-        </FooterContentInfo>
-        <FooterDivider />
+    <FooterWrapper align="center">
+      <FooterStep xs={12} sm={12} md={12} lg={6} xl={6}>
+        <img src="https://ifh.cc/g/5C8adY.png" alt="footer step1" />
+        <header>1. Missing</header>
+        <p>
+          Feel like you want to reconnect with someone? <br />
+          (register the service)
+        </p>
+      </FooterStep>
 
-        <FooterContentInfo>
-          <div>
-            <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="vision img" />
-            <h2>2. Step</h2>
-            <p>Pellentesque viverra ante ipsum donec id ipsum risus posuere.</p>
-          </div>
-        </FooterContentInfo>
-        <FooterDivider />
+      <FooterStep xs={12} sm={12} md={12} lg={6} xl={6}>
+        <img src="https://ifh.cc/g/YCOv5h.png" alt="footer step2" />
+        <header>2. Setting</header>
+        <p>
+          Be prepared and anchor at the right port today. <br /> (pick a friend)
+        </p>
+      </FooterStep>
 
-        <FooterContentInfo>
-          <div>
-            <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="vision img" />
-            <h2>3. Step</h2>
-            <p>Tortor egestas duis integer sodales eu in.</p>
-          </div>
-        </FooterContentInfo>
-        <FooterDivider />
+      <FooterStep xs={12} sm={12} md={12} lg={6} xl={6}>
+        <img src="https://ifh.cc/g/sdmlBr.png" alt="footer step3" />
+        <header>3. Stuffing</header>
+        <p>
+          Well-equipped the goods from one place to another. <br />
+          (download your thoughts)
+        </p>
+      </FooterStep>
 
-        <FooterContentInfo lastchild="true">
-          <div>
-            <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="vision img" />
-            <h2>4. Step</h2>
-            <p>Consectetur pulvinar sed cras et amet volutpat.</p>
-          </div>
-        </FooterContentInfo>
-      </FooterContent>
+      <FooterStep xs={12} sm={12} md={12} lg={6} xl={6}>
+        <img src="https://ifh.cc/g/JVndF7.png" alt="footer step4" />
+        <header>4. Shipping</header>
+        <p>
+          The ship is ready at the port to set sail! Let&lsquo;s get going! <br />
+          (ready for a voyage)
+        </p>
+      </FooterStep>
 
-      <Row align="center">
-        <Link href={me ? '/friends' : '/account'}>
-          <a>
-            <FooterBtn type="primary" size="large" onClick={onClickLogin}>
-              Start Now
-            </FooterBtn>
-          </a>
-        </Link>
-      </Row>
+      <Link href={me ? '/friends' : '/account'}>
+        <a>
+          <FooterBtn type="primary" size="large" onClick={onClickLogin}>
+            Start Now
+          </FooterBtn>
+        </a>
+      </Link>
     </FooterWrapper>
   );
 };

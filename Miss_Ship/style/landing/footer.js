@@ -1,71 +1,57 @@
 import styled from 'styled-components';
 import { Row, Col, Button } from 'antd';
 
-export const FooterWrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.primaryDark};
-  padding: 5em 0;
+export const FooterWrapper = styled(Row)`
+  background: linear-gradient(
+    180deg,
+    rgba(24, 144, 255, 0) 3.53%,
+    rgba(24, 144, 255, 0.3) 16.55%,
+    #40a9ff 42.07%,
+    #096dd9 64.99%,
+    #003a8c 100%
+  );
+  padding: 7em 3em;
 
-  @media ${({ theme }) => theme.media.tablet} {
-    padding: 2.5em 0;
+  @media ${({ theme }) => theme.media.mobile} {
+    padding: 4em 1.5em;
   }
 `;
 
-export const FooterContent = styled(Row)`
-  margin-bottom: 4em;
-
-  @media ${({ theme }) => theme.media.tablet} {
-    margin-bottom: 2em;
-  }
-`;
-
-export const FooterContentInfo = styled(Col)`
+export const FooterStep = styled(Col)`
   text-align: center;
-  margin-right: ${props => (props.lastchild ? '0' : '0.8em')};
+  ${({ theme }) => theme.flexColumnSet()};
+  margin-bottom: 3.5em;
 
-  & > div > img {
-    width: 6em;
-    margin: 0 auto 2em auto;
-    box-shadow: 0px 6px 8px 0px #00000026;
+  & > img {
+    margin-bottom: 1em;
   }
 
-  & > div > h2 {
+  & > header {
     color: white;
-    font-size: ${({ theme }) => theme.calcRem(24)};
+    font-size: ${({ theme }) => theme.calcRem(22)};
+    font-weight: 700;
     margin-bottom: 0.5em;
   }
 
-  & > div > p {
-    width: 12em;
+  & > p {
     color: white;
-    font-size: ${({ theme }) => theme.calcRem(14)};
+    font-size: ${({ theme }) => theme.calcRem(12)};
   }
 
-  @media ${({ theme }) => theme.media.tablet} {
-    margin: 0 0 1em 0;
+  @media ${({ theme }) => theme.media.mobile} {
+    margin-bottom: 2em;
 
-    & > div > img {
-      width: 5em;
-      margin: 0 auto 0.5em auto;
+    & > img {
+      width: 3em;
     }
 
-    & > div > h2 {
-      font-size: ${({ theme }) => theme.calcRem(20)};
+    & > header {
+      font-size: ${({ theme }) => theme.calcRem(15)};
     }
 
-    & > div > p {
-      font-size: ${({ theme }) => theme.calcRem(14)};
+    & > p {
+      font-size: ${({ theme }) => theme.calcRem(11)};
     }
-  }
-`;
-
-export const FooterDivider = styled.div`
-  width: 40px;
-  height: 2px;
-  background-color: #d9d9d9;
-  margin-right: 1.5em;
-
-  @media ${({ theme }) => theme.media.tablet} {
-    display: none;
   }
 `;
 
@@ -76,7 +62,7 @@ export const FooterBtn = styled(Button)`
   width: 14em;
   font-size: ${({ theme }) => theme.calcRem(18)};
 
-  @media ${({ theme }) => theme.media.tablet} {
+  @media ${({ theme }) => theme.media.mobile} {
     width: 9em;
     font-size: ${({ theme }) => theme.calcRem(15)};
   }
