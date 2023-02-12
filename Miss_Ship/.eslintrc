@@ -34,6 +34,7 @@
     "no-param-reassign": "off",
     "arrow-body-style": "off",
     "import/no-unresolved": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "no-nested-ternary": "off"
   }
 }

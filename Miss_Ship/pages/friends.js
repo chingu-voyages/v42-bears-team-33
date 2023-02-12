@@ -6,15 +6,22 @@ import AppLayout from '@components/AppLayout';
 import ListHeader from '@components/Friends/ListHeader';
 import ListTable from '@components/Friends/ListTable';
 import { LOAD_USER } from '@reducers/user';
-import { loadMyFriends, loadMySmsInfo } from '@actions/schedule';
+import { loadMyFriends, loadMyScheduleInfo, loadMySmsInfo } from '@actions/schedule';
 import { FriendsWrapper } from '@style/friends/header';
 import { fbAuth } from './api/auth/fBase';
 
 const Friends = () => {
   const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
-  const { friendsInfo, addFriendsDone, removeFriendDone, loadMyFriendsDone, sendMessageDone, schedulingDone } =
-    useSelector(state => state.schedule);
+  const {
+    friendsInfo,
+    addFriendsDone,
+    removeFriendDone,
+    loadMyFriendsDone,
+    sendMessageDone,
+    schedulingDone,
+    loadMyScheduleDone,
+  } = useSelector(state => state.schedule);
 
   useEffect(() => {
     fbAuth.onAuthStateChanged(user => {
@@ -36,8 +43,12 @@ const Friends = () => {
   }, [me, addFriendsDone, removeFriendDone, sendMessageDone, schedulingDone]);
 
   useEffect(() => {
-    if (loadMyFriendsDone) dispatch(loadMySmsInfo());
+    if (loadMyFriendsDone) dispatch(loadMyScheduleInfo());
   }, [loadMyFriendsDone]);
+
+  useEffect(() => {
+    if (loadMyScheduleDone) dispatch(loadMySmsInfo());
+  }, [loadMyScheduleDone]);
 
   return (
     <>

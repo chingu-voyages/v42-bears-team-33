@@ -31,10 +31,10 @@ export const loadMySmsInfo = createAsyncThunk('schedule/loadMySmsInfo', async ()
   return response.data;
 });
 
-// export const loadMySchedule = createAsyncThunk('schedule/loadMySchedule', async () => {
-//   const response = await axios.get('/sent');
-//   return response.data;
-// });
+export const loadMyScheduleInfo = createAsyncThunk('schedule/loadMyScheduleInfo', async () => {
+  const response = await axios.get('/scheduledsms');
+  return response.data;
+});
 
 export const addFriends = createAsyncThunk('schedule/addFriends', async (data, { rejectWithValue }) => {
   try {

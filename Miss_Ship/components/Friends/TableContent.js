@@ -63,9 +63,14 @@ const TableContent = ({ setDeleteFriends }) => {
     },
     {
       title: <TableContentHeader>Status</TableContentHeader>,
-      dataIndex: 'sent',
-      key: 'sent',
-      render: sent => <TableContentBadge status={sent ? 'success' : 'default'} text={sent ? 'Sent' : 'Draft'} />,
+      dataIndex: 'status',
+      key: 'status',
+      render: status => (
+        <TableContentBadge
+          status={status === 'sms' ? 'success' : status === 'schedule' ? 'processing' : 'default'}
+          text={status === 'sms' ? 'Sent' : status === 'schedule' ? 'Scheduled' : 'Draft'}
+        />
+      ),
     },
     {
       title: <TableContentHeader>Birthday</TableContentHeader>,
