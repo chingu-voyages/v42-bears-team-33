@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Row, Button, Form, Menu } from 'antd';
+import { Row, Button } from 'antd';
 
 export const ListTableWrapper = styled(Row)`
   width: 100%;
@@ -38,63 +38,6 @@ export const ListTableItems = styled.div`
   @media ${({ theme }) => theme.media.tablet} {
     width: 100%;
     ${({ theme }) => theme.flexColumnSet()};
-  }
-`;
-
-export const ListTableDropdown = styled(Button)`
-  margin-right: 0.5em;
-  opacity: 45%;
-
-  & > .anticon-down {
-    font-size: ${({ theme }) => theme.calcRem(10)};
-  }
-
-  @media ${({ theme }) => theme.media.tablet} {
-    display: ${props => props.$addfriendsvisible && 'none'};
-    margin: 0 0 2em 0;
-  }
-`;
-
-export const ListTableDropdownMenu = styled(Menu)`
-  width: 15em;
-  padding: 0.5em;
-  margin-top: 0.5em;
-  right: 10%;
-
-  & > div {
-    ${({ theme }) => theme.flexSet('space-between')};
-    margin-bottom: 0.5em;
-  }
-
-  & > div > li {
-    flex: 1;
-  }
-
-  @media ${({ theme }) => theme.media.tablet} {
-    width: 12.5em;
-    margin-top: -2.3em;
-    right: 5%;
-
-    & > div {
-      ${({ theme }) => theme.flexSet('space-between')};
-      margin-bottom: 0.4em;
-    }
-  }
-`;
-
-export const ListTableDropdownForm = styled(Form)`
-  & > .ant-divider {
-    margin: 0.5em 0em;
-  }
-
-  & > div > div > .ant-form-item {
-    margin-bottom: 0;
-  }
-
-  @media ${({ theme }) => theme.media.tablet} {
-    & > .ant-divider {
-      margin: 0.4em 0em;
-    }
   }
 `;
 

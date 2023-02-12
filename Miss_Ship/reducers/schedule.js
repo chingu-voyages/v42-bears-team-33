@@ -5,7 +5,6 @@ import { loadMyFriends, addFriends, removeFriend, sendMessage, scheduling } from
 
 const initialState = {
   friendsInfo: null,
-  category: [],
   addFriendsVisible: false,
   anonymousScheduleModalVisible: false,
   scheduleModalVisible: false,
@@ -144,13 +143,6 @@ const scheduleSlice = createSlice({
       state.anonymousScheduleModalVisible = false;
       state.scheduleInfo = null;
     },
-
-    ADD_CATEGORY: (state, action) => {
-      state.category.push(action.payload);
-    },
-    DELETE_CATEGORY: (state, action) => {
-      state.category = state.category.filter(v => v !== action.payload);
-    },
   },
 });
 
@@ -164,8 +156,5 @@ export const {
   OPEN_SCHEDULE_MODAL,
   OPEN_MESSAGE_NOW_MODAL,
   CLOSE_SCHEDULE_MODAL,
-
-  ADD_CATEGORY,
-  DELETE_CATEGORY,
 } = scheduleSlice.actions;
 export default scheduleSlice.reducer;
