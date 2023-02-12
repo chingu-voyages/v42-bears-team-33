@@ -51,34 +51,17 @@ export const LayoutHeaderProfile = styled(Space)`
 `;
 
 export const LayoutHeaderMenu = styled(Menu)`
-  width: max-content;
-  padding: 0;
-  margin-top: 18%;
-
-  & > li > span {
-    font-size: ${({ theme }) => theme.calcRem(14)};
-  }
+  margin: 1.4em 0 0 1.3em;
 
   @media ${({ theme }) => theme.media.tablet} {
-    margin-top: 12%;
-
-    & > li > span {
-      font-size: ${({ theme }) => theme.calcRem(13)};
-      margin-right: 1em;
-    }
-
-    & > li > span > a > .profile-button-text {
-      display: none;
-    }
+    margin: 0.8em 0 0 0.2em;
   }
 
   @media ${({ theme }) => theme.media.mobile} {
-    & > li {
-      padding: 0.3em 0.3em 0.3em 0.6em;
-    }
+    margin: 0.4em 0 0 -0.2em;
 
     & > li > span {
-      font-size: ${({ theme }) => theme.calcRem(12)};
+      font-size: ${({ theme }) => theme.calcRem(11)};
     }
   }
 `;

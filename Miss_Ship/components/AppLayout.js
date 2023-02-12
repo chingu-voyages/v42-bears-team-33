@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Avatar, Space, Dropdown, Menu } from 'antd';
-import { ClockCircleFilled, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
+import { ClockCircleFilled, LogoutOutlined } from '@ant-design/icons';
 import Router, { useRouter } from 'next/router';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -40,14 +40,6 @@ const AppLayout = ({ children }) => {
   const menu = () => {
     return (
       <LayoutHeaderMenu>
-        <Menu.Item key="goProfile" icon={<SettingOutlined />}>
-          <Link href="/profile">
-            <a>
-              Profile <span className="profile-button-text">Setting</span>
-            </a>
-          </Link>
-        </Menu.Item>
-
         <Menu.Item key="logout" danger icon={<LogoutOutlined />} onClick={onClickLogout}>
           Log out
         </Menu.Item>
