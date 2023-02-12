@@ -32,30 +32,21 @@ export default async function handler(req, res) {
     userId = 'Yk1eA8Vbh7fFIRd3eTNXvyHCdwH3';
   }
 
+
+  // TODO
   switch (method) {
     case HTTP.GET: {
-      logger.info('HTTP GET: /api/scheduledsms/');
-      const scheduledSMSList = await db
-        .collection(MONGODB_COLLECTION.SCHEDULED_SMS)
+      logger.info('HTTP GET: /api/sent/');
+      const sentSMSList = await db
+        .collection(MONGODB_COLLECTION.SENT_SMS)
         .find({ userId: { $eq: userId } })
         .toArray();
 
-      res.json({ status: HTTP_STATUS_CODE.OK, data: scheduledSMSList });
-      break;
-    }
-    case HTTP.POST: {
-      const body = JSON.parse(JSON.stringify(req.body));
-      logger.info(`HTTP POST: /api/scheduledsms BODY: ${JSON.stringify(req.body)}`);
-      body.sentStatus = false;
-      body.userId = userId;
-
-      const scheduledSMS = await db.collection(MONGODB_COLLECTION.SCHEDULED_SMS).insertOne(body);
-      res.status(HTTP_STATUS_CODE.CREATED).json(scheduledSMS);
-
+      res.json({ status: HTTP_STATUS_CODE.OK, data: sentSMSList });
       break;
     }
     default: {
-      res.setHeader('Allow', [HTTP.GET, HTTP.POST]);
+      res.setHeader('Allow', [HTTP.GET]);
       res.status(HTTP_STATUS_CODE.METHOD_NOT_ALLOWED).end(`Method ${method} Not Allowed`);
       break;
     }
