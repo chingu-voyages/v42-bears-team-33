@@ -1,118 +1,94 @@
 import styled from 'styled-components';
-import { Row, Col } from 'antd';
+import { Row } from 'antd';
 
-export const ContentWrapper = styled(Col)`
-  padding: 7.5em 0;
+export const LandingContentWrapper = styled(Row)`
+  padding: 5em 8em;
 
   @media ${({ theme }) => theme.media.tablet} {
-    padding: 3em 0;
+    padding: 3em 4em;
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    padding: 1.5em 2em;
   }
 `;
 
-export const LandingContentHeader = styled(Col)`
-  text-align: center;
+export const LandingContentHeader = styled(Row)`
+  width: fit-content;
+  margin-bottom: 8em;
 
-  & > h2 {
+  & > div > header {
     font-size: ${({ theme }) => theme.calcRem(38)};
     font-weight: 700;
-    margin-bottom: 0.5em;
-  }
-
-  & > p {
-    font-size: ${({ theme }) => theme.calcRem(14)};
-    font-weight: 700;
-    opacity: 45%;
-    margin-bottom: 5em;
-  }
-
-  & > img {
-    width: 27.5em;
-    height: 20em;
-    box-shadow: 0px 6px 8px 0px #00000026;
-    margin-bottom: 5em;
   }
 
   @media ${({ theme }) => theme.media.tablet} {
-    & > h2 {
-      font-size: ${({ theme }) => theme.calcRem(20)};
-    }
+    margin-bottom: 6em;
 
-    & > p {
-      font-size: ${({ theme }) => theme.calcRem(10)};
-      margin-bottom: 3em;
+    & > div > header {
+      font-size: ${({ theme }) => theme.calcRem(23)};
     }
+  }
 
-    & > img {
-      width: 20em;
-      height: 10em;
-      margin-bottom: 3.5em;
+  @media ${({ theme }) => theme.media.mobile} {
+    margin-bottom: 4em;
+
+    & > div > header {
+      font-size: ${({ theme }) => theme.calcRem(16)};
     }
   }
 `;
 
-export const LandingContentDivider = styled.div`
-  width: 60px;
-  height: 2px;
-  background-color: #d9d9d9;
-  margin: auto;
-  margin-bottom: 4.5em;
+export const LandingContentFeature = styled(Row)`
+  width: fit-content;
+  margin-bottom: 6em;
+  ${({ theme }) => theme.flexSet('space-between')};
 
-  @media ${({ theme }) => theme.media.tablet} {
-    width: 40px;
-    margin-bottom: 3em;
-  }
-`;
-
-export const FeaturesWrapper = styled(Row)`
-  ${({ theme }) => theme.flexColumnSet()};
-`;
-
-export const LandingFeatures = styled(Col)`
-  ${({ theme }) => theme.flexSet()};
-  margin-bottom: 5em;
-
-  & > div {
-    margin-right: 10em;
-  }
-
-  & > div > h3 {
-    font-size: ${({ theme }) => theme.calcRem(35)};
+  & > div > h2 {
+    color: ${({ theme }) => theme.colors.button};
+    font-size: ${({ theme }) => theme.calcRem(36)};
+    margin-bottom: 1em;
     font-weight: 700;
-    margin-bottom: 0.5em;
   }
 
   & > div > p {
-    width: 20em;
-    font-size: ${({ theme }) => theme.calcRem(14)};
+    font-size: ${({ theme }) => theme.calcRem(18)};
     font-weight: 700;
     opacity: 45%;
   }
 
-  & > img {
-    width: 27.5em;
-    height: 20em;
-    box-shadow: 0px 6px 8px 0px #00000026;
+  & > div > img {
+    margin: 0 0 0 auto;
   }
 
   @media ${({ theme }) => theme.media.tablet} {
-    margin-bottom: 3em;
+    margin-bottom: 5em;
 
-    & > div {
-      margin-right: 1.5em;
-    }
-
-    & > div > h3 {
-      font-size: ${({ theme }) => theme.calcRem(20)};
+    & > div > h2 {
+      font-size: ${({ theme }) => theme.calcRem(22)};
+      margin-bottom: 0.8em;
     }
 
     & > div > p {
-      width: 12em;
-      font-size: ${({ theme }) => theme.calcRem(10)};
+      font-size: ${({ theme }) => theme.calcRem(14)};
+    }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    text-align: center;
+    margin-bottom: 2em;
+
+    & > div > h2 {
+      font-size: ${({ theme }) => theme.calcRem(15)};
     }
 
-    & > img {
-      width: 10em;
-      height: 8em;
+    & > div > p {
+      font-size: ${({ theme }) => theme.calcRem(12)};
+      margin-bottom: 1.2em;
+    }
+
+    & > div > img {
+      padding: 1em;
     }
   }
 `;
