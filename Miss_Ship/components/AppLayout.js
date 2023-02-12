@@ -11,7 +11,7 @@ import { logout } from '@actions/user';
 import { FOCUS_LOGIN_TAB, FOCUS_SIGN_UP_TAB } from '@reducers/user';
 import {
   Layout,
-  LayoutInfo,
+  LayoutLogo,
   LayoutHeaderProfile,
   LayoutHeaderMenu,
   LayoutHeaderBtn,
@@ -61,13 +61,7 @@ const AppLayout = ({ children }) => {
       <Layout justify="space-between">
         <Link href="/">
           <a>
-            <LayoutInfo>
-              <img
-                src="https://static.vecteezy.com/system/resources/thumbnails/000/567/055/small/vector60-2428-01.jpg"
-                alt="home logo"
-              />
-              <header>Miss.Ship</header>
-            </LayoutInfo>
+            <LayoutLogo src="https://ifh.cc/g/0SaTtF.png" alt="home logo" />
           </a>
         </Link>
 
