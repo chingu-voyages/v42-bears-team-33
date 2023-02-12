@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _find from 'lodash/find';
 
-import { loadMyFriends, loadMySchedule, addFriends, removeFriend, sendMessage, scheduling } from '@actions/schedule';
+import { loadMyFriends, loadMySmsInfo, addFriends, removeFriend, sendMessage, scheduling } from '@actions/schedule';
 
 const initialState = {
   friendsInfo: null,
@@ -13,9 +13,9 @@ const initialState = {
   loadMyFriendsLoading: false,
   loadMyFriendsDone: false,
   loadMyFriendsError: null,
-  loadMyScheduleLoading: false,
-  loadMyScheduleDone: false,
-  loadMyScheduleError: null,
+  loadMySmsLoading: false,
+  loadMySmsDone: false,
+  loadMySmsError: null,
   addFriendsLoading: false,
   addFriendsDone: false,
   addFriendsError: null,
@@ -49,22 +49,22 @@ const scheduleSlice = createSlice({
         state.loadMyFriendsLoading = false;
         state.loadMyFriendsError = action.payload;
       })
-      .addCase(loadMySchedule.pending, state => {
-        state.loadMyScheduleLoading = true;
-        state.loadMyScheduleDone = false;
-        state.loadMyScheduleError = null;
+      .addCase(loadMySmsInfo.pending, state => {
+        state.loadMySmsLoading = true;
+        state.loadMySmsDone = false;
+        state.loadMySmsError = null;
       })
-      .addCase(loadMySchedule.fulfilled, (state, action) => {
+      .addCase(loadMySmsInfo.fulfilled, (state, action) => {
         action.payload.data.forEach(v => {
           const friend = _find(state.friendsInfo, { _id: v.friendId });
           if (friend) friend.sent = true;
         });
-        state.loadMyScheduleLoading = false;
-        state.loadMyScheduleDone = true;
+        state.loadMySmsLoading = false;
+        state.loadMySmsDone = true;
       })
-      .addCase(loadMySchedule.rejected, (state, action) => {
-        state.loadMyScheduleLoading = false;
-        state.loadMyScheduleError = action.pyload;
+      .addCase(loadMySmsInfo.rejected, (state, action) => {
+        state.loadMySmsLoading = false;
+        state.loadMySmsError = action.pyload;
       })
       .addCase(addFriends.pending, state => {
         state.addFriendsLoading = true;

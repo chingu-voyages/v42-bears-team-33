@@ -26,10 +26,15 @@ export const loadMyFriends = createAsyncThunk('schedule/loadMyFriends', async ()
   return response.data;
 });
 
-export const loadMySchedule = createAsyncThunk('schedule/loadMySchedule', async () => {
+export const loadMySmsInfo = createAsyncThunk('schedule/loadMySmsInfo', async () => {
   const response = await axios.get('/sent');
   return response.data;
 });
+
+// export const loadMySchedule = createAsyncThunk('schedule/loadMySchedule', async () => {
+//   const response = await axios.get('/sent');
+//   return response.data;
+// });
 
 export const addFriends = createAsyncThunk('schedule/addFriends', async (data, { rejectWithValue }) => {
   try {
