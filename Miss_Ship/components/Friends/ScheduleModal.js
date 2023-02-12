@@ -73,7 +73,7 @@ const ScheduleModal = () => {
     <ScheduleModalWrapper
       visible={scheduleModalVisible}
       onCancel={onCloseSchedule}
-      title="Schedule a message"
+      title={messageNowModalVisible ? 'Send a message' : 'Schedule a message'}
       footer={null}
     >
       <ScheduleModalForm

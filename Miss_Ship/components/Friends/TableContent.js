@@ -55,7 +55,7 @@ const TableContent = ({ setDeleteFriends }) => {
       dataIndex: 'name',
       key: 'name',
       render: (name, record) => (
-        <Dropdown overlay={menu(record)} trigger="click">
+        <Dropdown overlay={menu(record)} trigger="hover">
           <TableContentBtn type="button">{name}</TableContentBtn>
         </Dropdown>
       ),
@@ -65,7 +65,12 @@ const TableContent = ({ setDeleteFriends }) => {
       title: <TableContentHeader>Status</TableContentHeader>,
       dataIndex: 'status',
       key: 'status',
-      render: status => <TableContentBadge status={status?.info} text={status?.text} />,
+      render: status => (
+        <TableContentBadge
+          status={status === 'sms' ? 'success' : status === 'schedule' ? 'processing' : 'default'}
+          text={status === 'sms' ? 'Sent' : status === 'schedule' ? 'Scheduled' : 'Draft'}
+        />
+      ),
     },
     {
       title: <TableContentHeader>Birthday</TableContentHeader>,
@@ -124,9 +129,9 @@ const TableContent = ({ setDeleteFriends }) => {
   }, []);
 
   const initialFriendsInfo = [
-    { _id: 1, name: 'Jenny Wilson', status: { info: 'success', text: 'Sent' }, dateOfBirth: '2022-12-05' },
-    { _id: 2, name: 'Floyd Miles', status: { info: 'default', text: 'Draft' }, dateOfBirth: '2023-02-13' },
-    { _id: 3, name: 'Brooklyn Simmons', status: { info: 'error', text: 'Overdue' }, dateOfBirth: '2023-01-06' },
+    { _id: 1, name: 'Jenny Wilson', dateOfBirth: '2022-12-05' },
+    { _id: 2, name: 'Floyd Miles', dateOfBirth: '2023-02-13' },
+    { _id: 3, name: 'Brooklyn Simmons', dateOfBirth: '2023-01-06' },
   ];
 
   return (

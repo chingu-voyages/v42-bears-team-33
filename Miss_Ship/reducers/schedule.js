@@ -1,11 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import _find from 'lodash/find';
 
-import { loadMyFriends, addFriends, removeFriend, sendMessage, scheduling } from '@actions/schedule';
+import {
+  loadMyFriends,
+  loadMySmsInfo,
+  loadMyScheduleInfo,
+  addFriends,
+  removeFriend,
+  sendMessage,
+  scheduling,
+} from '@actions/schedule';
 
 const initialState = {
   friendsInfo: null,
-  category: [],
   addFriendsVisible: false,
   anonymousScheduleModalVisible: false,
   scheduleModalVisible: false,
@@ -14,6 +21,12 @@ const initialState = {
   loadMyFriendsLoading: false,
   loadMyFriendsDone: false,
   loadMyFriendsError: null,
+  loadMySmsLoading: false,
+  loadMySmsDone: false,
+  loadMySmsError: null,
+  loadMyScheduleLoading: false,
+  loadMyScheduleDone: false,
+  loadMyScheduleError: null,
   addFriendsLoading: false,
   addFriendsDone: false,
   addFriendsError: null,
@@ -46,6 +59,40 @@ const scheduleSlice = createSlice({
       .addCase(loadMyFriends.rejected, (state, action) => {
         state.loadMyFriendsLoading = false;
         state.loadMyFriendsError = action.payload;
+      })
+      .addCase(loadMySmsInfo.pending, state => {
+        state.loadMySmsLoading = true;
+        state.loadMySmsDone = false;
+        state.loadMySmsError = null;
+      })
+      .addCase(loadMySmsInfo.fulfilled, (state, action) => {
+        action.payload.data.forEach(v => {
+          const friend = _find(state.friendsInfo, { _id: v.friendId });
+          if (friend) friend.status = 'sms';
+        });
+        state.loadMySmsLoading = false;
+        state.loadMySmsDone = true;
+      })
+      .addCase(loadMySmsInfo.rejected, (state, action) => {
+        state.loadMySmsLoading = false;
+        state.loadMySmsError = action.pyload;
+      })
+      .addCase(loadMyScheduleInfo.pending, state => {
+        state.loadMyScheduleLoading = true;
+        state.loadMyScheduleDone = false;
+        state.loadMyScheduleError = null;
+      })
+      .addCase(loadMyScheduleInfo.fulfilled, (state, action) => {
+        action.payload.data.forEach(v => {
+          const friend = _find(state.friendsInfo, { _id: v.friendId });
+          if (friend) friend.status = 'schedule';
+        });
+        state.loadMyScheduleLoading = false;
+        state.loadMyScheduleDone = true;
+      })
+      .addCase(loadMyScheduleInfo.rejected, (state, action) => {
+        state.loadMyScheduleLoading = false;
+        state.loadMyScheduleError = action.pyload;
       })
       .addCase(addFriends.pending, state => {
         state.addFriendsLoading = true;
@@ -140,12 +187,6 @@ const scheduleSlice = createSlice({
       state.anonymousScheduleModalVisible = false;
       state.scheduleInfo = null;
     },
-    ADD_CATEGORY: (state, action) => {
-      state.category.push(action.payload);
-    },
-    DELETE_CATEGORY: (state, action) => {
-      state.category = state.category.filter(v => v !== action.payload);
-    },
   },
 });
 
@@ -159,9 +200,5 @@ export const {
   OPEN_SCHEDULE_MODAL,
   OPEN_MESSAGE_NOW_MODAL,
   CLOSE_SCHEDULE_MODAL,
-  ADD_SCHEDUL,
-  ADD_SCHEDUL_INIT,
-  ADD_CATEGORY,
-  DELETE_CATEGORY,
 } = scheduleSlice.actions;
 export default scheduleSlice.reducer;

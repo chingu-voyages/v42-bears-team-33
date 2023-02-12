@@ -4,6 +4,7 @@ import { Form, Row, Checkbox, Button, Divider } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 
 import { signup } from '@actions/user';
+import { INITIAL_ADD_FRIENDS_STATE } from '@reducers/schedule';
 import { AccountGoogleSignin } from '@style/account/accountHeader';
 import { SignupFormWrapper, SignupFormInput, SignupFormOption, SignupFormBtn } from '@style/account/signupForm';
 
@@ -11,18 +12,26 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { signupLoading } = useSelector(state => state.user);
+  const { addFriendsDone } = useSelector(state => state.schedule);
   const [googleSignUp, setGoogleSignUp] = useState(false);
   const [genericSignUp, setGenericSignUp] = useState(false);
 
   const onGoogleSignup = useCallback(() => {
     setGoogleSignUp(true);
     dispatch(signup({ type: 'google' }));
-  }, []);
 
-  const onSubmitForm = useCallback(signupInfo => {
-    setGenericSignUp(true);
-    dispatch(signup({ type: '', signupInfo }));
-  }, []);
+    if (addFriendsDone) dispatch(INITIAL_ADD_FRIENDS_STATE());
+  }, [addFriendsDone]);
+
+  const onSubmitForm = useCallback(
+    signupInfo => {
+      setGenericSignUp(true);
+      dispatch(signup({ type: '', signupInfo }));
+
+      if (addFriendsDone) dispatch(INITIAL_ADD_FRIENDS_STATE());
+    },
+    [addFriendsDone],
+  );
 
   return (
     <>

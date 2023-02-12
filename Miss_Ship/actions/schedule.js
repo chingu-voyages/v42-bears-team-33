@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { message } from 'antd';
+
+import { CLOSE_SCHEDULE_MODAL } from '@reducers/schedule';
 import { backendUrl } from '@config/config';
 import { getToken } from './user';
 
@@ -23,11 +26,23 @@ export const loadMyFriends = createAsyncThunk('schedule/loadMyFriends', async ()
   return response.data;
 });
 
+export const loadMySmsInfo = createAsyncThunk('schedule/loadMySmsInfo', async () => {
+  const response = await axios.get('/sent');
+  return response.data;
+});
+
+export const loadMyScheduleInfo = createAsyncThunk('schedule/loadMyScheduleInfo', async () => {
+  const response = await axios.get('/scheduledsms');
+  return response.data;
+});
+
 export const addFriends = createAsyncThunk('schedule/addFriends', async (data, { rejectWithValue }) => {
   try {
     const response = await axios.post('/friends', data);
+    message.success('A friend has been added.');
     return response.data;
   } catch (error) {
+    message.error('Adding friend failed.');
     return rejectWithValue(error.response.data);
   }
 });
@@ -35,26 +50,36 @@ export const addFriends = createAsyncThunk('schedule/addFriends', async (data, {
 export const removeFriend = createAsyncThunk('schedule/removeFriend', async (data, { rejectWithValue }) => {
   try {
     const response = await axios.delete(`/friends/${data.friendId}`);
+    message.success('Your friend has been successfully deleted.');
     return response.data;
   } catch (error) {
+    message.error('Friend deletion failed.');
     return rejectWithValue(error.response.data);
   }
 });
 
-export const sendMessage = createAsyncThunk('schedule/message', async (data, { rejectWithValue }) => {
+export const sendMessage = createAsyncThunk('schedule/message', async (data, thunkAPI) => {
   try {
     const response = await axios.post('/sms', data);
+    thunkAPI.dispatch(CLOSE_SCHEDULE_MODAL());
+    message.success('Your message has been sent successfully.');
     return response.data;
   } catch (error) {
-    return rejectWithValue(error.response.data);
+    thunkAPI.dispatch(CLOSE_SCHEDULE_MODAL());
+    message.error('Message sending failed.');
+    return thunkAPI.rejectWithValue(error.response.data);
   }
 });
 
-export const scheduling = createAsyncThunk('schedule/scheduling', async (data, { rejectWithValue }) => {
+export const scheduling = createAsyncThunk('schedule/scheduling', async (data, thunkAPI) => {
   try {
     const response = await axios.post('/scheduledsms', data);
+    thunkAPI.dispatch(CLOSE_SCHEDULE_MODAL());
+    message.success('Schedule has been successfully registered.');
     return response.data;
   } catch (error) {
-    return rejectWithValue(error.response.data);
+    thunkAPI.dispatch(CLOSE_SCHEDULE_MODAL());
+    message.error('Schedule registration failed.');
+    return thunkAPI.rejectWithValue(error.response.data);
   }
 });

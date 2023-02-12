@@ -17,11 +17,11 @@ const LandingHeader = () => {
   return (
     <>
       <LandingWrapper align="middle" justify="space-between">
-        <LandingHeaderInfo>
-          <h1>
+        <LandingHeaderInfo span={12}>
+          <header>
             Auto-text happy
             <br /> birthday to friends
-          </h1>
+          </header>
           <Link href={me ? '/friends' : '/account'}>
             <a>
               <Button type="primary" size="large" onClick={onClickLogin}>
@@ -31,8 +31,11 @@ const LandingHeader = () => {
           </Link>
         </LandingHeaderInfo>
 
-        <LandingHeaderInfo>
-          <img src="https://ifh.cc/g/O1lgyS.png" alt="content img" />
+        <LandingHeaderInfo span={12}>
+          <img
+            src="https://cdn.discordapp.com/attachments/1058927333584678982/1074212249440370728/banner-image.png"
+            alt="content img"
+          />
         </LandingHeaderInfo>
       </LandingWrapper>
     </>

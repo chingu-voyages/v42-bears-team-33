@@ -1,69 +1,56 @@
 import React from 'react';
-import { Row } from 'antd';
+import { Col } from 'antd';
 
-import {
-  ContentWrapper,
-  LandingContentHeader,
-  LandingContentDivider,
-  FeaturesWrapper,
-  LandingFeatures,
-} from '@style/landing/content';
+import { LandingContentWrapper, LandingContentHeader, LandingContentFeature } from '@style/landing/content';
 
 const LandingContent = () => {
   return (
-    <ContentWrapper>
-      <Row align="center">
-        <LandingContentHeader>
-          <h2>Our Vision</h2>
-          <p>Anytime greeting, anywhere texting, and every friend connected.</p>
-          <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="vision img" />
-        </LandingContentHeader>
-      </Row>
+    <LandingContentWrapper>
+      <LandingContentHeader align="center">
+        <Col>
+          <header>Anytime greeting, anywhere texting, and every friend connected.</header>
+        </Col>
+      </LandingContentHeader>
 
-      <Row align="center">
-        <LandingContentHeader>
-          <h2>Features</h2>
-          <LandingContentDivider />
-        </LandingContentHeader>
-      </Row>
+      <LandingContentFeature>
+        <Col xs={24} sm={14}>
+          <h2>Send messages right away</h2>
+          <p>
+            Whether you&lsquo;re catching up with an old friend or chatting with a colleague, it&lsquo;s a great way to
+            stay in touch with those around you. Send the messages today!
+          </p>
+        </Col>
+        <Col xs={24} sm={10}>
+          <img src="https://ifh.cc/g/DJQqZC.png" alt="service feature1" />
+        </Col>
+      </LandingContentFeature>
 
-      <FeaturesWrapper align="center">
-        <LandingFeatures>
-          <div>
-            <h3>Feature 1</h3>
-            <p>
-              Quisque molestie augue neque aenean mattis imperdiet quam suscipit purus. Mattis cras orci convallis
-              volutpat felis viverra consequat.
-            </p>
-          </div>
+      <LandingContentFeature>
+        <Col xs={24} sm={14}>
+          <h2>Schedule a surprise message</h2>
+          <p>
+            Tell your friends something that will brighten their worlds. Add a joke, a sweet message, or even a surprise
+            for extra special memories.
+          </p>
+        </Col>
+        <Col xs={24} sm={10}>
+          <img src="https://ifh.cc/g/zkXA9G.png" alt="service feature2" />
+        </Col>
+      </LandingContentFeature>
 
-          <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="feature img1" />
-        </LandingFeatures>
-
-        <LandingFeatures>
-          <div>
-            <h3>Feature 2</h3>
-            <p>
-              Quisque molestie augue neque aenean mattis imperdiet quam suscipit purus. Mattis cras orci convallis
-              volutpat felis viverra consequat.
-            </p>
-          </div>
-
-          <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="feature img2" />
-        </LandingFeatures>
-
-        <LandingFeatures>
-          <div>
-            <h3>Feature 3</h3>
-            <p>
-              Quisque molestie augue neque aenean mattis imperdiet quam suscipit purus. Mattis cras orci convallis
-              volutpat felis viverra consequat.
-            </p>
-          </div>
-          <img src="http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg" alt="feature img3" />
-        </LandingFeatures>
-      </FeaturesWrapper>
-    </ContentWrapper>
+      <LandingContentFeature>
+        <Col xs={24} sm={12}>
+          <h2>Arrange friend list</h2>
+          <p>
+            Handle who you want to follow and how you can strengthen those connections. Bring a smile to their faces and
+            make ordinary life special!
+          </p>
+        </Col>
+        <Col xs={24} sm={12}>
+          <img src="https://ifh.cc/g/f4K04j.png" alt="service feature3" />
+        </Col>
+      </LandingContentFeature>
+    </LandingContentWrapper>
   );
 };
 

@@ -31,4 +31,4 @@ export const MONGODB_COLLECTION = {
   SENT_SMS: 'sent_sms',
 };
 
-export const TWILIO_SENDER = '+13134258191';
+export const TWILIO_SENDER = '+12183040792';

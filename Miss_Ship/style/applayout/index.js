@@ -8,40 +8,22 @@ export const DropdownGlobal = createGlobalStyle`
 `;
 
 export const Layout = styled(Row)`
-  padding: 1em 3em;
+  padding: 0.5em 2em;
   box-shadow: 0px 2px 8px 0px rgba(240, 241, 242, 1);
   align-items: center;
 
   @media ${({ theme }) => theme.media.tablet} {
-    padding: 0.5em 1.5em;
+    padding: 0.3em 1em;
   }
 `;
 
-export const LayoutInfo = styled(Row)`
-  & > img {
-    width: 2.5em;
-    height: 2.5em;
-    margin-right: 0.8em;
-  }
-
-  & > header {
-    font-size: ${({ theme }) => theme.calcRem(18)};
-    font-weight: 700;
-    line-height: 2.2;
-  }
-
+export const LayoutLogo = styled.img`
   @media ${({ theme }) => theme.media.tablet} {
-    & > img {
-      width: 2em;
-      height: 2em;
-      margin-right: 0.5em;
-    }
+    width: 10em;
+  }
 
-    & > header {
-      font-size: ${({ theme }) => theme.calcRem(15)};
-      font-weight: 700;
-      line-height: 2.2;
-    }
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 7em;
   }
 `;
 
@@ -69,34 +51,17 @@ export const LayoutHeaderProfile = styled(Space)`
 `;
 
 export const LayoutHeaderMenu = styled(Menu)`
-  width: max-content;
-  padding: 0;
-  margin-top: 18%;
-
-  & > li > span {
-    font-size: ${({ theme }) => theme.calcRem(14)};
-  }
+  margin: 1.4em 0 0 1.3em;
 
   @media ${({ theme }) => theme.media.tablet} {
-    margin-top: 12%;
-
-    & > li > span {
-      font-size: ${({ theme }) => theme.calcRem(13)};
-      margin-right: 1em;
-    }
-
-    & > li > span > a > .profile-button-text {
-      display: none;
-    }
+    margin: 0.8em 0 0 0.2em;
   }
 
   @media ${({ theme }) => theme.media.mobile} {
-    & > li {
-      padding: 0.3em 0.3em 0.3em 0.6em;
-    }
+    margin: 0.4em 0 0 -0.2em;
 
     & > li > span {
-      font-size: ${({ theme }) => theme.calcRem(12)};
+      font-size: ${({ theme }) => theme.calcRem(11)};
     }
   }
 `;
@@ -105,10 +70,10 @@ export const LayoutHeaderBtn = styled(Button)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: ${props => (props.schedule ? '12em' : '6em')};
+  width: ${props => (props.schedule ? '12em' : '8em')};
 
   @media ${({ theme }) => theme.media.tablet} {
-    width: ${props => (props.schedule ? '10em' : '5em')};
+    width: ${props => (props.schedule ? '10em' : '6em')};
     height: 2em;
 
     & > span {
@@ -117,7 +82,7 @@ export const LayoutHeaderBtn = styled(Button)`
   }
 
   @media ${({ theme }) => theme.media.mobile} {
-    width: ${props => (props.schedule ? '6em' : '4em')};
+    width: ${props => (props.schedule ? '6em' : '3.5em')};
     height: 1.5em;
 
     & > .now-button-text {

@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { message } from 'antd';
 import Router from 'next/router';
 
 import { fbAuth } from '@pages/api/auth/fBase';
@@ -55,6 +56,7 @@ export const login = createAsyncThunk('user/login', async (data, { rejectWithVal
       );
     }
 
+    message.success('Login was successful.');
     Router.push('/friends');
 
     return {
@@ -64,6 +66,7 @@ export const login = createAsyncThunk('user/login', async (data, { rejectWithVal
       image: credential.user.photoURL,
     };
   } catch (error) {
+    message.error('Your login failed.');
     return rejectWithValue(error.response.data);
   }
 });
@@ -88,6 +91,7 @@ export const signup = createAsyncThunk('user/signup', async (data, { rejectWithV
       setToken(token);
     }
 
+    message.success('You have successfully registered as a member.');
     Router.push('/listSetting');
 
     return {
@@ -97,6 +101,7 @@ export const signup = createAsyncThunk('user/signup', async (data, { rejectWithV
       image: credential.user.photoURL,
     };
   } catch (error) {
+    message.error('Membership sign-up failed.');
     return rejectWithValue(error.response.data);
   }
 });
@@ -105,7 +110,9 @@ export const logout = createAsyncThunk('user/logout', async () => {
   try {
     await fbAuth.signOut();
     localStorage.removeItem('FB_TOKEN');
+    message.success('You have been logged out.');
   } catch (error) {
     console.log(error);
+    message.error('Logging out failed.');
   }
 });
