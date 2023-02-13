@@ -40,7 +40,7 @@ export const LandingContentHeader = styled(Row)`
 `;
 
 export const LandingContentFeature = styled(Row)`
-  width: fit-content;
+  width: 100%;
   margin-bottom: 6em;
   ${({ theme }) => theme.flexSet('space-between')};
 
