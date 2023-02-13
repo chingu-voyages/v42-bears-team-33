@@ -54,7 +54,7 @@ Backend
 4. Lodash
 5. Pino Logger
 
-### 🧭 References
+### 🧭 Design References
 - [Ant Design Open Source](https://www.figma.com/community/file/831698976089873405)  
 - [Brand Icons](https://www.figma.com/community/plugin/1149932491059353445)  
 - [Blush](https://www.figma.com/community/plugin/838959511417581040)  
