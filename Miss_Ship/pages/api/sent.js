@@ -32,8 +32,6 @@ export default async function handler(req, res) {
     userId = 'Yk1eA8Vbh7fFIRd3eTNXvyHCdwH3';
   }
 
-
-  // TODO
   switch (method) {
     case HTTP.GET: {
       logger.info('HTTP GET: /api/sent/');

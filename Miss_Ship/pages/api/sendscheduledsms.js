@@ -43,10 +43,13 @@ export default async function handler(req, res) {
         totalSMS: scheduledSMSList.length,
       };
       let sentSMS = 0;
+      // eslint-disable-next-line no-restricted-syntax
       for (const sms of scheduledSMSList) {
         try {
+          // eslint-disable-next-line no-await-in-loop
           const friend = await db.collection(MONGODB_COLLECTION.FRIEND).findOne({ _id: ObjectId(sms.friendId) });
 
+          // eslint-disable-next-line no-await-in-loop
           const twilioResponse = await twilioClient.messages.create({
             from: TWILIO_SENDER,
             body: sms.message,
@@ -55,10 +58,13 @@ export default async function handler(req, res) {
 
           if (twilioResponse.errorCode == null) {
             sms.sentStatus = true;
+            // eslint-disable-next-line no-plusplus
             sentSMS++;
+            // eslint-disable-next-line no-await-in-loop
             await db.collection(MONGODB_COLLECTION.SCHEDULED_SMS).replaceOne({ _id: ObjectId(sms._id) }, sms);
+            // eslint-disable-next-line no-await-in-loop
             await db.collection(MONGODB_COLLECTION.SENT_SMS).insertOne({
-              userId: userId,
+              userId: friend.userId,
               body: sms.message,
               friendId: sms.friendId,
             });

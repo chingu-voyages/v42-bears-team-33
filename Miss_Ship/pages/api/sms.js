@@ -2,9 +2,9 @@ import Twilio from 'twilio';
 import pino from 'pino';
 import _ from 'lodash';
 import { ObjectId } from 'mongodb';
+import admin from '@config/firebase';
 import clientPromise from '../../config/mongodb';
 import { HTTP, HTTP_STATUS_CODE, MONGODB_COLLECTION, MONGODB_DATABASE, TWILIO_SENDER } from '../../config/constant';
-import admin from "@config/firebase";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
 
         if (twilioResponse.errorCode == null) {
           await db.collection(MONGODB_COLLECTION.SENT_SMS).insertOne({
-            userId: userId,
+            userId,
             body: body.message,
             friendId: body.friendId,
           });

@@ -49,6 +49,7 @@ export default async function handler(req, res) {
       logger.info(`HTTP POST: /api/friends/ BODY: ${body}`);
       logger.info(body);
 
+      // eslint-disable-next-line no-restricted-syntax
       for (const friend of body) {
         if (_.isNil(userId)) {
           logger.info('Invalid Firebase Token, Adding to mock account');
