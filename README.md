@@ -1,5 +1,5 @@
 # Miss. Ship
-### 🔗 Live Demo(https://v42-bears-team-33.vercel.app/)
+### 🔗 [Live Demo](https://v42-bears-team-33.vercel.app/)
 
 ## 👀 Overview
 Miss. Shop app allows you to auto-text SMS messages to friends while you are busy but want to stay in touch with them. 
