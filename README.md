@@ -27,12 +27,12 @@ FIREBASE_MEASUREMENT_ID=<REDACTED>
 ### Frontend
 1. HTML
 2. CSS
-3. JAVASCRIPT
-4. ANT-DESIGN
-5. STYLED-COMPONENTS
-6. REACT
-7. REDUX-TOOLKIT
-8. NEXT.JS
+3. JavaScript
+4. Ant-Design
+5. Styled-Components
+6. React
+7. Redux-Toolkit
+8. Next.js
 ### Backend
 1. Twilio API
 2. MongoDB
