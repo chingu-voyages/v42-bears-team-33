@@ -5,8 +5,8 @@ import { LandingContentWrapper, LandingContentHeader, LandingContentFeature } fr
 
 const LandingContent = () => {
   return (
-    <LandingContentWrapper>
-      <LandingContentHeader align="center">
+    <LandingContentWrapper align="center">
+      <LandingContentHeader>
         <Col>
           <header>Anytime greeting, anywhere texting, and every friend connected.</header>
         </Col>
