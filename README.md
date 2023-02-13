@@ -9,3 +9,6 @@ What are some key things your project can do?
 How could someone else get your code working for them?
 
 ## Dependencies
+1. Twilio API 
+2. MongoDB
+3. Firebase Auth
