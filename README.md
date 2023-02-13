@@ -50,3 +50,6 @@ How could someone else get your code working for them?
 
 ### Designer
 [Livia](https://github.com/vitalityoflife)  
+
+### Mentor
+Notcori
