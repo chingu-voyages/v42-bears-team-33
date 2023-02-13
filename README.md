@@ -19,14 +19,21 @@ Miss. Shop app allows you to auto-text SMS messages to friends while you are bus
 - Schedule the message to a specific date
 
 ## Running the project
-How could someone else get your code working for them?
-
 Following environment variables are needed to run this project
 ```
 MONGODB_URI=<REDACTED>
 GOOGLE_APPLICATION_CREDENTIALS=<REDACTED>
 TWILIO_SID=<REDACTED>
 TWILIO_TOKEN=<REDACTED>
+```
+
+1. Install dependencies
+```
+npm install
+```
+2. Run with project locally
+```
+npm run dev
 ```
 
 ## Dependencies
