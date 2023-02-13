@@ -73,6 +73,7 @@ Backend
 [Nazri](https://github.com/649000)  
 [Mirrer](https://github.com/Mirrer1)  
 [Sarah So](https://github.com/ssarahs-lab)  
+horus
 
 ### Designer
 [Livia](https://github.com/vitalityoflife)  
