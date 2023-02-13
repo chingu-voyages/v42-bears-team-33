@@ -29,16 +29,16 @@ How could someone else get your code working for them?
 3. Firebase Auth
 
 ### 🧭 References
-[Ant Design Open Source](https://www.figma.com/community/file/831698976089873405)  
-[Brand Icons](https://www.figma.com/community/plugin/1149932491059353445)  
-[Blush](https://www.figma.com/community/plugin/838959511417581040)  
-[Content Reel](https://www.figma.com/community/plugin/731627216655469013)  
-[Google Sign in GIS - Google Identity Services](https://www.figma.com/community/file/1141954654096327545)  
-[Ant Design Landing](https://www.figma.com/community/file/926404137978060606)  
-[Find and Replace](https://www.figma.com/community/plugin/735072959812183643)  
-[Design System Organizer](https://www.figma.com/community/plugin/802579985985331070)  
-[Simpleflow](https://www.figma.com/community/plugin/751821593330638172)  
-[Unsplash](https://www.figma.com/community/plugin/738454987945972471)
+- [Ant Design Open Source](https://www.figma.com/community/file/831698976089873405)  
+- [Brand Icons](https://www.figma.com/community/plugin/1149932491059353445)  
+- [Blush](https://www.figma.com/community/plugin/838959511417581040)  
+- [Content Reel](https://www.figma.com/community/plugin/731627216655469013)  
+- [Google Sign in GIS - Google Identity Services](https://www.figma.com/community/file/1141954654096327545)  
+- [Ant Design Landing](https://www.figma.com/community/file/926404137978060606)  
+- [Find and Replace](https://www.figma.com/community/plugin/735072959812183643)  
+- [Design System Organizer](https://www.figma.com/community/plugin/802579985985331070)  
+- [Simpleflow](https://www.figma.com/community/plugin/751821593330638172)  
+- [Unsplash](https://www.figma.com/community/plugin/738454987945972471)
 
 
 ## 🗺 The team
