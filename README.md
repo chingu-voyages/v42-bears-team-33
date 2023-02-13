@@ -21,12 +21,38 @@ Miss. Shop app allows you to auto-text SMS messages to friends while you are bus
 ## Running the project
 How could someone else get your code working for them?
 
-
+Following environment variables are needed to run this project
+```
+MONGODB_URI=<REDACTED>
+GOOGLE_APPLICATION_CREDENTIALS=<REDACTED>
+TWILIO_SID=<REDACTED>
+TWILIO_TOKEN=<REDACTED>
+FIREBASE_APIKEY=<REDACTED>
+FIREBASE_AUTHDOMAIN=<REDACTED>
+FIREBASE_PROJECT_ID=<REDACTED>
+FIREBASE_STORAGE_BUCKET=<REDACTED>
+FIREBASE_MESSAGING_SENDER_ID=<REDACTED>
+FIREBASE_APP_ID=<REDACTED>
+FIREBASE_MEASUREMENT_ID=<REDACTED>
+```
 
 ## Dependencies
-1. Twilio API 
+Frontend
+1. HTML
+2. CSS
+3. JavaScript
+4. Ant-Design
+5. Styled-Components
+6. React
+7. Redux-Toolkit
+8. Next.js
+
+Backend
+1. Twilio API
 2. MongoDB
-3. Firebase Auth
+3. Firebase Admin SDK
+4. Lodash
+5. Pino Logger
 
 ### 🧭 References
 - [Ant Design Open Source](https://www.figma.com/community/file/831698976089873405)  
