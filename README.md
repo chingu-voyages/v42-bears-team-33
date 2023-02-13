@@ -32,3 +32,4 @@ TWILIO_TOKEN=<REDACTED>
 3. Firebase Admin SDK
 4. Lodash
 5. Pino Logger
+6. Next.js
