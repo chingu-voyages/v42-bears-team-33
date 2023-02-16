@@ -46,6 +46,7 @@ Frontend
 6. React
 7. Redux-Toolkit
 8. Next.js
+9. Firebase
 
 Backend
 1. Twilio API
