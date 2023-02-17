@@ -44,10 +44,9 @@ Frontend
 4. Ant-Design
 5. Styled-Components
 6. React
-7. Redux
-8. Redux-Toolkit
-9. Next.js
-10. Firebase
+7. Redux-Toolkit
+8. Next.js
+9. Firebase
 
 Backend
 1. Twilio API
